@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ModelBuilding</string>
+    <string name="menuactivity">MENU</string>
+    <string name="loadactivity">LOAD</string>
+    <string name="saveactivity">SAVE</string>
+    <string name="helpactivity">HELP</string>
+    <string name="printactivity">PRINT</string>
+    <string name="action_settings">Settings</string>
+</resources>

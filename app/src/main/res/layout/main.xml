@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/back"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+    
+    <com.bn.main.MySurfaceView
+		android:id="@+id/mysurfaceview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"/>
+    
+    <RelativeLayout android:id="@+id/left_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true">"
+            
+            <Button  android:id="@+id/menu"
+           	 	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_centerHorizontal="true"
+            	android:text="MENU"/>
+            
+            <LinearLayout android:id="@+id/slide1"
+                	android:clickable="false"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:orientation="vertical">
+            
+            	<Button  android:id="@+id/fill"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:text="填充"/>
+            	
+            	<Button  android:id="@+id/object"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:text="物体"/>
+            	
+            	<Button  android:id="@+id/property"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:visibility="gone"
+            		android:text="属性"/>
+        	</LinearLayout>
+    </RelativeLayout>
+    
+    <RelativeLayout android:id="@+id/right_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/left_relative">"
+
+            <LinearLayout android:id="@+id/slide2"
+                	android:clickable="false"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:orientation="horizontal">
+            
+            	<Button  android:id="@+id/jiao"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:text="交"/>
+            	
+            	<Button  android:id="@+id/bing"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:text="并"/>
+            	<Button  android:id="@+id/cha"
+          	  		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:layout_weight="1"
+            		android:text="差"/>
+        	</LinearLayout>
+    </RelativeLayout>
+    "
+    <LinearLayout android:id="@+id/first_linear"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_toRightOf="@id/right_relative"
+    	android:layout_alignParentTop="true"
+    	android:background="@android:color/transparent"
+    	android:orientation="horizontal">
+ 
+        <Button android:id="@+id/cylinder"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:background="@drawable/cylinder"/>
+
+        <Button android:id="@+id/cube"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+            android:background="@drawable/cube"/>
+        
+        <Button android:id="@+id/ball"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:background="@drawable/ball"/>
+
+        <Button  android:id="@+id/cone"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+            android:background="@drawable/cone"/>  
+    
+	</LinearLayout>
+    
+    <Button android:id="@+id/delete"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="DELETE"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"/>
+		        
+    <Button
+        android:id="@+id/redo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/delete"
+        android:layout_alignParentRight="true"
+        android:text="REDO" />
+
+    <Button
+        android:id="@+id/undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/redo"
+        android:layout_alignParentRight="true"
+        android:text="UNDO" />
+    
+
+</RelativeLayout>

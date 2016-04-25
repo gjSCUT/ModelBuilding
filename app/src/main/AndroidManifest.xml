@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      android:versionCode="1"
+      android:versionName="1.0" package="com.bn.main">
+    <uses-sdk android:targetSdkVersion="23" android:minSdkVersion="18"></uses-sdk>
+    <application android:icon="@drawable/icon" 
+        android:label="@string/app_name"
+        android:allowBackup="true">
+        <activity android:name="com.bn.main.MainActivity"
+                  android:label="@string/app_name"
+                  android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity 
+            android:name="com.bn.main.MenuActivity"
+            android:label="@string/menuactivity"
+            android:theme="@style/Transparent">
+        </activity>
+        
+        <activity android:name="com.bn.main.LoadActivity"
+				android:label="@string/loadactivity"
+				android:theme="@style/Transparent">
+        </activity>
+        
+        <activity android:name="com.bn.main.SaveActivity"
+				android:label="@string/saveactivity"
+				android:theme="@style/Transparent">
+        </activity>
+        
+        <activity android:name="com.bn.main.HelpActivity"
+				android:label="@string/helpactivity"
+				android:theme="@android:style/Theme.DeviceDefault.Dialog">
+        </activity>
+        
+        <activity android:name="com.bn.main.PrintActivity"
+				android:label="@string/printactivity"
+				android:theme="@style/Transparent">
+        </activity>
+        
+        <activity android:name="com.bn.main.DrawActivity"
+				android:label="@string/printactivity"
+				android:theme="@style/Transparent">
+        </activity>
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+</manifest> 
