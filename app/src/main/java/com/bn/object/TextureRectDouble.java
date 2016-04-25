@@ -3,98 +3,87 @@ package com.bn.object;
 import com.bn.main.MatrixState;
 import com.bn.csgStruct.Quaternion;
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½
-public class TextureRectDouble extends Bo
+//ÎÆÀí¾ØÐÎË«Ãæ
+public class TextureRectDouble extends Body {
+    //ÓÃÓÚ»æÖÆ¸÷¸öÃæµÄÑÕÉ«¾ØÐÎ
+    TextureRect t1, t2;
 
-{
-	//ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-	TextureRect t1,t2;
-	public TextureRectDouble(float size)
-	{
-		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-		t1=new TextureRect(size);
-		t2=new TextureRect(size);
-	}
-	
-	@Override
-	public void initShader(int mProgram)
-	{
-		t1.initShader(mProgram);
-		t2.initShader(mProgram);
-	}
-	
-	public void drawSelf(int TexId)
-	{
-		setBody();
-		
-		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½
-		MatrixState.pushMatrix();	
+    public TextureRectDouble(float size) {
+        //´´½¨ÓÃÓÚ»æÖÆ¸÷¸öÃæµÄÑÕÉ«¾ØÐÎ
+        t1 = new TextureRect(size);
+        t2 = new TextureRect(size);
+    }
 
-		
-		//ï¿½ï¿½ï¿½ï¿½
-		MatrixState.pushMatrix();	
-        t1.drawSelf(TexId);		
-		MatrixState.popMatrix();
-		
-		//ï¿½ï¿½ï¿½ï¿½
-		MatrixState.pushMatrix();	
-		MatrixState.rotate(1, 0, 0, 180);
-		t2.drawSelf(TexId);			
-		MatrixState.popMatrix();	
-		
-				
-		//ï¿½Ö¸ï¿½ï¿½Ö³ï¿½
-		MatrixState.popMatrix();
-      
-	}
-	
+    @Override
+    public void initShader(int mProgram) {
+        t1.initShader(mProgram);
+        t2.initShader(mProgram);
+    }
 
-	 public void match(Body b,float[] face)
-	 {
-    	quater = new Quaternion(b.quater);
-	    xLength=b.xLength;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-	    yLength=b.yLength;//ï¿½ï¿½yï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-	    zLength=b.zLength;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-	    xScale=1.2f*b.xScale;//ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	    yScale=1.2f*b.yScale;//ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	    zScale=1.2f*b.zScale;//ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-	    
-	    //ï¿½ï¿½ï¿½ï¿½Ç°Ð¡ï¿½ï¿½
-	    if(face[2]==1)
-	    {
-	  		Translate(face,zScale+0.5f);
-	    }
-  		//ï¿½ï¿½ï¿½Æºï¿½Ð¡ï¿½ï¿½
-	    else if(face[2]==-1)
-	    {
-	    	Translate(face,zScale+0.5f);
-	    	Rotate( 0, 1, 0, 180);		
-	    }
-  		//ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½
-	    else if(face[1]==1)
-	    {
-	    	Translate(face,yScale+0.5f);
-	  		Rotate(1, 0, 0 ,90);
-	    }
-  		//ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½
-	    else if(face[1]==-1)
-	    {
-	    	Translate(face,yScale+0.5f);
-	  		Rotate(1, 0, 0, -90);
-	    }
-  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	    else if(face[0]==-1)	
-	    {
-	    	Translate(face,xScale+0.5f);
-	  		Rotate(1, 0, 0, -90);
-	  		Rotate(0, 1, 0, 90);
-	    }
-  		//ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½
-  		else if(face[0]==1)
-  		{			
-  			Translate(face,xScale+0.5f);
-	  		Rotate(1, 0, 0, 90);
-	  		Rotate(0, 1, 0, -90);
-  		}
+    public void drawSelf(int TexId) {
+        setBody();
+
+        //±£»¤ÏÖ³¡
+        MatrixState.pushMatrix();
+
+
+        //ÕýÃæ
+        MatrixState.pushMatrix();
+        t1.drawSelf(TexId);
+        MatrixState.popMatrix();
+
+        //·´Ãæ
+        MatrixState.pushMatrix();
+        MatrixState.rotate(1, 0, 0, 180);
+        t2.drawSelf(TexId);
+        MatrixState.popMatrix();
+
+
+        //»Ö¸´ÏÖ³¡
+        MatrixState.popMatrix();
+
+    }
+
+
+    public void match(Body b, float[] face) {
+        quater = new Quaternion(b.quater);
+        xLength = b.xLength;//ÈÆxÖáÆ½ÒÆ¾àÀë
+        yLength = b.yLength;//ÈÆyÖáÆ½ÒÆ¾àÀë
+        zLength = b.zLength;//ÈÆxÖáÆ½ÒÆ¾àÀë
+        xScale = 1.2f * b.xScale;//ÈÆxÖá·ÅËõ±¶Êý
+        yScale = 1.2f * b.yScale;//ÈÆyÖá·ÅËõ±¶Êý
+        zScale = 1.2f * b.zScale;//ÈÆzÖá·ÅËõ±¶Êý
+
+        //»æÖÆÇ°Ð¡Ãæ
+        if (face[2] == 1) {
+            Translate(face, zScale + 0.5f);
+        }
+        //»æÖÆºóÐ¡Ãæ
+        else if (face[2] == -1) {
+            Translate(face, zScale + 0.5f);
+            Rotate(0, 1, 0, 180);
+        }
+        //»æÖÆÉÏ´óÃæ
+        else if (face[1] == 1) {
+            Translate(face, yScale + 0.5f);
+            Rotate(1, 0, 0, 90);
+        }
+        //»æÖÆÏÂ´óÃæ
+        else if (face[1] == -1) {
+            Translate(face, yScale + 0.5f);
+            Rotate(1, 0, 0, -90);
+        }
+        //»æÖÆ×ó´óÃæ
+        else if (face[0] == -1) {
+            Translate(face, xScale + 0.5f);
+            Rotate(1, 0, 0, -90);
+            Rotate(0, 1, 0, 90);
+        }
+        //»æÖÆÓÒ´óÃæ
+        else if (face[0] == 1) {
+            Translate(face, xScale + 0.5f);
+            Rotate(1, 0, 0, 90);
+            Rotate(0, 1, 0, -90);
+        }
     }
 }

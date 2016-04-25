@@ -4,13 +4,13 @@ public class MathUtil {
     static double a[][];
     static float[] M;
 
-    //Í¨ï¿½ï¿½doolittleï¿½Ö½ï¿½ï¿½nÔªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ß·ï¿½ï¿½ï¿½
+    //Í¨¹ýdoolittle·Ö½â½ânÔªÒ»´ÎÏßÐÔ·½³Ì×éµÄ¹¤¾ß·½·¨
     static double[] doolittle(double a[][]) {
         MathUtil.a = a;
-        int rowNum = a.length;//ï¿½ï¿½ï¿½Î´Öªï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
-        int xnum = a[0].length - rowNum;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+        int rowNum = a.length;//»ñµÃÎ´ÖªÊýµÄ¸öÊý
+        int xnum = a[0].length - rowNum;// ËùÇó½âµÄ×éÊý£¨Ò»£©
 
-        double AugMatrix[][] = new double[10][20];//ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        double AugMatrix[][] = new double[10][20];//ÍØÕ¹µÄÔö¹ã¾ØÕó
 
         readData(a, rowNum, xnum, AugMatrix);
 
@@ -30,7 +30,7 @@ public class MathUtil {
         return result;
     }
 
-    static void readData(double a[][], int rowNum, int xnum, double AugMatrix[][]) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹
+    static void readData(double a[][], int rowNum, int xnum, double AugMatrix[][]) {//Ôö¹ã¾ØÕóµÄÍØÕ¹
         for (int i = 0; i <= rowNum; i++) {
             AugMatrix[i][0] = 0;
         }
@@ -42,7 +42,7 @@ public class MathUtil {
                 AugMatrix[i][j] = a[i - 1][j - 1];
     }
 
-    static void prepareChoose(int times, int rowNum, double AugMatrix[][]) {//ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½Ñ¡ï¿½ï¿½Ôª
+    static void prepareChoose(int times, int rowNum, double AugMatrix[][]) {//¼ÆËã×¼±¸Ñ¡Ö÷Ôª
         for (int i = times; i <= rowNum; i++) {
             for (int j = times - 1; j >= 1; j--) {
                 AugMatrix[i][times] = AugMatrix[i][times] - AugMatrix[i][j] * AugMatrix[j][times];
@@ -50,19 +50,19 @@ public class MathUtil {
         }
     }
 
-    static void choose(int times, int rowNum, int xnum, double AugMatrix[][]) {//Ñ¡ï¿½ï¿½Ôª
+    static void choose(int times, int rowNum, int xnum, double AugMatrix[][]) {//Ñ¡Ö÷Ôª
         int line = times;
-        for (int i = times + 1; i <= rowNum; i++)//Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
+        for (int i = times + 1; i <= rowNum; i++)//Ñ¡×î´óÐÐ
         {
             if (AugMatrix[i][times] * AugMatrix[i][times] > AugMatrix[line][times] * AugMatrix[line][times])
                 line = i;
         }
-        if (AugMatrix[line][times] == 0)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (AugMatrix[line][times] == 0)//×î´óÊýµÈÓÚÁã
         {
             System.out.println("doolittle fail !!!");
 
         }
-        if (line != times)//ï¿½ï¿½ï¿½ï¿½
+        if (line != times)//½»»»
         {
             double temp;
             for (int i = 1; i <= rowNum + xnum; i++) {
@@ -73,7 +73,7 @@ public class MathUtil {
         }
     }
 
-    static void resolve(int times, int rowNum, int xnum, double AugMatrix[][]) {//ï¿½Ö½ï¿½
+    static void resolve(int times, int rowNum, int xnum, double AugMatrix[][]) {//·Ö½â
         for (int i = times + 1; i <= rowNum; i++) {
             AugMatrix[i][times] = AugMatrix[i][times] / AugMatrix[times][times];
         }
@@ -84,7 +84,7 @@ public class MathUtil {
         }
     }
 
-    static void findX(int rowNum, int xnum, double AugMatrix[][]) {//ï¿½ï¿½ï¿½
+    static void findX(int rowNum, int xnum, double AugMatrix[][]) {//Çó½â
         for (int k = 1; k <= xnum; k++) {
             AugMatrix[rowNum][rowNum + k] = AugMatrix[rowNum][rowNum + k] / AugMatrix[rowNum][rowNum];
             for (int i = rowNum - 1; i >= 1; i--) {
@@ -113,7 +113,7 @@ public class MathUtil {
 
 
         for (int k = 0; k < 4; k++) {
-            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È«Ñ¡ï¿½ï¿½Ôª
+            // µÚÒ»²½£¬È«Ñ¡Ö÷Ôª
             float fMax = 0.0f;
             for (int i = k; i < 4; i++) {
                 for (int j = k; j < 4; j++) {
@@ -140,16 +140,16 @@ public class MathUtil {
             }
 
 
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // ¼ÆËãÄæ¾ØÕó
 
-            // ï¿½Ú¶ï¿½ï¿½ï¿½
+            // µÚ¶þ²½
             M[4 * k + k] = 1.0f / m(k, k);
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // µÚÈý²½
             for (int j = 0; j < 4; j++) {
                 if (j != k)
                     M[4 * k + j] *= m(k, k);
             }
-            // ï¿½ï¿½ï¿½Ä²ï¿½
+            // µÚËÄ²½
             for (int i = 0; i < 4; i++) {
                 if (i != k) {
                     for (int j = 0; j < 4; j++) {
@@ -158,7 +158,7 @@ public class MathUtil {
                     }
                 }
             }
-            // ï¿½ï¿½ï¿½å²½
+            // µÚÎå²½
             for (int i = 0; i < 4; i++) {
                 if (i != k)
                     M[4 * i + k] *= -m(k, k);

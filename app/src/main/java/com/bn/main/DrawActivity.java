@@ -12,7 +12,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.bn.draw.DrawSurfaceView;
+import com.bn.drawSweep.DrawSurfaceView;
 
 public class DrawActivity extends Activity {
 

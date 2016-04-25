@@ -9,57 +9,49 @@ import java.util.Vector;
 
 public class Indesign {
 
-	private Stack<Vector<Body>> redo;//ï¿½ï¿½ï¿½ï¿½Õ»  Õ»ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	private Stack<Vector<Body>> undo;//ï¿½Ö¸ï¿½Õ»
-	
-	public Indesign()
-	{
-		redo=new Stack<Vector<Body>>();
-		undo=new Stack<Vector<Body>>();
-	}
-	
-	//ï¿½Ñµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½
-	public void addRedoStack(Vector<Body> op)
-	{
-		Log.e("test", "push success="+redo.size());
-		if(redo.size()>=1)
-		{
-			undo.push(redo.pop());
-			redo.clear();
-			redo.push(op);
-			Log.e("test", "undo success="+undo.size());
-		}
-		else redo.push(op);		
-	}
-	
-	//ï¿½ï¿½ï¿½Ö¸ï¿½Õ»ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Pop
-	public boolean undoCheck()
-	{
-		return !undo.isEmpty();
-	}
-	
-	//ï¿½ï¿½é¹¤ï¿½ï¿½Õ»ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Pop
-	public boolean redoCheck()
-	{
-		if(redo.size()>1)
-			return true;
-		else return false;
-	}
-	
-	//Redoï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
-	public Vector<Body> Redo()
-	{
-		undo.push(redo.pop());
-		return redo.peek();
-	}
+    private Stack<Vector<Body>> redo;//¹¤×÷Õ»  Õ»¶¥Îªµ±Ç°»­Ãæ
+    private Stack<Vector<Body>> undo;//»Ö¸´Õ»
 
-	//Undoï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
-	public Vector<Body> Undo()
-	{
-		Vector<Body> temp=undo.pop();
-		Log.e("test", "undo success="+undo.size());
-		redo.push(temp);
-		return temp;
-	}
-	
+    public Indesign() {
+        redo = new Stack<Vector<Body>>();
+        undo = new Stack<Vector<Body>>();
+    }
+
+    //°Ñµ±Ç°»­Ãæ¼ÓÈëµ½¹¤×÷Õ»ÖÐ
+    public void addRedoStack(Vector<Body> op) {
+        Log.e("test", "push success=" + redo.size());
+        if (redo.size() >= 1) {
+            undo.push(redo.pop());
+            redo.clear();
+            redo.push(op);
+            Log.e("test", "undo success=" + undo.size());
+        } else redo.push(op);
+    }
+
+    //¼ì²é»Ö¸´Õ»ÊÇ·ñ¿ÉÒÔPop
+    public boolean undoCheck() {
+        return !undo.isEmpty();
+    }
+
+    //¼ì²é¹¤×÷Õ»ÊÇ·ñ¿ÉÒÔPop
+    public boolean redoCheck() {
+        if (redo.size() > 1)
+            return true;
+        else return false;
+    }
+
+    //Redo¹¦ÄÜÊµÏÖ
+    public Vector<Body> Redo() {
+        undo.push(redo.pop());
+        return redo.peek();
+    }
+
+    //Undo¹¦ÄÜÊµÏÖ
+    public Vector<Body> Undo() {
+        Vector<Body> temp = undo.pop();
+        Log.e("test", "undo success=" + undo.size());
+        redo.push(temp);
+        return temp;
+    }
+
 }

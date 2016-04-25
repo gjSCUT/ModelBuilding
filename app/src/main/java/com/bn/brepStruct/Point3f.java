@@ -27,17 +27,17 @@ public class Point3f {
         this.z = p.z;
     }
 
-    //ï¿½Ó·ï¿½
+    //¼Ó·¨
     public Point3f add(Point3f v) {
         return new Point3f(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½
+    //¼õ·¨
     public Point3f minus(Point3f v) {
         return new Point3f(this.x - v.x, this.y - v.y, this.z - v.z);
     }
 
-    //ï¿½ë³£ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Óë³£Á¿Ïà³Ë
     public Point3f multiK(float k) {
         return new Point3f(this.x * k, this.y * k, this.z * k);
     }

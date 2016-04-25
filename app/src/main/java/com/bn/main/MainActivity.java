@@ -106,7 +106,6 @@ public class MainActivity extends Activity {
             }
         });
 
-
         menu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +120,6 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
 
         //添加各按钮的点击事件
         menu.setOnLongClickListener(new OnLongClickListener() {
@@ -222,7 +220,7 @@ public class MainActivity extends Activity {
             @Override
             public boolean onLongClick(View v) {
                   /*
-  				float[] euler = mGLSurfaceView.curBody.quater.getEulerAxis();
+                  float[] euler = mGLSurfaceView.curBody.quater.getEulerAxis();
   				Intent intent = new Intent(MainActivity.this, DrawActivity.class);
   				Bundle bundle = new Bundle();
   				float[] bodyPro=new float[]{

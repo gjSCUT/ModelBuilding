@@ -1,28 +1,28 @@
 package com.bn.main;
 
 public class Constant {
-    //ï¿½ï¿½Î»ï¿½ß´ï¿½
+    //µ¥Î»³ß´ç
     public static final float UNIT_SIZE = 1.0f;
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Ù¶ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Öµ
+    //ÉãÏñ»úÐý×ªËÙ¶ÈÒÆ¶¯·§Öµ
     public static final float CAMERASPEED = 0.01F;
-    //ï¿½Æ¶ï¿½Ïµï¿½ï¿½
+    //ÒÆ¶¯ÏµÊý
     public static final float MOVESPEED = 0.01f;
-    //ï¿½ï¿½×ªÏµï¿½ï¿½
+    //Ðý×ªÏµÊý
     public static final float ANGLESPEED = 0.5f;
-    //ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½
+    //·ÅËõÏµÊý
     public static final float SCALESPEED = 0.5f;
-    //ï¿½Æ¶ï¿½ï¿½ï¿½Öµ
+    //ÒÆ¶¯·§Öµ
     public static final float MOVETHRESHOLD = 1.0F;
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    //ÎïÌåÑÕÉ«
     public static final float[] COLOR = new float[]{0, 0.64f, 0.91f, 1};
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ÎïÌåÊýÁ¿
     public static final int OBJECT_NUMBER = 20;
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Öµ
+    //²¼¶ûÔËËãµãµÄ×îÐ¡²îÖµ
     public static final double TOL = 1e-5f;
-    //ï¿½ï¿½ï¿½ï¿½GLSurfaceViewï¿½Ä¿ï¿½ß±ï¿½
+    //¼ÆËãGLSurfaceViewµÄ¿í¸ß±È
     public static float RATIO;
-    //ï¿½ï¿½ï¿½ï¿½GLSurfaceViewï¿½Ä¿ï¿½
+    //¼ÆËãGLSurfaceViewµÄ¿í
     public static int WIDTH;
-    //ï¿½ï¿½ï¿½ï¿½GLSurfaceViewï¿½Ä¸ï¿½
+    //¼ÆËãGLSurfaceViewµÄ¸ß
     public static int HEIGHT;
 }

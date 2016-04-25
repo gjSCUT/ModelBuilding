@@ -7,27 +7,27 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-//ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½Shaderï¿½ï¿½Æ¬ÔªShaderï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+//¼ÓÔØ¶¥µãShaderÓëÆ¬ÔªShaderµÄ¹¤¾ßÀà
 public class ShaderUtil {
-    //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½shaderï¿½Ä·ï¿½ï¿½ï¿½
+    //¼ÓÔØÖÆ¶¨shaderµÄ·½·¨
     public static int loadShader
     (
-            int shaderType, //shaderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  GLES20.GL_VERTEX_SHADER   GLES20.GL_FRAGMENT_SHADER
-            String source   //shaderï¿½Ä½Å±ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+            int shaderType, //shaderµÄÀàÐÍ  GLES20.GL_VERTEX_SHADER   GLES20.GL_FRAGMENT_SHADER
+            String source   //shaderµÄ½Å±¾×Ö·û´®
     ) {
-        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½shader
+        //´´½¨Ò»¸öÐÂshader
         int shader = GLES20.glCreateShader(shaderType);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shader
+        //Èô´´½¨³É¹¦Ôò¼ÓÔØshader
         if (shader != 0) {
-            //ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
+            //¼ÓÔØshaderµÄÔ´´úÂë
             GLES20.glShaderSource(shader, source);
-            //ï¿½ï¿½ï¿½ï¿½shader
+            //±àÒëshader
             GLES20.glCompileShader(shader);
-            //ï¿½ï¿½Å±ï¿½ï¿½ï¿½É¹ï¿½shaderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //´æ·Å±àÒë³É¹¦shaderÊýÁ¿µÄÊý×é
             int[] compiled = new int[1];
-            //ï¿½ï¿½È¡Shaderï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //»ñÈ¡ShaderµÄ±àÒëÇé¿ö
             GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
-            if (compiled[0] == 0) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½shader
+            if (compiled[0] == 0) {//Èô±àÒëÊ§°ÜÔòÏÔÊ¾´íÎóÈÕÖ¾²¢É¾³ý´Ëshader
                 Log.e("ES20_ERROR", "Could not compile shader " + shaderType + ":");
                 Log.e("ES20_ERROR", GLES20.glGetShaderInfoLog(shader));
                 GLES20.glDeleteShader(shader);
@@ -37,37 +37,37 @@ public class ShaderUtil {
         return shader;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+    //´´½¨shader³ÌÐòµÄ·½·¨
     public static int createProgram(String vertexSource, String fragmentSource) {
-        //ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½
+        //¼ÓÔØ¶¥µã×ÅÉ«Æ÷
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexSource);
         if (vertexShader == 0) {
             return 0;
         }
 
-        //ï¿½ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½
+        //¼ÓÔØÆ¬Ôª×ÅÉ«Æ÷
         int pixelShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentSource);
         if (pixelShader == 0) {
             return 0;
         }
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //´´½¨³ÌÐò
         int program = GLES20.glCreateProgram();
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ò´´½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½
+        //Èô³ÌÐò´´½¨³É¹¦ÔòÏò³ÌÐòÖÐ¼ÓÈë¶¥µã×ÅÉ«Æ÷ÓëÆ¬Ôª×ÅÉ«Æ÷
         if (program != 0) {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½
+            //Ïò³ÌÐòÖÐ¼ÓÈë¶¥µã×ÅÉ«Æ÷
             GLES20.glAttachShader(program, vertexShader);
             checkGlError("glAttachShader");
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½
+            //Ïò³ÌÐòÖÐ¼ÓÈëÆ¬Ôª×ÅÉ«Æ÷
             GLES20.glAttachShader(program, pixelShader);
             checkGlError("glAttachShader");
-            //ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
+            //Á´½Ó³ÌÐò
             GLES20.glLinkProgram(program);
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½programï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //´æ·ÅÁ´½Ó³É¹¦programÊýÁ¿µÄÊý×é
             int[] linkStatus = new int[1];
-            //ï¿½ï¿½È¡programï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //»ñÈ¡programµÄÁ´½ÓÇé¿ö
             GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linkStatus, 0);
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ò±¨´ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ÈôÁ´½ÓÊ§°ÜÔò±¨´í²¢É¾³ý³ÌÐò
             if (linkStatus[0] != GLES20.GL_TRUE) {
                 Log.e("ES20_ERROR", "Could not link program: ");
                 Log.e("ES20_ERROR", GLES20.glGetProgramInfoLog(program));
@@ -78,7 +78,7 @@ public class ShaderUtil {
         return program;
     }
 
-    //ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+    //¼ì²éÃ¿Ò»²½²Ù×÷ÊÇ·ñÓÐ´íÎóµÄ·½·¨
     public static void checkGlError(String op) {
         int error;
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
@@ -87,7 +87,7 @@ public class ShaderUtil {
         }
     }
 
-    //ï¿½ï¿½shï¿½Å±ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ÝµÄ·ï¿½ï¿½ï¿½
+    //´Ósh½Å±¾ÖÐ¼ÓÔØshaderÄÚÈÝµÄ·½·¨
     public static String loadFromAssetsFile(String fname, Resources r) {
         String result = null;
         try {

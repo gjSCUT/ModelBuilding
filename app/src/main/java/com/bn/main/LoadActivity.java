@@ -25,9 +25,9 @@ import java.io.IOException;
 
 public class LoadActivity extends Activity {
     int curposition, len;
-    // ï¿½ï¿½Â¼ï¿½ï¿½Ç°ï¿½Ä¸ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+    // ¼ÇÂ¼µ±Ç°µÄ¸¸ÎÄ¼þ¼Ð
     File currentParent;
-    // ï¿½ï¿½Â¼ï¿½ï¿½Ç°Â·ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ¼ÇÂ¼µ±Ç°Â·¾¶ÏÂµÄËùÓÐÎÄ¼þµÄÎÄ¼þÊý×é
     File[] currentFiles;
     private ListView listView;
     private TextView target;
@@ -36,58 +36,58 @@ public class LoadActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setFinishOnTouchOutside(false);
-        //ï¿½ï¿½ï¿½ï¿½ÎªÈ«ï¿½ï¿½
+        //ÉèÖÃÎªÈ«ÆÁ
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä£Ê½
+        // ÉèÖÃÎªºáÆÁÄ£Ê½
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_main);
-        // ï¿½ï¿½È¡ï¿½Ð³ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ListView
+        // »ñÈ¡ÁÐ³öÈ«²¿ÎÄ¼þµÄListView
         target = (TextView) findViewById(R.id.target);
         listView = (ListView) findViewById(R.id.list);
         back = (Button) findViewById(R.id.back);
         cancel = (Button) findViewById(R.id.cancel);
         load = (Button) findViewById(R.id.load);
         preview = (Button) findViewById(R.id.preview);
-        // ï¿½ï¿½È¡ÏµÍ³ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½Ä¿Â¼
+        // »ñÈ¡ÏµÍ³µÄSD¿¨µÄÄ¿Â¼
         File root = Environment.getExternalStorageDirectory();
-        // ï¿½ï¿½ï¿½ SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // Èç¹û SD¿¨´æÔÚ
         if (root.exists()) {
             currentParent = root;
             currentFiles = root.listFiles();
             len = currentFiles.length;
             curposition = -1;
-            // Ê¹ï¿½Ãµï¿½Ç°Ä¿Â¼ï¿½Âµï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ListView
+            // Ê¹ÓÃµ±Ç°Ä¿Â¼ÏÂµÄÈ«²¿ÎÄ¼þ¡¢ÎÄ¼þ¼ÐÀ´Ìî³äListView
             inflateListView();
         }
-        // ÎªListViewï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ó¶¨¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ÎªListViewµÄÁÐ±íÏîµÄµ¥»÷ÊÂ¼þ°ó¶¨¼àÌýÆ÷
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÎ´ï¿½ï¿½ï¿½
+                // ÓÃ»§µ¥»÷ÁËÎÄ¼þ£¬Ö±½Ó·µ»Ø£¬²»×öÈÎºÎ´¦Àí
                 if (currentFiles[position].isFile()) {
                     curposition = position;
-                    target.setText("ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½Îªï¿½ï¿½"
+                    target.setText("µ±Ç°Ñ¡ÖÐÎÄ¼þÎª£º"
                             + currentFiles[curposition].getName());
                     return;
                 }
-                // ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+                // »ñÈ¡ÓÃ»§µã»÷µÄÎÄ¼þ¼ÐÏÂµÄËùÓÐÎÄ¼þ
                 File[] tmp = currentFiles[position].listFiles();
                 if (tmp == null || tmp.length == 0) {
                     Toast.makeText(LoadActivity.this
-                            , "ï¿½ï¿½Ç°Â·ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½Ê»ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ä¼ï¿½",
+                            , "µ±Ç°Â·¾¶²»¿É·ÃÎÊ»ò¸ÃÂ·¾¶ÏÂÃ»ÓÐÎÄ¼þ",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    // ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð£ï¿½ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½Ä¸ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+                    // »ñÈ¡ÓÃ»§µ¥»÷µÄÁÐ±íÏî¶ÔÓ¦µÄÎÄ¼þ¼Ð£¬ÉèÎªµ±Ç°µÄ¸¸ÎÄ¼þ¼Ð
                     currentParent = currentFiles[position];
-                    // ï¿½ï¿½ï¿½æµ±Ç°ï¿½Ä¸ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Úµï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+                    // ±£´æµ±Ç°µÄ¸¸ÎÄ¼þ¼ÐÄÚµÄÈ«²¿ÎÄ¼þºÍÎÄ¼þ¼Ð
                     currentFiles = tmp;
                     len = currentFiles.length;
                     curposition = -1;
-                    // ï¿½Ù´Î¸ï¿½ï¿½ï¿½ListView
+                    // ÔÙ´Î¸üÐÂListView
                     inflateListView();
                 }
             }
@@ -98,13 +98,13 @@ public class LoadActivity extends Activity {
                 try {
                     if (!currentParent.getCanonicalPath()
                             .equals("/")) {
-                        // ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½Ä¿Â¼
+                        // »ñÈ¡ÉÏÒ»¼¶Ä¿Â¼
                         currentParent = currentParent.getParentFile();
-                        // ï¿½Ð³ï¿½ï¿½ï¿½Ç°Ä¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+                        // ÁÐ³öµ±Ç°Ä¿Â¼ÏÂËùÓÐÎÄ¼þ
                         currentFiles = currentParent.listFiles();
                         len = currentFiles.length;
                         curposition = -1;
-                        // ï¿½Ù´Î¸ï¿½ï¿½ï¿½ListView
+                        // ÔÙ´Î¸üÐÂListView
                         inflateListView();
                     }
                 } catch (IOException e) {
@@ -123,11 +123,11 @@ public class LoadActivity extends Activity {
             public void onClick(View v) {
                 if (curposition != -1) {
                     Toast.makeText(LoadActivity.this
-                            , "ï¿½ï¿½ï¿½ï¿½" + currentFiles[curposition].getName(),
+                            , "¼ÓÔØ" + currentFiles[curposition].getName(),
                             Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoadActivity.this
-                            , "Ã»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Îºï¿½ï¿½Ä¼ï¿½",
+                            , "Ã»ÓÐÑ¡ÖÐÈÎºÎÎÄ¼þ",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -170,7 +170,7 @@ public class LoadActivity extends Activity {
                 return view;
             }
         };
-        // ÎªListViewï¿½ï¿½ï¿½ï¿½Adapter
+        // ÎªListViewÉèÖÃAdapter
         listView.setAdapter(adapter);
     }
 }

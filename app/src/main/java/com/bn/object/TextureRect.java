@@ -9,193 +9,187 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
-public class TextureRect extends Bo
-    {
-	int mProgram;//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-    int muMVPMatrixHandle;//ï¿½Ü±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int maPositionHandle; //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int maTexCoorHandle; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ÎÆÀí¾ØÐÎµ¥Ãæ
+public class TextureRect extends Body {
+    int mProgram;//×Ô¶¨ÒåäÖÈ¾¹ÜÏß×ÅÉ«Æ÷³ÌÐòid
+    int muMVPMatrixHandle;//×Ü±ä»»¾ØÕóÒýÓÃ
+    int maPositionHandle; //¶¥µãÎ»ÖÃÊôÐÔÒýÓÃ
+    int maTexCoorHandle; //¶¥µãÎÆÀí×ø±êÊôÐÔÒýÓÃ
     int muMMatrixHandle;
-    
-    int maCameraHandle; //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-    int maNormalHandle; //ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-    int maLightLocationHandle;//ï¿½ï¿½Ô´Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
-    
-    
-    String mVertexShader;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½  	 
-    String mFragmentShader;//Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
-	
-	FloatBuffer   mVertexBuffer;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-	FloatBuffer   mTexCoorBuffer;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-	FloatBuffer   mNormalBuffer;//ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-	
-    int vCount=0;   
-    
-    public TextureRect(float size)
-    {    	
-    	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-    	initVertexData(size);
-    }
-    
-    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÝµÄ·ï¿½ï¿½ï¿½
-    public void initVertexData(float size)
-    {
-    	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================begin============================
-        vCount=12;        
-        float UNIT_SIZE=size;
-        float vertices[]=new float[]
-        {
-    		//Ç°ï¿½ï¿½
-        	0,0,0,
-        	UNIT_SIZE,UNIT_SIZE,0,
-        	-UNIT_SIZE,UNIT_SIZE,0,
-        	0,0,0,
-        	-UNIT_SIZE,UNIT_SIZE,0,
-        	-UNIT_SIZE,-UNIT_SIZE,0,
-        	0,0,0,
-        	-UNIT_SIZE,-UNIT_SIZE,0,
-        	UNIT_SIZE,-UNIT_SIZE,0,
-        	0,0,0,
-        	UNIT_SIZE,-UNIT_SIZE,0,
-        	UNIT_SIZE,UNIT_SIZE,0,
-        };
-		
 
-        
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½Ê¼ï¿½ï¿½ 
-        float[] normals=new float[vertices.length];
-        for(int i=0;i<normals.length;i+=3){
-        	normals[i]=0;
-        	normals[i+1]=0;
-        	normals[i+2]=1;
+    int maCameraHandle; //ÉãÏñ»úÎ»ÖÃÊôÐÔÒýÓÃ 
+    int maNormalHandle; //¶¥µã·¨ÏòÁ¿ÊôÐÔÒýÓÃ 
+    int maLightLocationHandle;//¹âÔ´Î»ÖÃÊôÐÔÒýÓÃ  
+
+
+    String mVertexShader;//¶¥µã×ÅÉ«Æ÷´úÂë½Å±¾  	 
+    String mFragmentShader;//Æ¬Ôª×ÅÉ«Æ÷´úÂë½Å±¾
+
+    FloatBuffer mVertexBuffer;//¶¥µã×ø±êÊý¾Ý»º³å
+    FloatBuffer mTexCoorBuffer;//¶¥µãÎÆÀí×ø±êÊý¾Ý»º³å
+    FloatBuffer mNormalBuffer;//¶¥µã·¨ÏòÁ¿Êý¾Ý»º³å
+
+    int vCount = 0;
+
+    public TextureRect(float size) {
+        //³õÊ¼»¯¶¥µã×ø±êÓë×ÅÉ«Êý¾Ý
+        initVertexData(size);
+    }
+
+    //³õÊ¼»¯¶¥µã×ø±êÓë×ÅÉ«Êý¾ÝµÄ·½·¨
+    public void initVertexData(float size) {
+        //¶¥µã×ø±êÊý¾ÝµÄ³õÊ¼»¯================begin============================
+        vCount = 12;
+        float UNIT_SIZE = size;
+        float vertices[] = new float[]
+                {
+                        //Ç°Ãæ
+                        0, 0, 0,
+                        UNIT_SIZE, UNIT_SIZE, 0,
+                        -UNIT_SIZE, UNIT_SIZE, 0,
+                        0, 0, 0,
+                        -UNIT_SIZE, UNIT_SIZE, 0,
+                        -UNIT_SIZE, -UNIT_SIZE, 0,
+                        0, 0, 0,
+                        -UNIT_SIZE, -UNIT_SIZE, 0,
+                        UNIT_SIZE, -UNIT_SIZE, 0,
+                        0, 0, 0,
+                        UNIT_SIZE, -UNIT_SIZE, 0,
+                        UNIT_SIZE, UNIT_SIZE, 0,
+                };
+
+
+        //·¨ÏòÁ¿Êý¾Ý³õÊ¼»¯ 
+        float[] normals = new float[vertices.length];
+        for (int i = 0; i < normals.length; i += 3) {
+            normals[i] = 0;
+            normals[i + 1] = 0;
+            normals[i + 2] = 1;
         }
 
 
-        float texCoor[]=new float[]
-        {
-        		0.5f,0.5f,	0,0, 	1,0, 
-        		0.5f,0.5f, 	1,0, 	1,1, 
-        		0.5f,0.5f, 	1,1, 	0,1,
-        		0.5f,0.5f, 	0,1, 	0,0
-        };        
-        
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        //vertices.length*4ï¿½ï¿½ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ö½ï¿½
-        ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length*4);
-        vbb.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mVertexBuffer = vbb.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mVertexBuffer.put(vertices);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        mVertexBuffer.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
-        
-        
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        ByteBuffer nbb = ByteBuffer.allocateDirect(normals.length*4);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        nbb.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½Îªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ÏµÍ³Ë³ï¿½ï¿½
-        mNormalBuffer = nbb.asFloatBuffer();//×ªï¿½ï¿½Îªfloatï¿½Í»ï¿½ï¿½ï¿½
-        mNormalBuffer.put(normals);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        mNormalBuffer.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
-        
-        
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        ByteBuffer cbb = ByteBuffer.allocateDirect(texCoor.length*4);
-        cbb.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mTexCoorBuffer = cbb.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mTexCoorBuffer.put(texCoor);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-        mTexCoorBuffer.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+        float texCoor[] = new float[]
+                {
+                        0.5f, 0.5f, 0, 0, 1, 0,
+                        0.5f, 0.5f, 1, 0, 1, 1,
+                        0.5f, 0.5f, 1, 1, 0, 1,
+                        0.5f, 0.5f, 0, 1, 0, 0
+                };
+
+        //´´½¨¶¥µã×ø±êÊý¾Ý»º³å
+        //vertices.length*4ÊÇÒòÎªÒ»¸öÕûÊýËÄ¸ö×Ö½Ú
+        ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+        vbb.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mVertexBuffer = vbb.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mVertexBuffer.put(vertices);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ø±êÊý¾Ý
+        mVertexBuffer.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
+
+
+        //´´½¨¶¥µã·¨ÏòÁ¿Êý¾Ý»º³å
+        ByteBuffer nbb = ByteBuffer.allocateDirect(normals.length * 4);//´´½¨¶¥µã·¨ÏòÁ¿Êý¾Ý»º³å
+        nbb.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³ÐòÎª±¾µØ²Ù×÷ÏµÍ³Ë³Ðò
+        mNormalBuffer = nbb.asFloatBuffer();//×ª»»ÎªfloatÐÍ»º³å
+        mNormalBuffer.put(normals);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã·¨ÏòÁ¿Êý¾Ý
+        mNormalBuffer.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
+
+
+        //´´½¨¶¥µãÎÆÀí×ø±êÊý¾Ý»º³å
+        ByteBuffer cbb = ByteBuffer.allocateDirect(texCoor.length * 4);
+        cbb.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mTexCoorBuffer = cbb.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mTexCoorBuffer.put(texCoor);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ÅÉ«Êý¾Ý
+        mTexCoorBuffer.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
 
     }
 
-    //ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½initShaderï¿½ï¿½ï¿½ï¿½
+    //×Ô¶¨Òå³õÊ¼»¯×ÅÉ«Æ÷µÄinitShader·½·¨
     @Override
-    public void initShader(int Program)
-    {
-        //ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public void initShader(int Program) {
+        //»ùÓÚ¶¥µã×ÅÉ«Æ÷ÓëÆ¬Ôª×ÅÉ«Æ÷´´½¨³ÌÐò
         mProgram = Program;
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id  
+        //»ñÈ¡³ÌÐòÖÐ¶¥µãÎ»ÖÃÊôÐÔÒýÓÃid  
         maPositionHandle = GLES20.glGetAttribLocation(mProgram, "aPosition");
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id  
-        maTexCoorHandle= GLES20.glGetAttribLocation(mProgram, "aTexCoor");
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+        //»ñÈ¡³ÌÐòÖÐ¶¥µãÎÆÀí×ø±êÊôÐÔÒýÓÃid  
+        maTexCoorHandle = GLES20.glGetAttribLocation(mProgram, "aTexCoor");
+        //»ñÈ¡³ÌÐòÖÐ×Ü±ä»»¾ØÕóÒýÓÃid
         muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
-        
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id  
-        maNormalHandle= GLES20.glGetAttribLocation(mProgram, "aNormal"); 
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-        maCameraHandle=GLES20.glGetUniformLocation(mProgram, "uCamera"); 
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½Ô´Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-        maLightLocationHandle=GLES20.glGetUniformLocation(mProgram, "uLightLocation"); 
-        //ï¿½ï¿½È¡Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ªï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-        muMMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMMatrix");  
-        
-        
-    }
-    
-    public void drawSelf(int texId)
-    {             
 
-	    setBody();
-	    
-    	//ï¿½Æ¶ï¿½Ê¹ï¿½ï¿½Ä³ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
-   	 	GLES20.glUseProgram(mProgram);        
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+        //»ñÈ¡³ÌÐòÖÐ¶¥µã·¨ÏòÁ¿ÊôÐÔÒýÓÃid  
+        maNormalHandle = GLES20.glGetAttribLocation(mProgram, "aNormal");
+        //»ñÈ¡³ÌÐòÖÐÉãÏñ»úÎ»ÖÃÒýÓÃid
+        maCameraHandle = GLES20.glGetUniformLocation(mProgram, "uCamera");
+        //»ñÈ¡³ÌÐòÖÐ¹âÔ´Î»ÖÃÒýÓÃid
+        maLightLocationHandle = GLES20.glGetUniformLocation(mProgram, "uLightLocation");
+        //»ñÈ¡Î»ÖÃ¡¢Ðý×ª±ä»»¾ØÕóÒýÓÃid
+        muMMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMMatrix");
+
+
+    }
+
+    public void drawSelf(int texId) {
+
+        setBody();
+
+        //ÖÆ¶¨Ê¹ÓÃÄ³Ì×shader³ÌÐò
+        GLES20.glUseProgram(mProgram);
+        //½«×îÖÕ±ä»»¾ØÕó´«Èëshader³ÌÐò
         GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, MatrixState.getFinalMatrix(), 0);
-        //ï¿½ï¿½Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ªï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
-        GLES20.glUniformMatrix4fv(muMMatrixHandle, 1, false, MatrixState.getMMatrix(), 0); 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã´ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½   
+        //½«Î»ÖÃ¡¢Ðý×ª±ä»»¾ØÕó´«Èëshader³ÌÐò
+        GLES20.glUniformMatrix4fv(muMMatrixHandle, 1, false, MatrixState.getMMatrix(), 0);
+        //½«ÉãÏñ»úÎ»ÖÃ´«Èëshader³ÌÐò   
         GLES20.glUniform3fv(maCameraHandle, 1, MatrixState.cameraFB);
-        //ï¿½ï¿½ï¿½ï¿½Ô´Î»ï¿½Ã´ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½   
-        GLES20.glUniform3fv(maLightLocationHandle, 1, MatrixState.lightPositionFB); 
-         
-         //ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glVertexAttribPointer  
-         (
-         		maPositionHandle,   
-         		3, 
-         		GLES20.GL_FLOAT, 
-         		false,
-                3*4,   
-                mVertexBuffer
-         );     
-         
-         //ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glVertexAttribPointer  
-         (
-        		maTexCoorHandle, 
-         		2, 
-         		GLES20.GL_FLOAT, 
-         		false,
-                2*4,   
-                mTexCoorBuffer
-         ); 
-         
-         //ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glVertexAttribPointer  
-         (
-        		maNormalHandle, 
-         		4, 
-         		GLES20.GL_FLOAT, 
-         		false,
-                3*4,   
-                mNormalBuffer
-         ); 
-		
-         
-         //ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glEnableVertexAttribArray(maPositionHandle);
-         //ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glEnableVertexAttribArray(maTexCoorHandle);  
-         //ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glEnableVertexAttribArray(maNormalHandle);
-         
-         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texId);
-         
-         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-         MatrixState.pushMatrix();
-         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vCount); 
-         MatrixState.popMatrix();
-         
+        //½«¹âÔ´Î»ÖÃ´«Èëshader³ÌÐò   
+        GLES20.glUniform3fv(maLightLocationHandle, 1, MatrixState.lightPositionFB);
+
+        //´«ËÍ¶¥µãÎ»ÖÃÊý¾Ý
+        GLES20.glVertexAttribPointer
+                (
+                        maPositionHandle,
+                        3,
+                        GLES20.GL_FLOAT,
+                        false,
+                        3 * 4,
+                        mVertexBuffer
+                );
+
+        //´«ËÍ¶¥µãÎÆÀí×ø±êÊý¾Ý
+        GLES20.glVertexAttribPointer
+                (
+                        maTexCoorHandle,
+                        2,
+                        GLES20.GL_FLOAT,
+                        false,
+                        2 * 4,
+                        mTexCoorBuffer
+                );
+
+        //´«ËÍ¶¥µã·¨ÏòÁ¿Êý¾Ý
+        GLES20.glVertexAttribPointer
+                (
+                        maNormalHandle,
+                        4,
+                        GLES20.GL_FLOAT,
+                        false,
+                        3 * 4,
+                        mNormalBuffer
+                );
+
+
+        //ÆôÓÃ¶¥µãÎ»ÖÃÊý¾Ý
+        GLES20.glEnableVertexAttribArray(maPositionHandle);
+        //ÆôÓÃ¶¥µãÎÆÀíÊý¾Ý
+        GLES20.glEnableVertexAttribArray(maTexCoorHandle);
+        //ÆôÓÃ¶¥µã·¨ÏòÁ¿Êý¾Ý
+        GLES20.glEnableVertexAttribArray(maNormalHandle);
+
+        //°ó¶¨ÎÆÀí
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texId);
+
+        //»æÖÆÎÆÀí¾ØÐÎ
+        MatrixState.pushMatrix();
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vCount);
+        MatrixState.popMatrix();
+
     }
 }

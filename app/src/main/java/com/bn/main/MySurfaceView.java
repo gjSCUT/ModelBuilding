@@ -9,14 +9,14 @@ import android.opengl.GLUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.bn.csgStruct.BooleanModeller;
-import com.bn.csgStruct.Bound;
-import com.bn.csgStruct.Struct.Vector2f;
-import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.object.Body;
 import com.bn.object.Solid;
 import com.bn.object.TextureRect;
 import com.bn.object.TextureRectDouble;
+import com.bn.csgStruct.BooleanModeller;
+import com.bn.csgStruct.Bound;
+import com.bn.csgStruct.Struct.Vector2f;
+import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.util.Indesign;
 import com.bn.util.LoadUtil;
 import com.bn.util.VectorUtil;
@@ -29,48 +29,48 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class MySurfaceView extends GLSurfaceView {
-    public static boolean isFill = true; //ï¿½Ç·ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ä»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+    public static boolean isFill = true; //ÊÇ·ñÊ¹ÓÃÌî³ä»¹ÊÇÏßÐÍ
     /**
-     * ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ÊÖÖ¸´¥¿ØÊý
      */
     public static int mode = 0;
     /**
-     * Ë«Ö¸ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+     * Ë«Ö¸²Ù×÷Ä£Ê½
      */
     public static int modeP2 = 0;
     /**
-     * ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+     * ÈýÖ¸²Ù×÷Ä£Ê½
      */
     public static int modeP3 = 0;
-    public static int isAxle = 0;   //ï¿½ï¿½ï¿½ï¿½XYZÆ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½Ä±ï¿½?
-    private static float[] stlPrint;//STLï¿½ï¿½Ê½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public SceneRenderer mRenderer;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½
+    public static int isAxle = 0;   //¾õµÃXYZÆ¥ÅäÖáºóÑÕÉ«µÄ±ä»¯
+    private static float[] stlPrint;//STL¸ñÊ½´òÓ¡µÄÊý¾Ý
+    public SceneRenderer mRenderer;//³¡¾°äÖÈ¾Æ÷
     public Body curBody, curBody2;
-    public boolean isShowBeginFace = false;//ï¿½Ð¶Ïµï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-    public boolean isShowEndFace = false;//ï¿½Ð¶ï¿½Ë«ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-    public boolean isBool = false; //ï¿½Ç·ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ä»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
-    public boolean isObject = false; //ï¿½Å´ï¿½ï¿½Ó½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public boolean isCreateNew = false;//ï¿½Ç·ñ´´½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½
-    public boolean isCreateNormal = false;//ï¿½Ç·ï¿½ï¿½Â½ï¿½
-    public boolean isCreateBool = false;//ï¿½Ç·ï¿½ï¿½Â½ï¿½
+    public boolean isShowBeginFace = false;//ÅÐ¶Ïµ¥ÊÖÖ¸²Ù×÷ÊÇ·ñ±»Ëø¶¨
+    public boolean isShowEndFace = false;//ÅÐ¶ÏË«ÊÖÖ¸²Ù×÷ÊÇ·ñ±»Ëø¶¨
+    public boolean isBool = false; //ÊÇ·ñÊ¹ÓÃÌî³ä»¹ÊÇÏßÐÍ
+    public boolean isObject = false; //·Å´óÊÓ½Ç»¹ÊÇÎïÌå
+    public boolean isCreateNew = false;//ÊÇ·ñ´´½¨Ò»¸öÐÂµÄ
+    public boolean isCreateNormal = false;//ÊÇ·ñÐÂ½¨
+    public boolean isCreateBool = false;//ÊÇ·ñÐÂ½¨
     /**
-     * ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ä£Ê½
-     * ï¿½ï¿½ï¿½å£º
-     * 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
-     * 2.Ê°È¡ï¿½È´ï¿½
-     * 3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * µ¥Ö¸²Ù×÷Ä£Ê½
+     * º¬Òå£º
+     * 1.¿ØÖÆÏà»ú
+     * 2.Ê°È¡µÈ´ý
+     * 3.ÃæÌùºÏ
      */
     public int modeP1 = 0;
-    public int isMove = 1;  //ï¿½Ð¶ï¿½Æ½ï¿½Æµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int isMove = 1;  //ÅÐ¶ÏÆ½ÒÆµÄÒ»¸ö±äÁ¿
     /**
-     * ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * µ±Ç°Ñ¡ÖÐÎïÌå
      */
     //////////////
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ØµÄ±ï¿½ï¿½ï¿½
+    //ÃæÌùºÍÓÐ¹ØµÄ±äÁ¿
     public int createType = 0;
     public int boolMode;
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ±»ÌùºÏÎïÌå
      */
     Body fitTargetBody;
     //////////////////////////
@@ -84,97 +84,97 @@ public class MySurfaceView extends GLSurfaceView {
     Solid diffModel;
     Solid interModel;
     Solid pm;
-    TextureRect texRect;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    TextureRectDouble beginFace;    //Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    TextureRectDouble endFace;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    Indesign indesign;//redoï¿½ï¿½undoï¿½ï¿½ï¿½ï¿½
+    TextureRect texRect;    //ÎÆÀí¾ØÐÎ¶ÔÏóµÄÒýÓÃ
+    TextureRectDouble beginFace;    //ÒªÌùºÏÃæ
+    TextureRectDouble endFace;    //±»ÌùºÏÃæ
+    Indesign indesign;//redoºÍundo¹¦ÄÜ
     private Camera camera;
     /**
-     * ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄ×ø±ê
      */
     private float locationYBeginP1, locationXBeginP1;
     /**
-     * ï¿½ï¿½Ö¸Ê±touchÊ±ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½?
+     * µ¥Ö¸Ê±touchÊ±¼ä½áÊøÎ»ÖÃ
      */
     private float locationXEndP1, locationYEndP1;
     /**
-     * ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½downÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢downÊ±µÄ×ø±ê
      */
     private float locationYDownP1, locationXDownP1;
     /**
-     * ï¿½ï¿½Â¼Ë«Ö¸touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ¼ÇÂ¼Ë«Ö¸touchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄ×ø±ê
      */
     private float locationY0BeginP2, locationX0BeginP2, locationY1BeginP2, locationX1BeginP2;
     /**
-     * ï¿½ï¿½Â¼Ë«Ö¸Ê±touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+     * ¼ÇÂ¼Ë«Ö¸Ê±touchÊ±¼ä´¥·¢½áÊøÎ»ÖÃ
      */
     private float locationX0EndP2, locationY0EndP2, locationX1EndP2, locationY1EndP2;
     /**
-     * //ï¿½ï¿½Â¼Ë«Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * //¼ÇÂ¼Ë«Ö¸Down´¥·¢Ê±µÄ×ø±ê
      */
     private float locationX0DownP2, locationY0DownP2, locationX1DownP2, locationY1DownP2;
     /**
-     * //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * //¼ÇÂ¼ÈýÖ¸touchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄ×ø±ê
      */
     private float locationY0BeginP3, locationX0BeginP3, locationY1BeginP3, locationX1BeginP3, locationY2BeginP3, locationX2BeginP3;
     /**
-     * //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Ê±touchÊ±ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½?
+     * //¼ÇÂ¼ÈýÖ¸Ê±touchÊ±¼ä½áÊøÎ»ÖÃ
      */
     private float locationX0EndP3, locationY0EndP3, locationX1EndP3, locationY1EndP3, locationX2EndP3, locationY2EndP3;
     /**
-     * //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Ê±touchï¿½ï¿½Ö¸ï¿½É¿ï¿½Î»ï¿½ï¿½
+     * //¼ÇÂ¼ÈýÖ¸Ê±touchÊÖÖ¸ËÉ¿ªÎ»ÖÃ
      */
     private float locationX0DownP3, locationY0DownP3, locationX1DownP3, locationY1DownP3, locationX2DownP3, locationY2DownP3;
     /**
-     * //ï¿½ï¿½ï¿½ï¿½downÊ±ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+     * //ÈýÊÖdownÊ±Á½Ö¸ÏòÁ¿
      */
     private Vector2f Vector2fP01DownP3, Vector2fP02DownP3, Vector2fP12DownP3;
     /**
-     * //Ë«Ö¸DownÊ±ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½?
+     * //Ë«Ö¸DownÊ±Á½Ö¸¼ä¾à
      */
     private float lengthPDownP2 = 1f;
     /**
-     * //Ë«Ö¸downÊ±ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+     * //Ë«Ö¸downÊ±Á½Ö¸ÏòÁ¿
      */
     private Vector2f Vector2fPDownP2;
     /**
-     * ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄ×ø±ê
      */
     private Vector2f copyDirection;
     /**
-     * 0ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ö¸Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+     * 0ÊÖÖ¸³ö·¢·¨ÏòÁ¿£¬1ÊÖÖ¸Í£Ö¹·¨ÏòÁ¿£¬2±»ÌùºÏÎïÌå½Ó´¥µã×ø±ê
      */
     private Vector2f[] fitFingerDirection = new Vector2f[4];
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£º
-     * 0.Î´ï¿½ï¿½Ê¼Ê°È¡
-     * 1.Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½?
-     * 2.Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-     * 3.Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½?
-     * 4.Ê°È¡ï¿½ï¿½Ï£ï¿½ï¿½È´ï¿½Ì§ï¿½ï¿½ï¿½ï¿½ï¿½?
+     * ±äÁ¿º¬Òå£º
+     * 0.Î´¿ªÊ¼Ê°È¡
+     * 1.Ê°È¡ÌùºÏÎïÌåµÄÀë¿ªµãÖÐ
+     * 2.Ê°È¡±»ÌùºÏÎïÌåµÄ½øÈëµãÖÐ
+     * 3.Ê°È¡±»ÌùºÏÎïÌåµÄÍ£Ö¹µãÖÐ
+     * 4.Ê°È¡Íê±Ï£¬µÈ´ýÌ§ÆðÊÖÖ¸
      */
     private int fitMode = 0;
-    private boolean isPush = false;//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
-    private boolean hasLoad = false;//ï¿½Ç·ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
-    private boolean isP1Lock = false;//ï¿½Ð¶Ïµï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-    private boolean isP2Lock = false;//ï¿½Ð¶ï¿½Ë«ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-    private boolean isCopy = true;//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½MOVE
-    //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½id
+    private boolean isPush = false;//ÅÐ¶ÏÊÇ·ñ½øÐÐÈëÕ»
+    private boolean hasLoad = false;//ÊÇ·ñ³õÊ¼»¯Íê³É
+    private boolean isP1Lock = false;//ÅÐ¶Ïµ¥ÊÖÖ¸²Ù×÷ÊÇ·ñ±»Ëø¶¨
+    private boolean isP2Lock = false;//ÅÐ¶ÏË«ÊÖÖ¸²Ù×÷ÊÇ·ñ±»Ëø¶¨
+    private boolean isCopy = true;//ÊÇ·ñ³õ´ÎMOVE
+    //µ±Ç°ÎÆÀíµÄid
     private int axisTexId, redTexId;
-    //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½?
+    //µ±Ç°ÎÆÀíµÄÍ¼Æ¬
     private Bitmap axisBm, redBm;
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setEGLContextClientVersion(2); //ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½OPENGL ES2.0
-        mRenderer = new SceneRenderer();    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½
-        setRenderer(mRenderer);                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½
-        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ä£Ê½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+        this.setEGLContextClientVersion(2); //ÉèÖÃÊ¹ÓÃOPENGL ES2.0
+        mRenderer = new SceneRenderer();    //´´½¨³¡¾°äÖÈ¾Æ÷
+        setRenderer(mRenderer);                //ÉèÖÃäÖÈ¾Æ÷
+        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//ÉèÖÃäÖÈ¾Ä£Ê½ÎªÖ÷¶¯äÖÈ¾
+        //´´½¨ÉãÏñ»ú
         camera = new Camera();
-        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ô´
+        //³õÊ¼»¯¹âÔ´
         MatrixState.setLightLocation(0, 100, 0);
 
-        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Í»Ö¸ï¿½Õ»
+        //³õÊ¼»¯¹¤×÷Õ»ºÍ»Ö¸´Õ»
         indesign = new Indesign();
     }
 
@@ -193,21 +193,21 @@ public class MySurfaceView extends GLSurfaceView {
         float[] AB = MatrixState.getUnProject(
                 locationX,
                 locationY);
-        //ï¿½ï¿½ï¿½ï¿½AB
-        Vector3f start = new Vector3f(AB[0], AB[1], AB[2]);//ï¿½ï¿½ï¿½?
-        Vector3f end = new Vector3f(AB[3], AB[4], AB[5]);//ï¿½Õµï¿½
-        Vector3f dir = end.minus(start);//ï¿½ï¿½ï¿½ÈºÍ·ï¿½ï¿½ï¿½
+        //ÉäÏßAB
+        Vector3f start = new Vector3f(AB[0], AB[1], AB[2]);//Æðµã
+        Vector3f end = new Vector3f(AB[3], AB[4], AB[5]);//ÖÕµã
+        Vector3f dir = end.minus(start);//³¤¶ÈºÍ·½Ïò
 
         Body temp = null;
-        ;//ï¿½ï¿½ï¿½ÎªÃ»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½?
-        float minTime = 1;//ï¿½ï¿½Â¼ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ABï¿½à½»ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½?
+        ;//±ê¼ÇÎªÃ»ÓÐÑ¡ÖÐÈÎºÎÎïÌå
+        float minTime = 1;//¼ÇÂ¼ÁÐ±íÖÐËùÓÐÎïÌåÓëABÏà½»µÄ×î¶ÌÊ±¼ä
         float[] Face = new float[4];
-        for (Body b : objectList)//ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+        for (Body b : objectList)//±éÀúÁÐ±íÖÐµÄÎïÌå
         {
-            Bound box = b.getCurrBox(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AABBï¿½ï¿½Î§ï¿½ï¿½
-            float time = box.rayIntersect(start, dir, null, Face);//ï¿½ï¿½ï¿½ï¿½ï¿½à½»Ê±ï¿½ï¿½
+            Bound box = b.getCurrBox(); //»ñµÃÎïÌåAABB°üÎ§ºÐ
+            float time = box.rayIntersect(start, dir, null, Face);//¼ÆËãÏà½»Ê±¼ä
             if (time <= minTime) {
-                minTime = time;//ï¿½ï¿½Â¼ï¿½ï¿½Ð¡Öµ
+                minTime = time;//¼ÇÂ¼×îÐ¡Öµ
                 temp = b;
             }
         }
@@ -217,43 +217,43 @@ public class MySurfaceView extends GLSurfaceView {
         return null;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+    //´¥ÃþÊÂ¼þ»Øµ÷·½·¨
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
-        locationXBeginP1 = e.getX();    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-        locationYBeginP1 = e.getY();    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
+        locationXBeginP1 = e.getX();    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY×ø±ê
+        locationYBeginP1 = e.getY();    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX×ø±ê
 
         if (mode == 2) {
-            locationX0BeginP2 = e.getX(0);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Y0ï¿½ï¿½ï¿½ï¿½
-            locationY0BeginP2 = e.getY(0);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½X0ï¿½ï¿½ï¿½ï¿½
-            locationX1BeginP2 = e.getX(1);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Y1ï¿½ï¿½ï¿½ï¿½
-            locationY1BeginP2 = e.getY(1);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½X1ï¿½ï¿½ï¿½ï¿½
+            locationX0BeginP2 = e.getX(0);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY0×ø±ê
+            locationY0BeginP2 = e.getY(0);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX0×ø±ê
+            locationX1BeginP2 = e.getX(1);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY1×ø±ê
+            locationY1BeginP2 = e.getY(1);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX1×ø±ê
         } else if (mode == 3) {
-            locationX0BeginP3 = e.getX(0);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Y0ï¿½ï¿½ï¿½ï¿½
-            locationY0BeginP3 = e.getY(0);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½X0ï¿½ï¿½ï¿½ï¿½
-            locationX1BeginP3 = e.getX(1);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Y1ï¿½ï¿½ï¿½ï¿½
-            locationY1BeginP3 = e.getY(1);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½X1ï¿½ï¿½ï¿½ï¿½
-            locationX2BeginP3 = e.getX(2);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Y2ï¿½ï¿½ï¿½ï¿½
-            locationY2BeginP3 = e.getY(2);    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½X2ï¿½ï¿½ï¿½ï¿½
+            locationX0BeginP3 = e.getX(0);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY0×ø±ê
+            locationY0BeginP3 = e.getY(0);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX0×ø±ê
+            locationX1BeginP3 = e.getX(1);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY1×ø±ê
+            locationY1BeginP3 = e.getY(1);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX1×ø±ê
+            locationX2BeginP3 = e.getX(2);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄY2×ø±ê
+            locationY2BeginP3 = e.getY(2);    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢¿ªÊ¼Ê±µÄX2×ø±ê
         }
         switch (e.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                mode = 1;//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä£Ê½
-                locationXDownP1 = e.getX(0);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-                locationYDownP1 = e.getY(0);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
+                mode = 1;//ÉèÖÃÎªµ¥µãÄ£Ê½
+                locationXDownP1 = e.getX(0);    //¼ÇÂ¼µ¥Ö¸Down´¥·¢Ê±µÄX×ø±ê
+                locationYDownP1 = e.getY(0);    //¼ÇÂ¼µ¥Ö¸Down´¥·¢Ê±µÄY×ø±ê
 
-                //Ñ¡ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½
+                //Ñ¡ÔñµãÎª¿Õ£¬ÒÆ¶¯Ïà»ú
                 if (pickupObject(locationXDownP1, locationYDownP1, BodyAll) == null) {
                     modeP1 = 1;
                 }
-                //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                //Ñ¡ÔñÎïÌåÎªµ±Ç°ÎïÌå£¬ÃæÌùºÏ
                 else if (pickupObject(locationXDownP1, locationYDownP1, BodyAll) == curBody) {
                     modeP1 = 2;
                     fitMode = 1;
                 }
-                //Ê°È¡ï¿½È´ï¿½
+                //Ê°È¡µÈ´ý
                 else {
                     modeP1 = 3;
                     new Thread(new Runnable() {
@@ -292,49 +292,49 @@ public class MySurfaceView extends GLSurfaceView {
 
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                mode += 1;//ï¿½ï¿½ï¿½ï¿½ÎªË«ï¿½ï¿½Ä£Ê½
+                mode += 1;//ÉèÖÃÎªË«µãÄ£Ê½
                 if (mode == 2 && BodyAll.size() != 0) {
                     isP1Lock = true;
 
-                    locationX0DownP2 = e.getX(0);    //ï¿½ï¿½Â¼Ë«Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½X1ï¿½ï¿½ï¿½ï¿½
-                    locationY0DownP2 = Constant.HEIGHT - e.getY(0);    //ï¿½ï¿½Â¼Ë«Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Y1ï¿½ï¿½ï¿½ï¿½
-                    locationX1DownP2 = e.getX(1);    //ï¿½ï¿½Â¼Ë«Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½X1ï¿½ï¿½ï¿½ï¿½
-                    locationY1DownP2 = Constant.HEIGHT - e.getY(1);    //ï¿½ï¿½Â¼Ë«Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Y1ï¿½ï¿½ï¿½ï¿½
+                    locationX0DownP2 = e.getX(0);    //¼ÇÂ¼Ë«Ö¸Down´¥·¢Ê±µÄX1×ø±ê
+                    locationY0DownP2 = Constant.HEIGHT - e.getY(0);    //¼ÇÂ¼Ë«Ö¸Down´¥·¢Ê±µÄY1×ø±ê
+                    locationX1DownP2 = e.getX(1);    //¼ÇÂ¼Ë«Ö¸Down´¥·¢Ê±µÄX1×ø±ê
+                    locationY1DownP2 = Constant.HEIGHT - e.getY(1);    //¼ÇÂ¼Ë«Ö¸Down´¥·¢Ê±µÄY1×ø±ê
 
-                    Vector2fPDownP2 = new Vector2f(locationX1DownP2 - locationX0DownP2, locationY1DownP2 - locationY0DownP2);//ï¿½ï¿½Ö¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
-                    lengthPDownP2 = Vector2fPDownP2.mod;//ï¿½ï¿½Â¼Ë«Ö¸downï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½?
+                    Vector2fPDownP2 = new Vector2f(locationX1DownP2 - locationX0DownP2, locationY1DownP2 - locationY0DownP2);//ÊÖÖ¸³õÊ¼ÏòÁ¿
+                    lengthPDownP2 = Vector2fPDownP2.mod;//¼ÇÂ¼Ë«Ö¸downÊÂÁ½Ö¸¼ä¾à
 
-                    //ï¿½Ð¶ï¿½ï¿½ï¿½
+                    //ÅÐ¶ÏÖá
                     curBody.switchAxis(Vector2fPDownP2);
 
                 } else if (mode == 3) {
                     isP2Lock = true;
 
-                    isAxle = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á²»ï¿½ï¿½É«
+                    isAxle = 0;//ÉèÖÃ×ø±êÖá²»±äÉ«
 
-                    locationX0DownP3 = e.getX(0);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½X1ï¿½ï¿½ï¿½ï¿½
-                    locationY0DownP3 = e.getY(0);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Y1ï¿½ï¿½ï¿½ï¿½
-                    locationX1DownP3 = e.getX(1);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½X2ï¿½ï¿½ï¿½ï¿½
-                    locationY1DownP3 = e.getY(1);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Y2ï¿½ï¿½ï¿½ï¿½
-                    locationX2DownP3 = e.getX(2);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½X3ï¿½ï¿½ï¿½ï¿½
-                    locationY2DownP3 = e.getY(2);    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Downï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Y3ï¿½ï¿½ï¿½ï¿½
+                    locationX0DownP3 = e.getX(0);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄX1×ø±ê
+                    locationY0DownP3 = e.getY(0);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄY1×ø±ê
+                    locationX1DownP3 = e.getX(1);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄX2×ø±ê
+                    locationY1DownP3 = e.getY(1);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄY2×ø±ê
+                    locationX2DownP3 = e.getX(2);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄX3×ø±ê
+                    locationY2DownP3 = e.getY(2);    //¼ÇÂ¼ÈýÖ¸Down´¥·¢Ê±µÄY3×ø±ê
 
-                    Vector2fP01DownP3 = new Vector2f(locationX0DownP3 - locationX1DownP3, locationY0DownP3 - locationY1DownP3);//ï¿½ï¿½Ö¸12ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
-                    Vector2fP02DownP3 = new Vector2f(locationX2DownP3 - locationX0DownP3, locationY2DownP3 - locationY0DownP3);//ï¿½ï¿½Ö¸13ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
-                    Vector2fP12DownP3 = new Vector2f(locationX2DownP3 - locationX1DownP3, locationY2DownP3 - locationY1DownP3);//ï¿½ï¿½Ö¸23ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+                    Vector2fP01DownP3 = new Vector2f(locationX0DownP3 - locationX1DownP3, locationY0DownP3 - locationY1DownP3);//ÊÖÖ¸12³õÊ¼ÏòÁ¿
+                    Vector2fP02DownP3 = new Vector2f(locationX2DownP3 - locationX0DownP3, locationY2DownP3 - locationY0DownP3);//ÊÖÖ¸13³õÊ¼ÏòÁ¿
+                    Vector2fP12DownP3 = new Vector2f(locationX2DownP3 - locationX1DownP3, locationY2DownP3 - locationY1DownP3);//ÊÖÖ¸23³õÊ¼ÏòÁ¿
                 }
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 if (mode == 1 && !isP1Lock) {
-                    float locationXMoveP1 = e.getX(0);    //ï¿½ï¿½Â¼Moveï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-                    float locationYMoveP1 = e.getY(0);    //ï¿½ï¿½Â¼Moveï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
+                    float locationXMoveP1 = e.getX(0);    //¼ÇÂ¼Move´¥·¢Ê±µÄX×ø±ê
+                    float locationYMoveP1 = e.getY(0);    //¼ÇÂ¼Move´¥·¢Ê±µÄY×ø±ê
 
-                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê°ï¿½?
+                    //ÉãÏñ»úÒÆ¶¯ÓëÊ°È¡
                     if (modeP1 == 1) {
-                        float distanceXMoveP1 = locationXBeginP1 - locationXEndP1; //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Moveï¿½ï¿½ï¿½ï¿½Ê±Xï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
-                        float distanceYMoveP1 = locationYBeginP1 - locationYEndP1;    //ï¿½ï¿½Â¼ï¿½ï¿½Ö¸Moveï¿½ï¿½ï¿½ï¿½Ê±Yï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
-                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½?
+                        float distanceXMoveP1 = locationXBeginP1 - locationXEndP1; //¼ÇÂ¼µ¥Ö¸Move´¥·¢Ê±XÖáÒÆ¶¯µÄ¾àÀë
+                        float distanceYMoveP1 = locationYBeginP1 - locationYEndP1;    //¼ÇÂ¼µ¥Ö¸Move´¥·¢Ê±YÖáÒÆ¶¯µÄ¾àÀë
+                        //ÉèÖÃÉãÏñ»úÈÆÔ­µãÐý×ª
                         camera.angelA -= distanceXMoveP1 * Constant.CAMERASPEED;
                         camera.angelB += distanceYMoveP1 * Constant.CAMERASPEED;
                         camera.angelB = Math.max(camera.angelB, 0);
@@ -342,46 +342,46 @@ public class MySurfaceView extends GLSurfaceView {
 
 
                     }
-                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    //ÃæÌùºÏ
                     else if (modeP1 == 2 && BodyAll.size() != 0) {
-                        if (fitMode == 1) {//Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½
+                        if (fitMode == 1) {//Ê°È¡ÌùºÏÎïÌåÀë¿ªµãÖÐ
                             if (pickupObject(locationXMoveP1, locationYMoveP1, BodyAll) != curBody) {
                                 fitMode = 2;
                                 fitFingerDirection[0] = new Vector2f(locationXMoveP1 - locationXDownP1, -(locationYMoveP1 - locationYDownP1));
-                                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                                //ÌùºÏÃæ
                                 beginFace.match(curBody, curBody.getFitTargetFace(fitFingerDirection[0], 1));
                                 isShowBeginFace = true;
                             }
-                        } else if (fitMode == 2) {//Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                        } else if (fitMode == 2) {//Ê°È¡±»ÌùºÏÎïÌå½øÈëµãÖÐ
                             fitTargetBody = pickupObject(locationXMoveP1, locationYMoveP1, BodyAll);
                             if (fitTargetBody != null) {
                                 fitMode = 3;
                                 fitFingerDirection[2] = new Vector2f(locationXMoveP1, locationYMoveP1);
                             }
-                        } else if (fitMode == 3) {//Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½×´ï¿½?2
+                        } else if (fitMode == 3) {//Ê°È¡±»ÌùºÏÎïÌåÍ£Ö¹µãÖÐ£¬Àë¿ª±»ÌùºÏÎïÌå»Øµ½×´Ì¬2
                             if (pickupObject(locationXMoveP1, locationYMoveP1, BodyAll) != fitTargetBody) {
                                 fitMode = 2;
                                 isShowEndFace = false;
                             } else {
                                 fitFingerDirection[1] = new Vector2f(locationXMoveP1 - fitFingerDirection[2].x, -(locationYMoveP1 - fitFingerDirection[2].y));
-                                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                                //±»ÌùºÏÃæ
                                 endFace.match(fitTargetBody, fitTargetBody.getFitTargetFace(fitFingerDirection[1], -1));
                                 isShowEndFace = true;
                             }
                         }
-                    } else if (modeP1 == 3) { //Ê°È¡ï¿½È´ï¿½
-                        //ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ë³¬ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Í£Ö¹Ê°È¡
+                    } else if (modeP1 == 3) { //Ê°È¡µÈ´ý
+                        //ÒÆ¶¯¾àÀë³¬¹ý·§Öµ£¬Í£Ö¹Ê°È¡
                         if (Math.sqrt((locationXMoveP1 - locationXDownP1) * (locationXMoveP1 - locationXDownP1) +
                                 (locationYMoveP1 - locationYDownP1) * (locationYMoveP1 - locationYDownP1)) < 1000) {
                             modeP1 = 1;
                         }
                     }
                 } else if (mode == 2 && !isP2Lock && BodyAll.size() != 0) {
-                    Vector2f Vector2fP1MoveP2 = new Vector2f(e.getX(0) - locationX0DownP2, Constant.HEIGHT - e.getY(0) - locationY0DownP2);//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
-                    Vector2f Vector2fP2MoveP2 = new Vector2f(e.getX(1) - locationX1DownP2, Constant.HEIGHT - e.getY(1) - locationY1DownP2);//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+                    Vector2f Vector2fP1MoveP2 = new Vector2f(e.getX(0) - locationX0DownP2, Constant.HEIGHT - e.getY(0) - locationY0DownP2);//µÚÒ»¸öÊÖÖ¸ÏòÁ¿
+                    Vector2f Vector2fP2MoveP2 = new Vector2f(e.getX(1) - locationX1DownP2, Constant.HEIGHT - e.getY(1) - locationY1DownP2);//µÚ¶þ¸öÊÖÖ¸ÏòÁ¿
                     isPush = true;
 
-                    //Ë«Ö¸Æ½ï¿½ï¿½
+                    //Ë«Ö¸Æ½ÒÆ
                     if (VectorUtil.Product(Vector2fP1MoveP2, Vector2fP2MoveP2) > 0 &&
                             !VectorUtil.isVertical(Vector2fP1MoveP2, Vector2fPDownP2) &&
                             !VectorUtil.isVertical(Vector2fP2MoveP2, Vector2fPDownP2)) {
@@ -422,7 +422,7 @@ public class MySurfaceView extends GLSurfaceView {
                         }
 
                     }
-                    //Ë«Ö¸ï¿½ï¿½×ª
+                    //Ë«Ö¸Ðý×ª
                     else if (VectorUtil.Product(Vector2fP1MoveP2, Vector2fP2MoveP2) > 0 &&
                             VectorUtil.isVertical(Vector2fP1MoveP2, Vector2fPDownP2) &&
                             VectorUtil.isVertical(Vector2fP2MoveP2, Vector2fPDownP2)) {
@@ -457,7 +457,7 @@ public class MySurfaceView extends GLSurfaceView {
 
                         }
                     }
-                    //Ë«Ö¸ï¿½ï¿½ï¿½ï¿½
+                    //Ë«Ö¸·ÅËõ
                     else if (VectorUtil.Product(Vector2fP1MoveP2, Vector2fP2MoveP2) < 0 &&
                             !VectorUtil.isVertical(Vector2fP1MoveP2, Vector2fPDownP2) &&
                             !VectorUtil.isVertical(Vector2fP2MoveP2, Vector2fPDownP2)) {
@@ -485,25 +485,25 @@ public class MySurfaceView extends GLSurfaceView {
                     }
 
                 } else if (mode == 3) {
-                    Vector2f Vector2fP0 = new Vector2f(e.getX(0) - locationX0DownP3, e.getY(0) - locationY0DownP3);//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
-                    Vector2f Vector2fP1 = new Vector2f(e.getX(1) - locationX1DownP3, e.getY(1) - locationY1DownP3);//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
-                    Vector2f Vector2fP2 = new Vector2f(e.getX(2) - locationX2DownP3, e.getY(2) - locationY2DownP3);//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
-                    //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½3DÍ¼Ôª
+                    Vector2f Vector2fP0 = new Vector2f(e.getX(0) - locationX0DownP3, e.getY(0) - locationY0DownP3);//µÚÒ»¸öÊÖÖ¸ÏòÁ¿
+                    Vector2f Vector2fP1 = new Vector2f(e.getX(1) - locationX1DownP3, e.getY(1) - locationY1DownP3);//µÚ¶þ¸öÊÖÖ¸ÏòÁ¿
+                    Vector2f Vector2fP2 = new Vector2f(e.getX(2) - locationX2DownP3, e.getY(2) - locationY2DownP3);//µÚ¶þ¸öÊÖÖ¸ÏòÁ¿
+                    //¸´ÖÆÒ»¸ö3DÍ¼Ôª
                     if (VectorUtil.Product(Vector2fP0, Vector2fP1) > 0 &&
                             VectorUtil.Product(Vector2fP0, Vector2fP2) > 0 &&
                             VectorUtil.Product(Vector2fP1, Vector2fP2) > 0) {
                         isPush = true;
-                        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½3DÍ¼Ôª
+                        //¸´ÖÆÒ»¸ö3DÍ¼Ôª
                         if (isCopy) {
 
                             isCopy = false;
-                            //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            //¸´ÖÆÒ»¸öÎïÌå
                             isCreateNormal = true;
                             createType = 0;
                             isCreateNew = false;
 
                         }
-                        //ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Æµï¿½3DÍ¼Ôª
+                        //ÒÆ¶¯¸´ÖÆµÄ3DÍ¼Ôª
                         else {
                             copyDirection = new Vector2f(e.getX(0) - locationX0DownP3, locationY0DownP3 - e.getY(0));
 
@@ -543,7 +543,7 @@ public class MySurfaceView extends GLSurfaceView {
 
                         }
                     }
-                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Í·
+                    //À­½üÀ­Ô¶ÉãÏñÍ·
                     else {
                         float lengthP01MoveP3 = VectorUtil.Length(e.getX(0), e.getY(0), e.getX(1), e.getY(1));
                         float lengthP02MoveP3 = VectorUtil.Length(e.getX(0), e.getY(0), e.getX(2), e.getY(2));
@@ -573,9 +573,9 @@ public class MySurfaceView extends GLSurfaceView {
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
-                mode -= 1;//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä£Ê½
+                mode -= 1;//ÉèÖÃÎªµ¥µãÄ£Ê½
                 if (mode == 1) {
-                    isAxle = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á²»ï¿½ï¿½É«
+                    isAxle = 0;//ÉèÖÃ×ø±êÖá²»±äÉ«
                 } else if (mode == 2) {
                     isCopy = true;
                 }
@@ -583,8 +583,8 @@ public class MySurfaceView extends GLSurfaceView {
             case MotionEvent.ACTION_UP:
                 mode = 0;
 
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-                if (modeP1 == 2 && fitMode == 3 && !isP1Lock && BodyAll.size() != 0) {//ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ì§ï¿½ï¿½ï¿½ï¿½Ö¸Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½?
+                //ÃæÌùºÍ
+                if (modeP1 == 2 && fitMode == 3 && !isP1Lock && BodyAll.size() != 0) {//µ±ÏµÍ³´ÓÌùºÏ×´Ì¬µÄÌùºÏÍê³É×´Ì¬Ì§ÆðÊÖÖ¸Ê±£¬½øÐÐÌùºÏ²Ù×÷
                     curBody.faceMatch(
                             curBody.getFitTargetFace(fitFingerDirection[0], 1),
                             fitTargetBody.getFitTargetFace(fitFingerDirection[1], -1),
@@ -611,12 +611,12 @@ public class MySurfaceView extends GLSurfaceView {
                 break;
         }
 
-        locationXEndP1 = locationXBeginP1;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-        locationYEndP1 = locationYBeginP1;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-        locationX0EndP2 = locationX0BeginP2;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-        locationY0EndP2 = locationY0BeginP2;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-        locationX1EndP2 = locationX1BeginP2;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-        locationY1EndP2 = locationY1BeginP2;    //ï¿½ï¿½Â¼Ã¿ï¿½ï¿½touchÊ±ï¿½ä´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
+        locationXEndP1 = locationXBeginP1;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄX×ø±ê
+        locationYEndP1 = locationYBeginP1;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄY×ø±ê
+        locationX0EndP2 = locationX0BeginP2;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄX×ø±ê
+        locationY0EndP2 = locationY0BeginP2;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄY×ø±ê
+        locationX1EndP2 = locationX1BeginP2;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄX×ø±ê
+        locationY1EndP2 = locationY1BeginP2;    //¼ÇÂ¼Ã¿´ÎtouchÊ±¼ä´¥·¢½áÊøÊ±µÄY×ø±ê
 
         return true;
     }
@@ -630,7 +630,7 @@ public class MySurfaceView extends GLSurfaceView {
         return -1;
     }
 
-    //ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ÐÂ½¨ÎïÌå
     public void createObject(int Type, boolean isNew) {
         boolean isTemp = false;
         if (isNew == true) {
@@ -672,9 +672,9 @@ public class MySurfaceView extends GLSurfaceView {
 
     }
 
-    //ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ÐÂ½¨²¼¶ûÎïÌå
     public void createBool(Body b1, Body b2) {
-        BooleanModeller bm = new BooleanModeller((Solid) b1, (Solid) b2);
+        BooleanModeller bm = new BooleanModeller((Solid) b2, (Solid) b1);
         if (bm.BooleanOp()) {
             Solid boolSolid = null;
             switch (boolMode) {
@@ -710,12 +710,12 @@ public class MySurfaceView extends GLSurfaceView {
             }
             indesign.addRedoStack(temp);
         } else {
-            //Toast.makeText(mContext, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»", Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext, "²¼¶ûÔËËãµÄÁ½ÎïÌå±ØÐëÏà½»", Toast.LENGTH_LONG).show();
             curBody2.isChoosed = false;
         }
     }
 
-    //Í¨ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+    //Í¨¹ýIO¼ÓÔØÍ¼Æ¬
     public Bitmap loadTexture(int drawableId) {
         InputStream is = this.getResources().openRawResource(drawableId);
         Bitmap bitmapTmp;
@@ -732,13 +732,13 @@ public class MySurfaceView extends GLSurfaceView {
     }
 
     public int initTexture(Bitmap bitmapTmp, boolean needRrelease) {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+        //Éú³ÉÎÆÀíID
         int[] textures = new int[1];
         GLES20.glGenTextures
                 (
-                        1,          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-                        textures,   //ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-                        0           //Æ«ï¿½ï¿½ï¿½ï¿½
+                        1,          //²úÉúµÄÎÆÀíidµÄÊýÁ¿
+                        textures,   //ÎÆÀíidµÄÊý×é
+                        0           //Æ«ÒÆÁ¿
                 );
         int textureId = textures[0];
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
@@ -747,16 +747,16 @@ public class MySurfaceView extends GLSurfaceView {
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
         GLUtils.texImage2D(
-                GLES20.GL_TEXTURE_2D, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                GLES20.GL_TEXTURE_2D, //ÎÆÀíÀàÐÍ
                 0,
                 GLUtils.getInternalFormat(bitmapTmp),
-                bitmapTmp, //ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+                bitmapTmp, //ÎÆÀíÍ¼Ïñ
                 GLUtils.getType(bitmapTmp),
-                0 //ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ß´ï¿½
+                0 //ÎÆÀí±ß¿ò³ß´ç
         );
 
         if (needRrelease) {
-            bitmapTmp.recycle(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø³É¹ï¿½ï¿½ï¿½ï¿½Í·ï¿½Í¼ï¿½?
+            bitmapTmp.recycle(); //ÎÆÀí¼ÓÔØ³É¹¦ºóÊÍ·ÅÍ¼Æ¬
         }
         return textureId;
     }
@@ -799,20 +799,20 @@ public class MySurfaceView extends GLSurfaceView {
 
         @Override
         public void onDrawFrame(GL10 gl) {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+            //Çå³ýÉî¶È»º³åÓëÑÕÉ«»º³å
             GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
-            //ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½?
+            //µ÷ÓÃ´Ë·½·¨¼ÆËã²úÉúÍ¸ÊÓÍ¶Ó°¾ØÕó
             MatrixState.setProjectFrustum(-Constant.RATIO, Constant.RATIO, -1, 1, 10, 400);
-            // ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?9ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¾ï¿½ï¿½ï¿½
+            // µ÷ÓÃ´Ë·½·¨²úÉúÉãÏñ»ú9²ÎÊýÎ»ÖÃ¾ØÕó
             MatrixState.setCamera(0, 0, 70, 0, 0, 0, 0, 1, 0);
 
-            MatrixState.pushMatrix();    //ï¿½ï¿½Õ»
-            //ï¿½ï¿½ï¿½ï¿½Å¥
+            MatrixState.pushMatrix();    //½øÕ»
+            //»­°´Å¥
             //......
-            MatrixState.popMatrix();//ï¿½ï¿½Õ»
+            MatrixState.popMatrix();//³öÕ»
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·
+            //ÉèÖÃÉãÏñÍ·
             camera.setCarema();
 
             if (isCreateNormal == true) {
@@ -822,7 +822,7 @@ public class MySurfaceView extends GLSurfaceView {
 
             if (isCreateBool == true) {
                 //createBool(BodyAll.get(0),BodyAll.get(1));
-                createBool(curBody2, curBody);
+                createBool(curBody, curBody2);
                 isCreateBool = false;
             }
 
@@ -830,35 +830,35 @@ public class MySurfaceView extends GLSurfaceView {
                 initTaskReal();
                 hasLoad = true;
             } else {
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½?
-                MatrixState.pushMatrix();    //ï¿½ï¿½Õ»
-                texRect.drawSelf(axisTexId);    //ï¿½ï¿½ï¿½Æ´ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
-                MatrixState.popMatrix();//ï¿½ï¿½Õ»
+                //»æÖÆ×ø±êÆ½Ãæ¾ØÐÎ
+                MatrixState.pushMatrix();    //½øÕ»
+                texRect.drawSelf(axisTexId);    //»æÖÆ´óËÄ±ßÐÎ
+                MatrixState.popMatrix();//³öÕ»
 
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                //»æÖÆÌùºÏÃæ
                 if (isShowBeginFace) {
-                    MatrixState.pushMatrix();    //ï¿½ï¿½Õ»
+                    MatrixState.pushMatrix();    //½øÕ»
                     beginFace.drawSelf(redTexId);
-                    MatrixState.popMatrix();//ï¿½ï¿½Õ»
+                    MatrixState.popMatrix();//³öÕ»
                 }
                 if (isShowEndFace) {
-                    MatrixState.pushMatrix();    //ï¿½ï¿½Õ»
+                    MatrixState.pushMatrix();    //½øÕ»
                     endFace.drawSelf(redTexId);
-                    MatrixState.popMatrix();//ï¿½ï¿½Õ»
+                    MatrixState.popMatrix();//³öÕ»
                 }
 
-                //ï¿½ï¿½ï¿½ï¿½
+                //»æÖÆ
                 for (Body b : BodyAll) {
 
                     Solid s = (Solid) b;
 
-                    MatrixState.pushMatrix();    //ï¿½ï¿½Õ»
+                    MatrixState.pushMatrix();    //½øÕ»
                     s.drawSelf(0);
                     //s.drawSelf(1);
-                    MatrixState.popMatrix();//ï¿½ï¿½Õ»
+                    MatrixState.popMatrix();//³öÕ»
                 }
                 /*
-                if(BodyAll.size()==1)
+	            if(BodyAll.size()==1)
 	            {
 	            	Solid s=(Solid)curBody;
 	            	stlPrint=s.getStlPoint();
@@ -871,14 +871,14 @@ public class MySurfaceView extends GLSurfaceView {
         }
 
         public void initTaskReal() {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+            //ÎïÌåµÄÊý×é
             BodyAll = new Vector<Body>();
             BodyPick = new Vector<Body>();
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½ï¿½ï¿½?
+            //´´½¨ÎÆÀí¾ØÐÎ¶ÔÏó
             texRect = new TextureRect(8.0f);
             texRect.initShader(ShaderManager.getObjectshaderProgram());
-            texRect.Translate(new float[]{0, -1, 0, 1}, 2.0f);    //Æ½ï¿½ï¿½
+            texRect.Translate(new float[]{0, -1, 0, 1}, 2.0f);    //Æ½ÒÆ
             texRect.Rotate(1, 0, 0, 90);
 
             beginFace = new TextureRectDouble(1.0f);
@@ -886,7 +886,7 @@ public class MySurfaceView extends GLSurfaceView {
             endFace = new TextureRectDouble(1.0f);
             endFace.initShader(ShaderManager.getObjectshaderProgram());
 
-            //ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½
+            //¼ÓÔØÒª»æÖÆµÄÎïÌå
             pm = LoadUtil.loadFromFileVertexOnlyFace("pm.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
             cone = LoadUtil.loadFromFileVertexOnlyAverage("cone.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
             cube = LoadUtil.loadFromFileVertexOnlyFace("cube.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
@@ -897,9 +897,9 @@ public class MySurfaceView extends GLSurfaceView {
 
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Î»ï¿½ï¿½
+            //ÉèÖÃÊÓ´°´óÐ¡¼°Î»ÖÃ
             GLES20.glViewport(0, 0, width, height);
-            //ï¿½ï¿½ï¿½ï¿½GLSurfaceViewï¿½Ä¿ï¿½ß±ï¿½?
+            //¼ÆËãGLSurfaceViewµÄ¿í¸ß±È
             Constant.RATIO = (float) width / height;
             Constant.WIDTH = width;
             Constant.HEIGHT = height;
@@ -908,24 +908,24 @@ public class MySurfaceView extends GLSurfaceView {
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½É«RGBA
+            //ÉèÖÃÆÁÄ»±³¾°É«RGBA
             GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-            //ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½
+            //´ò¿ªÉî¶È¼ì²â
             GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-            //ï¿½ò¿ª±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+            //´ò¿ª±³Ãæ¼ô²Ã
             GLES20.glEnable(GLES20.GL_CULL_FACE);
 
-            //ï¿½ï¿½Ê¼ï¿½ï¿½shader
+            //³õÊ¼»¯shader
             ShaderManager.compileShader();
-            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
+            //³õÊ¼»¯±ä»»¾ØÕó
             MatrixState.setInitStack();
-            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
-            axisBm = loadTexture(R.drawable.axis);    //ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-            redBm = loadTexture(R.drawable.red);//ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
-            axisTexId = initTexture(axisBm, true);    //ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-            redTexId = initTexture(redBm, true);//ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //³õÊ¼»¯ÏñËØµÄÎÆÀí
+            axisBm = loadTexture(R.drawable.axis);    //ÉèÖÃÄ¬ÈÏÎÆÀí
+            redBm = loadTexture(R.drawable.red);//ÉèÖÃÄ¬ÈÏÎÆÀí
+            //³õÊ¼»¯ÏñËØµÄÎÆÀí
+            axisTexId = initTexture(axisBm, true);    //ÉèÖÃÄ¬ÈÏÎÆÀí
+            redTexId = initTexture(redBm, true);//ÉèÖÃÄ¬ÈÏÎÆÀí
         }
     }
 

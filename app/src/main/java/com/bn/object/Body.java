@@ -13,33 +13,34 @@ import com.bn.csgStruct.Struct.Vector2f;
 import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.util.VectorUtil;
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ÎïÌå»ùÀà
 public class Body implements Cloneable {
     public Quaternion quater;
-    public float xLength;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-    public float yLength;//ï¿½ï¿½yï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-    public float zLength;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-    public float xScale;//ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public float yScale;//ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public float zScale;//ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-    public boolean isChoosed;//ï¿½Ç·ï¿½Ñ¡ï¿½ï¿½
-    public Axis la;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public Vector2f vx, vy, vz;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Í¶Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float xLength;//ÈÆxÖáÆ½ÒÆ¾àÀë
+    public float yLength;//ÈÆyÖáÆ½ÒÆ¾àÀë
+    public float zLength;//ÈÆxÖáÆ½ÒÆ¾àÀë
+    public float xScale;//ÈÆxÖá·ÅËõ±¶Êı
+    public float yScale;//ÈÆyÖá·ÅËõ±¶Êı
+    public float zScale;//ÈÆzÖá·ÅËõ±¶Êı 
+    public boolean isChoosed;//ÊÇ·ñ±»Ñ¡Ôñ
+    public Axis la;//×ø±êÖá
+    public Vector2f vx, vy, vz;//Èı¸öÖáÔÚÆÁÄ»Í¶Ó°µÄÏòÁ¿
     protected float[] vertexs;
     protected float[] normals;
     protected int vCount = 0;
-    float[] m = new float[16];//ï¿½ï¿½ï¿½ï¿½ä»»ï¿½Ä¾ï¿½ï¿½ï¿½
-    Bound Box;//ï¿½ï¿½ï¿½ï¿½ä»»Ö®Ç°ï¿½Ä°ï¿½Î§ï¿½ï¿½
+    float[] m = new float[16];//·ÂÉä±ä»»µÄ¾ØÕó
+    Bound Box;//·ÂÉä±ä»»Ö®Ç°µÄ°üÎ§ºĞ
 
     public Body() {
         quater = new Quaternion(qType.TRANSFFORM);
-        xLength = 0;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-        yLength = 0;//ï¿½ï¿½yï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-        zLength = 0;//ï¿½ï¿½xï¿½ï¿½Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
-        xScale = 1;//ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        yScale = 1;//ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        zScale = 1;//ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        xLength = 0;//ÈÆxÖáÆ½ÒÆ¾àÀë
+        yLength = 0;//ÈÆyÖáÆ½ÒÆ¾àÀë
+        zLength = 0;//ÈÆxÖáÆ½ÒÆ¾àÀë
+        xScale = 1;//ÈÆxÖá·ÅËõ±¶Êı
+        yScale = 1;//ÈÆyÖá·ÅËõ±¶Êı
+        zScale = 1;//ÈÆzÖá·ÅËõ±¶Êı
         isChoosed = false;
+        setBody();
         //Box=new Bound(new Vector3f(1,0,1),new Vector3f(1,2,-1),new Vector3f(-1,0,-1));
     }
 
@@ -54,28 +55,28 @@ public class Body implements Cloneable {
     }
 
     public void setBody() {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉèÖÃÈÆxÖáËõ·Å
         MatrixState.scale(xScale, 1, 1);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉèÖÃÈÆyÖáËõ·Å
         MatrixState.scale(1, yScale, 1);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉèÖÃÈÆzÖáËõ·Å
         MatrixState.scale(1, 1, zScale);
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
+        //ÉèÖÃĞı×ª¾ØÕó
         MatrixState.rotate(quater.getRotateMatrix());
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½Æ¶ï¿½
+        //ÉèÖÃÈÆxÖáÒÆ¶¯
         MatrixState.translate(xLength, 0, 0);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½Æ¶ï¿½
+        //ÉèÖÃÈÆyÖáÒÆ¶¯
         MatrixState.translate(0, -yLength, 0);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Æ¶ï¿½
+        //ÉèÖÃÈÆzÖáÒÆ¶¯
         MatrixState.translate(0, 0, zLength);
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉèÖÃÈıÖáÏòÁ¿
         setVN();
-        //ï¿½ï¿½ï¿½Æ±ä»»ï¿½ï¿½ï¿½ï¿½
+        //¸´ÖÆ±ä»»¾ØÕó
         copyM();
     }
 
@@ -86,7 +87,7 @@ public class Body implements Cloneable {
         float[] vyp2 = new float[]{0, -1, 0, 1};
         float[] vzp1 = new float[]{0, 0, 1, 1};
         float[] vzp2 = new float[]{0, 0, -1, 1};
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //¼ÆËã×ø±êÖáÈıÏòÁ¿
         float[] winXY1 = new float[3];
         float[] winXY2 = new float[3];
         winXY1 = MatrixState.getProject(vxp1);
@@ -101,7 +102,7 @@ public class Body implements Cloneable {
     }
 
 
-    //ï¿½ï¿½ï¿½Æ±ä»»ï¿½ï¿½ï¿½ï¿½
+    //¸´ÖÆ±ä»»¾ØÕó
     private void copyM() {
         for (int i = 0; i < 16; i++) {
             m[i] = MatrixState.getMMatrix()[i];
@@ -109,18 +110,18 @@ public class Body implements Cloneable {
     }
 
 
-    //ï¿½ï¿½ï¿½ï¿½AABBï¿½ï¿½Î§ï¿½ï¿½
+    //¸üĞÂAABB°üÎ§ºĞ
     public Bound getCurrBox() {
-        return Box.setToTransformedBox(m);//ï¿½ï¿½È¡ï¿½ä»»ï¿½ï¿½Ä°ï¿½Î§ï¿½ï¿½
+        return Box.setToTransformedBox(m);//»ñÈ¡±ä»»ºóµÄ°üÎ§ºĞ
 
     }
 
-    //ï¿½Ãµï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
+    //µÃµ½±ä»»¾ØÕó
     public float[] getM() {
         return m;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½
+    //ÑØÖáÆ½ÒÆ
     public void Translate(float[] direction, float lengthMove) {
         Matrix.multiplyMV(direction, 0, quater.getRotateMatrix(), 0, direction, 0);
 
@@ -140,7 +141,7 @@ public class Body implements Cloneable {
         zScale *= z;
     }
 
-    //ï¿½Ğ¶ï¿½ï¿½ï¿½
+    //ÅĞ¶ÏÖá
     public void switchAxis(Vector2f Vector2fPDownP2) {
         float degreeX = Math.abs(VectorUtil.getDegree(Vector2fPDownP2, vx));
         float degreeY = Math.abs(VectorUtil.getDegree(Vector2fPDownP2, vy));
@@ -148,50 +149,50 @@ public class Body implements Cloneable {
 
         if (degreeX > degreeY && degreeX > degreeZ) {
             if (vx.mod > Constant.HEIGHT * Constant.WIDTH / 50000) {
-                MySurfaceView.modeP2 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvxï¿½ï¿½
-                MySurfaceView.isAxle = 1;//ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvxï¿½ï¿½
+                MySurfaceView.modeP2 = 1;//ÉèÊÖÖ¸·½ÏòÎªvxÖá
+                MySurfaceView.isAxle = 1;//ÉèÖÃxÖá±äÉ«
+                MySurfaceView.modeP3 = 1;//ÉèÊÖÖ¸·½ÏòÎªvxÖá
             } else if (degreeY > degreeZ) {
-                MySurfaceView.modeP2 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvyï¿½ï¿½
-                MySurfaceView.isAxle = 2;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 2;//ÉèÊÖÖ¸·½ÏòÎªvyÖá
+                MySurfaceView.isAxle = 2;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 2;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             } else {
-                MySurfaceView.modeP2 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvzï¿½ï¿½
-                MySurfaceView.isAxle = 3;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 3;//ÉèÊÖÖ¸·½ÏòÎªvzÖá
+                MySurfaceView.isAxle = 3;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 3;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             }
         } else if (degreeY > degreeX && degreeY > degreeZ) {
             if (vy.mod > Constant.HEIGHT * Constant.WIDTH / 50000) {
-                MySurfaceView.modeP2 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvyï¿½ï¿½
-                MySurfaceView.isAxle = 2;//ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 2;//ÉèÊÖÖ¸·½ÏòÎªvyÖá
+                MySurfaceView.isAxle = 2;//ÉèÖÃxÖá±äÉ«
+                MySurfaceView.modeP3 = 2;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             } else if (degreeX > degreeZ) {
-                MySurfaceView.modeP2 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvxï¿½ï¿½
-                MySurfaceView.isAxle = 1;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 1;//ÉèÊÖÖ¸·½ÏòÎªvxÖá
+                MySurfaceView.isAxle = 1;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 1;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             } else {
-                MySurfaceView.modeP2 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvzï¿½ï¿½
-                MySurfaceView.isAxle = 3;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 3;//ÉèÊÖÖ¸·½ÏòÎªvzÖá
+                MySurfaceView.isAxle = 3;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 3;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             }
         } else {
             if (vz.mod > Constant.HEIGHT * Constant.WIDTH / 50000) {
-                MySurfaceView.modeP2 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvzï¿½ï¿½
-                MySurfaceView.isAxle = 3;//ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 3;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 3;//ÉèÊÖÖ¸·½ÏòÎªvzÖá
+                MySurfaceView.isAxle = 3;//ÉèÖÃxÖá±äÉ«
+                MySurfaceView.modeP3 = 3;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             } else if (degreeY > degreeX) {
-                MySurfaceView.modeP2 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvyï¿½ï¿½
-                MySurfaceView.isAxle = 2;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 2;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 2;//ÉèÊÖÖ¸·½ÏòÎªvyÖá
+                MySurfaceView.isAxle = 2;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 2;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             } else {
-                MySurfaceView.modeP2 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvxï¿½ï¿½
-                MySurfaceView.isAxle = 1;//ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½É«
-                MySurfaceView.modeP3 = 1;//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Îªvï¿½ï¿½
+                MySurfaceView.modeP2 = 1;//ÉèÊÖÖ¸·½ÏòÎªvxÖá
+                MySurfaceView.isAxle = 1;//ÉèÖÃyÖá±äÉ«
+                MySurfaceView.modeP3 = 1;//ÉèÊÖÖ¸·½ÏòÎªvÖá
             }
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
+    //ÃæÌùºÏËã·¨
     public void faceMatch(float[] begin, float[] end, Body endBody) {
         quater = new Quaternion(endBody.quater);
         float length = Math.abs(begin[0] * xScale + begin[1] * yScale + begin[2] * zScale) +
@@ -221,10 +222,10 @@ public class Body implements Cloneable {
         zLength = endBody.zLength + length * end[2];
     }
 
-    //ï¿½ï¿½ï¿½İ¶ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
+    //¸ù¾İ¶şÎ¬ÏòÁ¿µÃµ½Ê°È¡ÃæµÄÈıÎ¬ÏòÁ¿
     public float[] getFitTargetFace(Vector2f fingerDirection, int mode) {
         fingerDirection.normalize();
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á·½ï¿½ò£¨±ï¿½ï¿½æ·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+        //¼ÆËãÁù¸ö×ø±êÖá·½Ïò£¨±íÃæ·¨ÏòÁ¿·½Ïò£©ÓëÊÖÖ¸·¨ÏòÁ¿µÄµã³Ë×î´óÖµ
         float bestValue = -2;
         float[] rtn = new float[]{0, 0, 0, 1};
         float temp;

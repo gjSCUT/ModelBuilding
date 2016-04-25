@@ -41,27 +41,27 @@ public class Struct {
             mod = (float) Math.sqrt(x * x + y * y);
         }
 
-        //ï¿½Ó·ï¿½
+        //¼Ó·¨
         public Vector2f add(Vector2f v) {
             return new Vector2f(this.x + v.x, this.y + v.y);
         }
 
-        //ï¿½ï¿½ï¿½ï¿½
+        //¼õ·¨
         public Vector2f minus(Vector2f v) {
             return new Vector2f(this.x - v.x, this.y - v.y);
         }
 
-        //ï¿½Ë·ï¿½
+        //³Ë·¨
         public float multi(Vector2f v) {
             return this.x * v.x + this.y * v.y;
         }
 
-        //ï¿½ë³£ï¿½ï¿½ï¿½ï¿½ï¿½
+        //Óë³£Á¿Ïà³Ë
         public Vector2f multiK(float k) {
             return new Vector2f(this.x * k, this.y * k);
         }
 
-        //ï¿½ï¿½ï¿½
+        //¹æ¸ñ»¯
         public void normalize() {
             x /= mod;
             y /= mod;
@@ -91,27 +91,27 @@ public class Struct {
             this.z = v[2];
         }
 
-        //ï¿½Ó·ï¿½
+        //¼Ó·¨
         public Vector3f add(Vector3f v) {
             return new Vector3f(this.x + v.x, this.y + v.y, this.z + v.z);
         }
 
-        //ï¿½ï¿½ï¿½ï¿½
+        //¼õ·¨
         public Vector3f minus(Vector3f v) {
             return new Vector3f(this.x - v.x, this.y - v.y, this.z - v.z);
         }
 
-        //ï¿½Ë·ï¿½
+        //³Ë·¨
         public float multiV(Vector3f v) {
             return this.x * v.x + this.y * v.y + this.z * v.z;
         }
 
-        //ï¿½ë³£ï¿½ï¿½ï¿½ï¿½ï¿½
+        //Óë³£Á¿Ïà³Ë
         public Vector3f multiK(float k) {
             return new Vector3f(this.x * k, this.y * k, this.z * k);
         }
 
-        //ï¿½ï¿½ï¿½
+        //µã³Ë
         public Vector3f cross(Vector3f b) {
             return new Vector3f(
                     y * b.z - z * b.y,
@@ -120,7 +120,7 @@ public class Struct {
             );
         }
 
-        //ï¿½ï¿½ï¿½
+        //¹æ¸ñ»¯
         public void normalize() {
             float mod = module();
             x /= mod;

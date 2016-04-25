@@ -2,26 +2,26 @@ package com.bn.util;
 
 import com.bn.csgStruct.Struct.Vector2f;
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+//¼ÆËãÈý½ÇÐÎ·¨ÏòÁ¿µÄ¹¤¾ßÀà
 public class VectorUtil {
 
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Á½µã¾àÀë
     public static float Length(float x1, float y1, float x2, float y2) {
         return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Á½µã¾àÀë
     public static float Length(Vector2f v1, Vector2f v2) {
         return (float) Math.sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
     }
 
-    //ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //¶þÎ¬ÏòÁ¿µã³Ë
     public static float Product(Vector2f v1, Vector2f v2) {
         return v1.x * v2.x + v1.y * v2.y;
     }
 
-    //ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ö±
+    //¶þÎ¬ÏòÁ¿ÊÇ·ñ´¹Ö±
     public static boolean isVertical(Vector2f v1, Vector2f v2) {
         if (getDegree(v1, v2) > -Math.sqrt(2.0f) / 2 && getDegree(v1, v2) < Math.sqrt(2.0f) / 2)
             return true;
@@ -29,8 +29,9 @@ public class VectorUtil {
             return false;
     }
 
-    //ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½
+    //¶þÎ¬ÏòÁ¿¼Ð½Ç
     public static float getDegree(Vector2f v1, Vector2f v2) {
+        if(v2 == null) return 0;
         if (v2.x == 0 && v2.y == 0)
             return 0;
         else {
@@ -39,7 +40,7 @@ public class VectorUtil {
     }
 
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½Ä·ï¿½ï¿½ï¿½
+    //ÉäÏßÓëÈý½ÇÐÎÏà½»µÄ·½·¨
     public static float IntersectTriangle(
             float[] g_nearxyz, float[] g_farxyz,
             float[] V0, float[] V1, float[] V2) {

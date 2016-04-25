@@ -37,25 +37,25 @@ public class Bound {
     }
 
     public Bound(Vector<Vector3f> vertices) {
-        xMin = yMin = zMin = Float.POSITIVE_INFINITY;//ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Öµ
-        xMax = yMax = zMax = Float.NEGATIVE_INFINITY;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ð¡Öµ
+        xMin = yMin = zMin = Float.POSITIVE_INFINITY;//½«×îÐ¡µãÉèÎª×î´óÖµ
+        xMax = yMax = zMax = Float.NEGATIVE_INFINITY;//½«×î´óµãÉèÎª×îÐ¡Öµ
 
         for (int i = 1; i < vertices.size(); i++) {
             checkVertex(vertices.get(i));
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+    //²ÎÊýÎª¶¥µãÊý×éµÄ¹¹ÔìÆ÷
     public Bound(float[] vertices) {
-        xMin = yMin = zMin = Float.POSITIVE_INFINITY;//ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Öµ
-        xMax = yMax = zMax = Float.NEGATIVE_INFINITY;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ð¡Öµ
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄµï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
+        xMin = yMin = zMin = Float.POSITIVE_INFINITY;//½«×îÐ¡µãÉèÎª×î´óÖµ
+        xMax = yMax = zMax = Float.NEGATIVE_INFINITY;//½«×î´óµãÉèÎª×îÐ¡Öµ
+        //½«ËùÓÐµÄµã¼ÓÈë°üÎ§ºÐ
         for (int i = 0; i < vertices.length; i += 3) {
             this.add(vertices[i], vertices[i + 1], vertices[i + 2]);
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½AABBï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Òªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Õ¹AABBï¿½Ô°ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½
+    //½«µ¥¸öµã¼ÓÈëµ½AABBÖÐ£¬²¢ÔÚ±ØÒªµÄÊ±ºòÀ©Õ¹AABBÒÔ°üº¬Ã¿¸öµã
     public void add(Vector3f p) {
         if (p.x < xMin) {
             xMin = p.x;
@@ -98,7 +98,7 @@ public class Bound {
         }
     }
 
-    //ï¿½ï¿½È¡AABBï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+    //»ñÈ¡AABBËùÓÐ¶¥µã×ø±êµÄ·½·¨
     public Vector3f[] getAllCorners() {
         Vector3f[] result = new Vector3f[8];
         for (int i = 0; i < 8; i++) {
@@ -107,9 +107,9 @@ public class Bound {
         return result;
     }
 
-    //ï¿½ï¿½È¡AABBï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+    //»ñÈ¡AABBµÚi¸ö¶¥µã×ø±êµÄ·½·¨
     public Vector3f getCorner(int i) {
-        if (i < 0 || i > 7) {//ï¿½ï¿½ï¿½iï¿½Ç·ï¿½Ï·ï¿½
+        if (i < 0 || i > 7) {//¼ì²éiÊÇ·ñºÏ·¨
             return null;
         }
         return new Vector3f(
@@ -119,23 +119,23 @@ public class Bound {
         );
     }
 
-    //Í¨ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½AABBï¿½ï¿½Î§ï¿½ÐµÄ·ï¿½ï¿½ï¿½
+    //Í¨¹ýµ±Ç°·ÂÉä±ä»»¾ØÕóÇóµÃ·ÂÉä±ä»»ºóµÄAABB°üÎ§ºÐµÄ·½·¨
     public Bound setToTransformedBox(float[] m) {
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //»ñÈ¡ËùÓÐ¶¥µãµÄ×ø±ê
         Vector3f[] va = this.getAllCorners();
-        //ï¿½ï¿½ï¿½Ú´ï¿½Å·ï¿½ï¿½ï¿½ä»»ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÓÃÓÚ´æ·Å·ÂÉä±ä»»ºóµÄ¶¥µãÊý×é
         float[] transformedCorners = new float[24];
-        //ï¿½ï¿½ï¿½ä»»Ç°ï¿½ï¿½AABBï¿½ï¿½Î§ï¿½Ðµï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½Ë£ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½OBBï¿½ï¿½Î§ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
+        //½«±ä»»Ç°µÄAABB°üÎ§ºÐµÄ8¸ö¶¥µãÓë·ÂÉä±ä»»¾ØÕómÏà³Ë£¬µÃµ½·ÂÉä±ä»»ºóµÄOBB°üÎ§ºÐµÄËùÓÐ¶¥µã
         float[] tmpResult = new float[4];
         int count = 0;
         for (int i = 0; i < va.length; i++) {
-            float[] point = new float[]{va[i].x, va[i].y, va[i].z, 1};//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            float[] point = new float[]{va[i].x, va[i].y, va[i].z, 1};//½«¶¥µã×ª»»³ÉÆë´Î×ø±ê
             Matrix.multiplyMV(tmpResult, 0, m, 0, point, 0);
             transformedCorners[count++] = tmpResult[0];
             transformedCorners[count++] = tmpResult[1];
             transformedCorners[count++] = tmpResult[2];
         }
-        //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OBBï¿½ï¿½Î§ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½AABBï¿½ï¿½Î§ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //Í¨¹ý¹¹ÔìÆ÷½«OBB°üÎ§ºÐ×ª»»³ÉAABB°üÎ§ºÐ£¬²¢·µ»Ø
         return new Bound(transformedCorners);
     }
 
@@ -173,21 +173,21 @@ public class Bound {
     }
 
     /*
-     * ï¿½ï¿½ï¿½Ð¶Ï¾ï¿½ï¿½Î±ß½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ï¿½ï¿½Ù¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½à½»ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ß½ï¿½ï¿½ï¿½à½»ï¿½ï¿½
-     * ï¿½ï¿½ï¿½ò²»´ï¿½ï¿½ï¿½ï¿½à½»
+     * ÏÈÅÐ¶Ï¾ØÐÎ±ß½ç¿òµÄÄÄ¸öÃæ»áÏà½»£¬ÔÙ¼ì²âÉäÏßÓë°üº¬Õâ¸öÃæµÄÆ½ÃæµÄÏà½»ÐÔ¡£Èç¹û½»µãÔÚºÐ×ÓÖÐ£¬ÄÇÃ´ÉäÏßÓë¾ØÐÎ±ß½ç¿òÏà½»£¬
+     * ·ñÔò²»´æÔÚÏà½»
      */
-    //ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½à½»ï¿½Ô²ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ò·µ»ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½1)
-    //ï¿½ï¿½ï¿½ï¿½à½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»Ê±ï¿½ï¿½t
-    //tÎª0-1Ö®ï¿½ï¿½ï¿½Öµ
+    //ºÍ²ÎÊýÉäÏßµÄÏà½»ÐÔ²âÊÔ£¬Èç¹û²»Ïà½»Ôò·µ»ØÖµÊÇÒ»¸ö·Ç³£´óµÄÊý(´óÓÚ1)
+    //Èç¹ûÏà½»£¬·µ»ØÏà½»Ê±¼ät
+    //tÎª0-1Ö®¼äµÄÖµ
     public float rayIntersect(
-            Vector3f rayStart,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-            Vector3f rayDir,//ï¿½ï¿½ï¿½ß³ï¿½ï¿½ÈºÍ·ï¿½ï¿½ï¿½
-            Vector3f returnNormal,//ï¿½ï¿½Ñ¡ï¿½Ä£ï¿½ï¿½à½»ï¿½ã´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            Vector3f rayStart,//ÉäÏßÆðµã
+            Vector3f rayDir,//ÉäÏß³¤¶ÈºÍ·½Ïò
+            Vector3f returnNormal,//¿ÉÑ¡µÄ£¬Ïà½»µã´¦·¨ÏòÁ¿
             float[] faceVector
     ) {
-        //ï¿½ï¿½ï¿½Î´ï¿½à½»ï¿½ò·µ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //Èç¹ûÎ´Ïà½»Ôò·µ»ØÕâ¸ö´óÊý
         final float kNoIntersection = Float.POSITIVE_INFINITY;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½Î±ß½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ãµ½Ã¿ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+        //¼ì²éµãÔÚ¾ØÐÎ±ß½çÄÚµÄÇé¿ö£¬²¢¼ÆËãµ½Ã¿¸öÃæµÄ¾àÀë
         boolean inside = true;
         float xt, xn = 0.0f;
         float yt, yn = 0.0f;
@@ -251,7 +251,7 @@ public class Bound {
         } else {
             zt = -1.0f;
         }
-        //ï¿½Ç·ï¿½ï¿½Ú¾ï¿½ï¿½Î±ß½ï¿½ï¿½ï¿½Ú£ï¿½
+        //ÊÇ·ñÔÚ¾ØÐÎ±ß½ç¿òÄÚ£¿
         if (inside) {
             if (returnNormal != null) {
                 returnNormal = rayDir.multiK(-1);
@@ -259,7 +259,7 @@ public class Bound {
             }
             return 0.0f;
         }
-        //Ñ¡ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Æ½ï¿½æ¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ÄµØ·ï¿½
+        //Ñ¡Ôñ×îÔ¶µÄÆ½Ãæ¡ª¡ª¡ª¡ª·¢ÉúÏà½»µÄµØ·½
         int which = 0;
         float t = xt;
         if (yt > t) {
@@ -272,7 +272,7 @@ public class Bound {
         }
 
         switch (which) {
-            case 0://ï¿½ï¿½yzÆ½ï¿½ï¿½ï¿½à½»
+            case 0://ºÍyzÆ½ÃæÏà½»
             {
                 faceVector[0] = 1;
                 faceVector[1] = 0;
@@ -293,7 +293,7 @@ public class Bound {
                 }
             }
             break;
-            case 1://ï¿½ï¿½xzÆ½ï¿½ï¿½ï¿½à½»
+            case 1://ºÍxzÆ½ÃæÏà½»
             {
                 faceVector[0] = 0;
                 faceVector[1] = 1;
@@ -314,7 +314,7 @@ public class Bound {
                 }
             }
             break;
-            case 2://ï¿½ï¿½xyÆ½ï¿½ï¿½ï¿½à½»
+            case 2://ºÍxyÆ½ÃæÏà½»
             {
                 faceVector[0] = 0;
                 faceVector[1] = 0;
@@ -336,6 +336,6 @@ public class Bound {
             }
             break;
         }
-        return t;//ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+        return t;//·µ»ØÏà½»µã²ÎÊýÖµ
     }
 }

@@ -10,33 +10,33 @@ import java.nio.FloatBuffer;
 
 import static com.bn.main.Constant.UNIT_SIZE;
 
-//ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½
+//×ø±êÏµµ¥Öá
 public class AxisLine {
-    int mProgram;//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-    int muMVPMatrixHandle;//ï¿½Ü±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int muMMatrixHandle;//Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ªï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int muProjCameraMatrixHandle;//Í¶Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int mProgram;//×Ô¶¨ÒåäÖÈ¾¹ÜÏß×ÅÉ«Æ÷³ÌÐòid
+    int muMVPMatrixHandle;//×Ü±ä»»¾ØÕóÒýÓÃ
+    int muMMatrixHandle;//Î»ÖÃ¡¢Ðý×ª±ä»»¾ØÕóÒýÓÃ
+    int muProjCameraMatrixHandle;//Í¶Ó°¡¢ÉãÏñ»ú×éºÏ¾ØÕóÒýÓÃ
 
-    int maPositionHandle; //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-    int maColorHandle; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    String mVertexShader;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½  	 
-    String mFragmentShader;//Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+    int maPositionHandle; //¶¥µãÎ»ÖÃÊôÐÔÒýÓÃ 
+    int maColorHandle; //¶¥µãÑÕÉ«ÊôÐÔÒýÓÃ
+    String mVertexShader;//¶¥µã×ÅÉ«Æ÷´úÂë½Å±¾  	 
+    String mFragmentShader;//Æ¬Ôª×ÅÉ«Æ÷´úÂë½Å±¾
 
-    FloatBuffer mVertexBuffer1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-    FloatBuffer mColorBuffer1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-    FloatBuffer mVertexBuffer2;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-    FloatBuffer mColorBuffer2;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
+    FloatBuffer mVertexBuffer1;//¶¥µã×ø±êÊý¾Ý»º³å
+    FloatBuffer mColorBuffer1;//¶¥µã×ÅÉ«Êý¾Ý»º³å
+    FloatBuffer mVertexBuffer2;//¶¥µã×ø±êÊý¾Ý»º³å
+    FloatBuffer mColorBuffer2;//¶¥µã×ÅÉ«Êý¾Ý»º³å
     int vCount = 0;
 
 
     public AxisLine() {
-        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+        //³õÊ¼»¯¶¥µã×ø±êÓë×ÅÉ«Êý¾Ý
         initVertexData();
     }
 
-    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÝµÄ·ï¿½ï¿½ï¿½
+    //³õÊ¼»¯¶¥µã×ø±êÓë×ÅÉ«Êý¾ÝµÄ·½·¨
     public void initVertexData() {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================begin============================
+        //¶¥µã×ø±êÊý¾ÝµÄ³õÊ¼»¯================begin============================
         vCount = 2;
 
 
@@ -47,13 +47,13 @@ public class AxisLine {
                 };
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        //vertices.length*4ï¿½ï¿½ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ö½ï¿½
+        //´´½¨¶¥µã×ø±êÊý¾Ý»º³å
+        //vertices.length*4ÊÇÒòÎªÒ»¸öÕûÊýËÄ¸ö×Ö½Ú
         ByteBuffer vbb1 = ByteBuffer.allocateDirect(vertices1.length * 4);
-        vbb1.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mVertexBuffer1 = vbb1.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mVertexBuffer1.put(vertices1);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        mVertexBuffer1.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+        vbb1.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mVertexBuffer1 = vbb1.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mVertexBuffer1.put(vertices1);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ø±êÊý¾Ý
+        mVertexBuffer1.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
 
         float vertices2[] = new float[]
                 {
@@ -61,20 +61,20 @@ public class AxisLine {
                         2.3f * -UNIT_SIZE, 0, 0,
                 };
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
-        //vertices.length*4ï¿½ï¿½ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ö½ï¿½
+        //´´½¨¶¥µã×ø±êÊý¾Ý»º³å
+        //vertices.length*4ÊÇÒòÎªÒ»¸öÕûÊýËÄ¸ö×Ö½Ú
         ByteBuffer vbb2 = ByteBuffer.allocateDirect(vertices2.length * 4);
-        vbb2.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mVertexBuffer2 = vbb2.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mVertexBuffer2.put(vertices2);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        mVertexBuffer2.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
-        //ï¿½Ø±ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Í¬Æ½Ì¨ï¿½Ö½ï¿½Ë³ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ýµï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ö½Úµï¿½Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ByteBuffer
-        //×ªï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ÒªÍ¨ï¿½ï¿½ByteOrderï¿½ï¿½ï¿½ï¿½nativeOrder()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================end============================
+        vbb2.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mVertexBuffer2 = vbb2.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mVertexBuffer2.put(vertices2);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ø±êÊý¾Ý
+        mVertexBuffer2.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
+        //ÌØ±ðÌáÊ¾£ºÓÉÓÚ²»Í¬Æ½Ì¨×Ö½ÚË³Ðò²»Í¬Êý¾Ýµ¥Ôª²»ÊÇ×Ö½ÚµÄÒ»¶¨Òª¾­¹ýByteBuffer
+        //×ª»»£¬¹Ø¼üÊÇÒªÍ¨¹ýByteOrderÉèÖÃnativeOrder()£¬·ñÔòÓÐ¿ÉÄÜ»á³öÎÊÌâ
+        //¶¥µã×ø±êÊý¾ÝµÄ³õÊ¼»¯================end============================
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================begin============================
-        float colors1[] = new float[]//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«Öµï¿½ï¿½ï¿½é£¬Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½É«ï¿½ï¿½ÖµRGBA
+        //¶¥µã×ÅÉ«Êý¾ÝµÄ³õÊ¼»¯================begin============================
+        float colors1[] = new float[]//¶¥µãÑÕÉ«ÖµÊý×é£¬Ã¿¸ö¶¥µã4¸öÉ«²ÊÖµRGBA
                 {
                         0, 0, 1, 1,
                         0, 0, 1, 1,
@@ -82,64 +82,64 @@ public class AxisLine {
                 };
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
+        //´´½¨¶¥µã×ÅÉ«Êý¾Ý»º³å
         ByteBuffer cbb1 = ByteBuffer.allocateDirect(colors1.length * 4);
-        cbb1.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mColorBuffer1 = cbb1.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mColorBuffer1.put(colors1);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-        mColorBuffer1.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+        cbb1.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mColorBuffer1 = cbb1.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mColorBuffer1.put(colors1);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ÅÉ«Êý¾Ý
+        mColorBuffer1.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================begin============================
-        float colors2[] = new float[]//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«Öµï¿½ï¿½ï¿½é£¬Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½É«ï¿½ï¿½ÖµRGBA
+        //¶¥µã×ÅÉ«Êý¾ÝµÄ³õÊ¼»¯================begin============================
+        float colors2[] = new float[]//¶¥µãÑÕÉ«ÖµÊý×é£¬Ã¿¸ö¶¥µã4¸öÉ«²ÊÖµRGBA
                 {
                         1, 0, 0, 1,
                         1, 0, 0, 1,
 
                 };
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
+        //´´½¨¶¥µã×ÅÉ«Êý¾Ý»º³å
         ByteBuffer cbb2 = ByteBuffer.allocateDirect(colors2.length * 4);
-        cbb2.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
-        mColorBuffer2 = cbb2.asFloatBuffer();//×ªï¿½ï¿½ÎªFloatï¿½Í»ï¿½ï¿½ï¿½
-        mColorBuffer2.put(colors2);//ï¿½ò»º³ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ë¶¥ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
-        mColorBuffer2.position(0);//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
-        //ï¿½Ø±ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Í¬Æ½Ì¨ï¿½Ö½ï¿½Ë³ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ýµï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ö½Úµï¿½Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ByteBuffer
-        //×ªï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ÒªÍ¨ï¿½ï¿½ByteOrderï¿½ï¿½ï¿½ï¿½nativeOrder()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÝµÄ³ï¿½Ê¼ï¿½ï¿½================end============================
+        cbb2.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
+        mColorBuffer2 = cbb2.asFloatBuffer();//×ª»»ÎªFloatÐÍ»º³å
+        mColorBuffer2.put(colors2);//Ïò»º³åÇøÖÐ·ÅÈë¶¥µã×ÅÉ«Êý¾Ý
+        mColorBuffer2.position(0);//ÉèÖÃ»º³åÇøÆðÊ¼Î»ÖÃ
+        //ÌØ±ðÌáÊ¾£ºÓÉÓÚ²»Í¬Æ½Ì¨×Ö½ÚË³Ðò²»Í¬Êý¾Ýµ¥Ôª²»ÊÇ×Ö½ÚµÄÒ»¶¨Òª¾­¹ýByteBuffer
+        //×ª»»£¬¹Ø¼üÊÇÒªÍ¨¹ýByteOrderÉèÖÃnativeOrder()£¬·ñÔòÓÐ¿ÉÄÜ»á³öÎÊÌâ
+        //¶¥µã×ÅÉ«Êý¾ÝµÄ³õÊ¼»¯================end============================
 
     }
 
-    //ï¿½ï¿½Ê¼ï¿½ï¿½shader
+    //³õÊ¼»¯shader
     public void initShader(int Program) {
-        //ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //»ùÓÚ¶¥µã×ÅÉ«Æ÷ÓëÆ¬Ôª×ÅÉ«Æ÷´´½¨³ÌÐò
         mProgram = Program;
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id  
+        //»ñÈ¡³ÌÐòÖÐ¶¥µãÎ»ÖÃÊôÐÔÒýÓÃid  
         maPositionHandle = GLES20.glGetAttribLocation(mProgram, "aPosition");
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id  
+        //»ñÈ¡³ÌÐòÖÐ¶¥µãÑÕÉ«ÊôÐÔÒýÓÃid  
         maColorHandle = GLES20.glGetAttribLocation(mProgram, "aColor");
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+        //»ñÈ¡³ÌÐòÖÐ×Ü±ä»»¾ØÕóÒýÓÃid
         muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
-        //ï¿½ï¿½È¡Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ªï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+        //»ñÈ¡Î»ÖÃ¡¢Ðý×ª±ä»»¾ØÕóÒýÓÃid
         muMMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMMatrix");
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //»ñÈ¡³ÌÐòÖÐÍ¶Ó°¡¢ÉãÏñ»ú×éºÏ¾ØÕóÒýÓÃ
         muProjCameraMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMProjCameraMatrix");
     }
 
     public void drawSelf(boolean isChoose) {
 
-        //ï¿½Æ¶ï¿½Ê¹ï¿½ï¿½Ä³ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+        //ÖÆ¶¨Ê¹ÓÃÄ³Ì×shader³ÌÐò
         GLES20.glUseProgram(mProgram);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+        //½«×îÖÕ±ä»»¾ØÕó´«Èëshader³ÌÐò
         GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, MatrixState.getFinalMatrix(), 0);
-        //ï¿½ï¿½Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ªï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+        //½«Î»ÖÃ¡¢Ðý×ª±ä»»¾ØÕó´«Èëshader³ÌÐò
         GLES20.glUniformMatrix4fv(muMMatrixHandle, 1, false, MatrixState.getMMatrix(), 0);
-        //ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //½«Í¶Ó°¡¢ÉãÏñ»ú×éºÏ¾ØÕó´«Èë×ÅÉ«Æ÷³ÌÐò
         GLES20.glUniformMatrix4fv(muProjCameraMatrixHandle, 1, false, MatrixState.getViewProjMatrix(), 0);
 
 
         FloatBuffer mVertexBuffer = (isChoose == false ? mVertexBuffer1 : mVertexBuffer2);
         FloatBuffer mColorBuffer = (isChoose == false ? mColorBuffer1 : mColorBuffer2);
 
-        //ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //´«ËÍ¶¥µãÎ»ÖÃÊý¾Ý
         GLES20.glVertexAttribPointer
                 (
                         maPositionHandle,
@@ -149,7 +149,7 @@ public class AxisLine {
                         3 * 4,
                         mVertexBuffer
                 );
-        //ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //´«ËÍ¶¥µã×ø±êÊý¾Ý
         GLES20.glVertexAttribPointer
                 (
                         maColorHandle,
@@ -160,15 +160,15 @@ public class AxisLine {
                         mColorBuffer
                 );
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÔÊÐí¶¥µãÎ»ÖÃÊý¾ÝÊý×é
         GLES20.glEnableVertexAttribArray(maPositionHandle);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÔÊÐí¶¥µãÑÕÉ«Êý¾ÝÊý×é
         GLES20.glEnableVertexAttribArray(maColorHandle);
 
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ï¸
+        //»æÖÆÏßÌõµÄ´ÖÏ¸
         GLES20.glLineWidth(8);
-        //ï¿½ï¿½ï¿½ï¿½
+        //»æÖÆ
         GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, vCount);
 
 

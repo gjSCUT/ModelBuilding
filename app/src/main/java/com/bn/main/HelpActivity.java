@@ -15,11 +15,11 @@ public class HelpActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setFinishOnTouchOutside(false);
-        //锟斤拷锟斤拷为全锟斤拷
+        //设置为全屏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // 锟斤拷锟斤拷为锟斤拷锟斤拷模式
+        // 设置为横屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_main);

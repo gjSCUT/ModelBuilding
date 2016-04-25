@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.bn.main.MatrixState;
 import com.bn.main.MySurfaceView;
-import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.object.Body;
 import com.bn.object.Solid;
+import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.util.MathUtil;
 
 import java.util.Vector;

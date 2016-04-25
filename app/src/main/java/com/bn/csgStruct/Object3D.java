@@ -4,8 +4,8 @@ import android.opengl.Matrix;
 import android.util.Log;
 
 import com.bn.main.Constant;
-import com.bn.csgStruct.Struct.Vector3f;
 import com.bn.object.Solid;
+import com.bn.csgStruct.Struct.Vector3f;
 
 import java.util.Vector;
 
@@ -166,10 +166,10 @@ class Object3D {
         int signFace1Vert1, signFace1Vert2, signFace1Vert3, signFace2Vert1, signFace2Vert2, signFace2Vert3;
         //int testNum=0,testFace=0;
         Log.i("startNum", getNumFaces() + " ");
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»
+        //Èç¹ûÁ½ÎïÌåÏà½»
         if (getBound().overlap(object.getBound())) {
 
-            //ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½
+            //¶Ô±¾ÎïÌåµÄÃ¿Ò»¸öÃæ
             for (int i = 0; i < getNumFaces(); i++) {
 
 
@@ -181,67 +181,67 @@ class Object3D {
                 face1Orig.setFace(face1);
 
 
-                if (face1.getBound().overlap(object.getBound()))//ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à½»
+                if (face1.getBound().overlap(object.getBound()))//²âÊÔ¸ÃÃæÊÇ·ñÓëÁíÒ»¸öÎïÌåÏà½»
                 {
-                    for (int j = 0; j < object.getNumFaces(); j++)//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½
+                    for (int j = 0; j < object.getNumFaces(); j++)//¶ÔÁíÒ»ÎïÌåµÄÃ¿Ò»¸öÃæ
                     {
                         face2 = object.getFace(j);
                         Face face2Orig = new Face();
                         face2Orig.setFace(face2);
 
-                        if (face1.getBound().overlap(face2.getBound()))//ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½à½»
+                        if (face1.getBound().overlap(face2.getBound()))//²âÊÔ¸ÃÃæÓëÁíÒ»¸öÎïÌåµÄÃæÊÇ·ñÏà½»
                         {
-                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ãµ½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+                            //¼ÆËã¸ÃÃæÃ¿Ò»µãµ½ÁíÒ»ÎïÌåµÄÃæµÄ¾àÀë
                             distFace1Vert1 = computeDistance((face1.v1), face2);
                             distFace1Vert2 = computeDistance((face1.v2), face2);
                             distFace1Vert3 = computeDistance((face1.v3), face2);
 
-                            //ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»¹ï¿½Ç²ï¿½ï¿½æ»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            //¼ÆËã¸ÃµãÔÚÃæµÄÕýÃæ»¹ÊÇ²àÃæ»¹ÊÇÃæÉÏ
                             signFace1Vert1 = (distFace1Vert1 > Constant.TOL ? 1 : (distFace1Vert1 < -Constant.TOL ? -1 : 0));
                             signFace1Vert2 = (distFace1Vert2 > Constant.TOL ? 1 : (distFace1Vert2 < -Constant.TOL ? -1 : 0));
                             signFace1Vert3 = (distFace1Vert3 > Constant.TOL ? 1 : (distFace1Vert3 < -Constant.TOL ? -1 : 0));
 
-                            if ((signFace1Vert1 == signFace1Vert2 && signFace1Vert2 == signFace1Vert3) == false)//ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Èµï¿½
+                            if ((signFace1Vert1 == signFace1Vert2 && signFace1Vert2 == signFace1Vert3) == false)//Èç¹û3¸ö¾àÀë²»ÊÇÍêÈ«ÏàµÈµÄ
                             {
-                                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ã¿Ò»ï¿½ãµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+                                //¼ÆËãÁíÒ»ÃæÃ¿Ò»µãµ½¸ÃÎïÌåµÄÃæµÄ¾àÀë
                                 distFace2Vert1 = computeDistance((face2.v1), face1);
                                 distFace2Vert2 = computeDistance((face2.v2), face1);
                                 distFace2Vert3 = computeDistance((face2.v3), face1);
 
-                                //ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»¹ï¿½Ç²ï¿½ï¿½æ»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                                //¼ÆËã¸ÃµãÔÚÃæµÄÕýÃæ»¹ÊÇ²àÃæ»¹ÊÇÃæÉÏ
                                 signFace2Vert1 = (distFace2Vert1 > Constant.TOL ? 1 : (distFace2Vert1 < -Constant.TOL ? -1 : 0));
                                 signFace2Vert2 = (distFace2Vert2 > Constant.TOL ? 1 : (distFace2Vert2 < -Constant.TOL ? -1 : 0));
                                 signFace2Vert3 = (distFace2Vert3 > Constant.TOL ? 1 : (distFace2Vert3 < -Constant.TOL ? -1 : 0));
 
-                                if ((signFace2Vert1 == signFace2Vert2 && signFace2Vert2 == signFace2Vert3) == false)//ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Èµï¿½
+                                if ((signFace2Vert1 == signFace2Vert2 && signFace2Vert2 == signFace2Vert3) == false)//Èç¹û3¸ö¾àÀë²»ÊÇÍêÈ«ÏàµÈµÄ
                                 {
-                                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½
+                                    //ÇóÁ½ÃæµÄ½»Ïß
                                     line = new Line(face1, face2);
-                                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½
+                                    //ÔÚÁ½¸öÃæÉÏ×÷Á½ÌõÐÂµÄ±ß
                                     segment1 = new Segment(line, face1, signFace1Vert1, signFace1Vert2, signFace1Vert3);
                                     segment2 = new Segment(line, face2, signFace2Vert1, signFace2Vert2, signFace2Vert3);
 
-                                    if (segment1.intersect(segment2) == true)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â±ï¿½ï¿½à½»
+                                    if (segment1.intersect(segment2) == true)//Èç¹ûÁ½ÌõÐÂ±ßÏà½»
                                     {
 
-                                        this.splitFace(i, segment1, segment2);//ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                                        this.splitFace(i, segment1, segment2);//½«ÐÂ±ß×é³ÉÐÂÃæ
 
                                         face1 = getFace(i);
 
-                                        if (face1.match(face1Orig) == false)//ï¿½ï¿½ï¿½face1ï¿½ä»¯
+                                        if (face1.match(face1Orig) == false)//Èç¹ûface1±ä»¯
                                         {
 
-                                            if (face1Orig.equals(getFace(getNumFaces() - 1)) == true)//ï¿½ï¿½ï¿½face1ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+                                            if (face1Orig.equals(getFace(getNumFaces() - 1)) == true)//Èç¹ûface1ÊÇ¸ÃÌå×îºóÒ»¸öÃæ
                                             {
-                                                if (i != (getNumFaces() - 1))//ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+                                                if (i != (getNumFaces() - 1))//Èç¹ûi²»ÊÇ×îºóÒ»¸öÃæ
                                                 {
 
-                                                    faces.remove(getNumFaces() - 1);//É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
-                                                    faces.add(i, face1Orig);//ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+                                                    faces.remove(getNumFaces() - 1);//É¾³ý×îºóÒ»¸öÃæ
+                                                    faces.add(i, face1Orig);//½«Ô­Ê¼ÃæÌí¼Óµ½ÐÂÃæ
                                                 } else {
                                                     continue;
                                                 }
-                                            } else//iï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½Â¿ï¿½Ê¼Ñ­ï¿½ï¿½
+                                            } else//i»ØÍË£¬ÖØÐÂ¿ªÊ¼Ñ­»·
                                             {
                                                 //Log.i("test",getNumFaces()+" "+testFace);
                                                 //testFace=0;

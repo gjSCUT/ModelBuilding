@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
             
-    		<com.bn.draw.DrawSurfaceView
+    		<com.bn.drawSweep.DrawSurfaceView
                 android:id="@+id/drawSurfaceView"
         	android:layout_width="fill_parent"
         	android:layout_height="fill_parent"

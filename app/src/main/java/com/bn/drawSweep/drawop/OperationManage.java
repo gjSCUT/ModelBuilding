@@ -1,14 +1,13 @@
-package com.bn.draw.drawop;
+package com.bn.drawSweep.drawop;
 
-import com.bn.draw.drawop.Operation.Op;
+import com.bn.drawSweep.drawop.Operation.Op;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Stack;
 
 
-/**
- * 操作管理�?
+/**\
  *
  * @author GuoJun
  */
@@ -33,9 +32,6 @@ public class OperationManage {
     private Stack<OpDraw> stNowDraw;
     /**
      * 绘图模式
-     * RE：重绘画�?
-     * ADD：增量绘�?
-     * NOW：重绘当前路�?
      */
     private DrawMode mode;
 
@@ -60,7 +56,6 @@ public class OperationManage {
     /**
      * pop out list
      *
-     * @param op
      * @return stOperation.Last
      */
     public Operation popOp() {
@@ -71,7 +66,6 @@ public class OperationManage {
     /**
      * push in listDraw
      *
-     * @param listDraw
      */
     public void pushDraw(OpDraw op) {
         listDraw.add(op);
@@ -81,7 +75,6 @@ public class OperationManage {
     /**
      * push in listDraw
      *
-     * @param listDraw
      */
     public void pushNowDraw(OpDraw op) {
         stNowDraw.push(op);
@@ -90,7 +83,6 @@ public class OperationManage {
     /**
      * pop out listDraw
      *
-     * @param op
      * @return stOperation.Last
      */
     public Operation popDraw() {

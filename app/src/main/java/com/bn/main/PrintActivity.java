@@ -16,11 +16,11 @@ public class PrintActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.setFinishOnTouchOutside(false);
-        //ï¿½ï¿½ï¿½ï¿½ÎªÈ«ï¿½ï¿½
+        //ÉèÖÃÎªÈ«ÆÁ
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä£Ê½
+        // ÉèÖÃÎªºáÆÁÄ£Ê½
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.print_main);
@@ -37,7 +37,7 @@ public class PrintActivity extends Activity {
         ok.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrintActivity.this, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PrintActivity.this, "±£´æ³É¹¦", Toast.LENGTH_SHORT).show();
             }
         });
     }

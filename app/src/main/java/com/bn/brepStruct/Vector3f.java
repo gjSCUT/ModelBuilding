@@ -21,22 +21,22 @@ public class Vector3f {
         this.z = v[2];
     }
 
-    //ï¿½Ó·ï¿½
+    //¼Ó·¨
     public Vector3f add(Vector3f v) {
         return new Vector3f(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½
+    //¼õ·¨
     public Vector3f minus(Vector3f v) {
         return new Vector3f(this.x - v.x, this.y - v.y, this.z - v.z);
     }
 
-    //ï¿½ë³£ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Óë³£Á¿Ïà³Ë
     public Vector3f multiK(float k) {
         return new Vector3f(this.x * k, this.y * k, this.z * k);
     }
 
-    //ï¿½ï¿½ï¿½
+    //¹æ¸ñ»¯
     public void normalize() {
         float mod = module();
         x /= mod;

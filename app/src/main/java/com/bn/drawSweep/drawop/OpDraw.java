@@ -1,4 +1,4 @@
-package com.bn.draw.drawop;
+package com.bn.drawSweep.drawop;
 
 import android.graphics.Paint;
 import android.graphics.Path;

@@ -16,6 +16,7 @@ android {
         }
     }
     compileOptions {
+        encoding "GBK"
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }

@@ -3,34 +3,34 @@ package com.bn.main;
 
 public class Camera {
     float distance;
-    float distancetotal;//upï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³Éµï¿½Ä£ï¿½ï¿½
-    float cx;    //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½x
-    float cy;   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½y
-    float cz;   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½z
-    float tx;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½x
-    float ty;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½y
-    float tz;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½z
-    float upx;  //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-    float upy;//ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-    float upz; //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
-    float angelA;    //ï¿½ï¿½×ªï¿½ï¿½
-    float angelB;    //ï¿½ï¿½×ªï¿½ï¿½
-    float angelC;   //ï¿½ï¿½ï¿½ï¿½upï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ĞµÄ¼Ğ½ï¿½
+    float distancetotal;//upÏòÁ¿ºÍÉãÏñ»úÎ»ÖÃÏòÁ¿ºÏ³ÉµÄÄ£³¤
+    float cx;    //ÉãÏñ»úÎ»ÖÃx
+    float cy;   //ÉãÏñ»úÎ»ÖÃy
+    float cz;   //ÉãÏñ»úÎ»ÖÃz
+    float tx;   //ÉãÏñ»úÄ¿±êµãx
+    float ty;   //ÉãÏñ»úÄ¿±êµãy
+    float tz;   //ÉãÏñ»úÄ¿±êµãz
+    float upx;  //ÉãÏñ»úUPÏòÁ¿X·ÖÁ¿
+    float upy;//ÉãÏñ»úUPÏòÁ¿Y·ÖÁ¿
+    float upz; //ÉãÏñ»úUPÏòÁ¿Z·ÖÁ¿
+    float angelA;    //Ğı×ª½Ç
+    float angelB;    //Ğı×ª½Ç
+    float angelC;   //¼ÆËãupÏòÁ¿ºÍÉãÏñ»úÎ»ÖÃÏòÁ¿¹¹³ÉÈı½ÇĞÎÖĞµÄ¼Ğ½Ç
 
     public Camera() {
         distance = 70;
         distancetotal = (float) Math.sqrt(1 + distance * distance);
-        cx = 0f;    //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½x
-        cy = 0f;   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½y
-        cz = distance;   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½z
-        tx = 0f;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½x
-        ty = 0f;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½y
-        tz = 0f;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½z
-        upx = 0f;  //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-        upy = 1.0f;//ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-        upz = 0.0f; //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
-        angelA = 0;//(float) (Math.PI/4);	//ï¿½ï¿½×ªï¿½ï¿½
-        angelB = 0;//(float) (Math.PI/4);	//ï¿½ï¿½×ªï¿½ï¿½
+        cx = 0f;    //ÉãÏñ»úÎ»ÖÃx
+        cy = 0f;   //ÉãÏñ»úÎ»ÖÃy
+        cz = distance;   //ÉãÏñ»úÎ»ÖÃz
+        tx = 0f;   //ÉãÏñ»úÄ¿±êµãx
+        ty = 0f;   //ÉãÏñ»úÄ¿±êµãy
+        tz = 0f;   //ÉãÏñ»úÄ¿±êµãz
+        upx = 0f;  //ÉãÏñ»úUPÏòÁ¿X·ÖÁ¿
+        upy = 1.0f;//ÉãÏñ»úUPÏòÁ¿Y·ÖÁ¿
+        upz = 0.0f; //ÉãÏñ»úUPÏòÁ¿Z·ÖÁ¿
+        angelA = 0;//(float) (Math.PI/4);	//Ğı×ª½Ç
+        angelB = 0;//(float) (Math.PI/4);	//Ğı×ª½Ç
         angelC = (float) Math.atan(1 / distance);
     }
 
@@ -43,9 +43,9 @@ public class Camera {
         upy = (float) (distancetotal * Math.sin(angelB + angelC) - distance * Math.sin(angelB));
         upz = (float) (distancetotal * Math.cos(angelB + angelC) * Math.cos(angelA) - distance * Math.cos(angelB) * Math.cos(angelA));
 
-        //ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½
+        //µ÷ÓÃ´Ë·½·¨¼ÆËã²úÉúÍ¸ÊÓÍ¶Ó°¾ØÕó
         MatrixState.setProjectFrustum(-Constant.RATIO, Constant.RATIO, -1, 1, 10, 400);
-        // ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½9ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¾ï¿½ï¿½ï¿½
+        // µ÷ÓÃ´Ë·½·¨²úÉúÉãÏñ»ú9²ÎÊıÎ»ÖÃ¾ØÕó
         MatrixState.setCamera(cx, cy, cz, tx, ty, tz, upx, upy, upz);
     }
 }

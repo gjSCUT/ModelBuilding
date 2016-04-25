@@ -237,7 +237,6 @@ public class Face {
      * Checks if the the face contains a point
      *
      * @param point to be tested
-     * @param true  if the face contains the point, false otherwise
      */
     private boolean hasPoint(Vector3f point) {
         int result1, result2, result3;

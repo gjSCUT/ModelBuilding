@@ -3,13 +3,13 @@ package com.bn.object;
 import com.bn.main.MatrixState;
 import com.bn.main.MySurfaceView;
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//Á¢·½Ìå
 public class Axis {
-    //ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+    //ÓÃÓÚ»æÖÆ¸÷¸öÃæµÄÑÕÉ«¾ØÐÎ
     AxisLine lx, ly, lz;
 
     public Axis() {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+        //´´½¨ÓÃÓÚ»æÖÆ¸÷¸öÃæµÄÑÕÉ«¾ØÐÎ
         lx = new AxisLine();
         ly = new AxisLine();
         lz = new AxisLine();
@@ -23,24 +23,24 @@ public class Axis {
 
     public void drawSelf() {
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½
+        //±£»¤ÏÖ³¡
         MatrixState.pushMatrix();
 
 
-        //xï¿½ï¿½
+        //xÖá
         MatrixState.pushMatrix();
         if (MySurfaceView.isAxle == 1) lx.drawSelf(true);
         else lx.drawSelf(false);
         MatrixState.popMatrix();
 
-        //yï¿½ï¿½
+        //yÖá
         MatrixState.pushMatrix();
         MatrixState.rotate(0, 0, 1, 90);
         if (MySurfaceView.isAxle == 2) ly.drawSelf(true);
         else ly.drawSelf(false);
         MatrixState.popMatrix();
 
-        //zï¿½ï¿½
+        //zÖá
         MatrixState.pushMatrix();
         MatrixState.rotate(0, 1, 0, 90);
         if (MySurfaceView.isAxle == 3) lz.drawSelf(true);
@@ -48,7 +48,7 @@ public class Axis {
         MatrixState.popMatrix();
 
 
-        //ï¿½Ö¸ï¿½ï¿½Ö³ï¿½
+        //»Ö¸´ÏÖ³¡
         MatrixState.popMatrix();
 
     }

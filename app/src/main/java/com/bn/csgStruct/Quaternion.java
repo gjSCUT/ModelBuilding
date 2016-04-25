@@ -5,16 +5,16 @@ import android.util.Log;
 import com.bn.csgStruct.Struct.Vector3f;
 
 /**
- * ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½
- * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ã£¬ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½type ï¿½ï¿½ï¿½ï¿½ÎªqType.POINT
- * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ä»¯ï¿½ï¿½typeï¿½ï¿½ï¿½ï¿½ÎªqType.TRANSFORM
+ * ËÄÔªÊýÀà
+ * ¿ÉÒÔÓÃÀ´±íÊ¾Á½ÖÖÀàÐÍµÄÊý¾Ý
+ * µÚÒ»ÖÖÊÇÈýÎ¬µã£¬ÐèÒª½«ËÄÔªÊýµÄtype ÉèÖÃÎªqType.POINT
+ * ÁíÒ»ÖÖÊÇÈýÎ¬±ä»¯£¬typeÉèÖÃÎªqType.TRANSFORM
  * <p/>
- * Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ä±ä»¯ï¿½ï¿½ï¿½ï¿½ÒªÒ»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ä»¯
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½Ó±ä»¯  ï¿½ï¿½ï¿½ç£ºaddRoutate();
- * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä±ä»¯
+ * Òª½øÐÐËÄÔªÊýµÄ±ä»¯£¬ÐèÒªÒ»¸öËÄÔªÊý±íÊ¾µÄÈýÎ¬µãºÍÈýÎ¬±ä»¯
+ * Ê×ÏÈÏò±ä»¯ÀïÌí¼Ó±ä»¯  ÀýÈç£ºaddRoutate();
+ * ¿ÉÒÔÌí¼Ó¶à¸ö²»Í¬µÄ±ä»¯
  * <p/>
- * È»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä±ä»¯ ï¿½ï¿½ï¿½ï¿½  point.doTransform(transform);
+ * È»ºóÈýÎ¬µãµ÷ÓÃÐèÒªµÄ±ä»¯ ÀýÈç  point.doTransform(transform);
  *
  * @author vincent
  *         2015,1,25
@@ -22,21 +22,21 @@ import com.bn.csgStruct.Struct.Vector3f;
 public class Quaternion implements Cloneable {
     static final String tagQuaternionString = "Quaternion";
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½é³¤ï¿½ï¿½4
+     * ËÄÔªÊýµÄÊý¾Ý£¬Êý×é³¤¶È4
      */
     private float scalar;
     private Vector3f vector;
     /**
-     * ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ´ËËÄÔªÊýµÄÀàÐÍ
      */
     private qType type;
 
     /**
-     * ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
-     * ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ³õÊ¼»¯Ò»¸öËÄÔªÊý
+     * ³õÊ¼»¯Ò»¸öµãÊ±ÐèÒªµãµÄÈýÎ¬×ø±ê²ÎÊý
      *
      * @param t
-     * @param d
+     * @param v
      */
     public Quaternion(qType t, Vector3f v) {
         if (t == qType.POINT) {
@@ -48,7 +48,7 @@ public class Quaternion implements Cloneable {
                 vector = v;
             }
         }
-        //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Îªtransform
+        //´ËÊ±ÀàÐÍÎªtransform
         else {
             type = qType.TRANSFFORM;
             scalar = 1;
@@ -87,7 +87,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½
+     * ËÄÔªÊýµã³Ë
      *
      * @param q
      * @return
@@ -97,8 +97,8 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½Ë£ï¿½
-     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
+     * ËÄÔªÊý³Ë·¨£¨ÀàËÆ²æ³Ë£©
+     * ·µ»ØÒ»¸öËÄÔªÊý
      *
      * @param q
      * @return
@@ -116,8 +116,8 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+     * ËÄÔªÊýµÄÊý³Ë
+     * ³ËÒÔÒ»¸öÊý
      *
      * @param num
      * @return
@@ -127,7 +127,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
+     * ÇóËÄÔªÊýµÄ¹²éî
      *
      * @return
      */
@@ -136,7 +136,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ÇóËÄÔªÊýµÄÄæ
      *
      * @return
      */
@@ -145,7 +145,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ä£
+     * ÇóÄ£
      *
      * @return
      */
@@ -154,7 +154,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½Äµï¿½Î»ï¿½ï¿½
+     * ËÄÔªÊýµÄµ¥Î»»¯
      *
      * @return
      */
@@ -163,7 +163,7 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½transform ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ä»¯
+     * ÔÚtransform ËÄÔªÊýÖÐÔö¼ÓÐý×ª±ä»¯
      *
      * @param angle
      * @param direction
@@ -187,9 +187,8 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ÊµÊ©ï¿½ï¿½Ôªï¿½ï¿½ï¿½ä»¯
+     * ¶ÔÒ»¸öËÄÔªÊýµãÊµÊ©ËÄÔªÊý±ä»¯
      *
-     * @param point
      * @param transform
      */
     public Quaternion doTransform(Quaternion transform) {
@@ -204,7 +203,7 @@ public class Quaternion implements Cloneable {
     }
 
     public float[] getRotateMatrix() {
-        float[] matrix = new float[16];//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
+        float[] matrix = new float[16];//Ðý×ª¾ØÕó
         matrix[0] = 1.0f - 2.0f * (vector.y * vector.y + vector.z * vector.z);
         matrix[1] = 2.0f * (vector.x * vector.y - vector.z * scalar);
         matrix[2] = 2.0f * (vector.x * vector.z + vector.y * scalar);
@@ -236,9 +235,9 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-     * 1.ï¿½ã£ºï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½ï¿½
-     * 2.ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ä»¯
+     * ËÄÔªÊýµÄÀàÐÍ
+     * 1.µã£º±íÊ¾Ò»¸öµã
+     * 2.±ä»¯£º±íÊ¾Ò»ÖÖÈýÎ¬±ä»¯
      */
     public enum qType {
         POINT, TRANSFFORM

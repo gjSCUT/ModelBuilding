@@ -19,31 +19,31 @@ public class ShaderManager {
 
     public static void loadCodeFromFile(Resources r) {
         for (int i = 0; i < shaderCount; i++) {
-            //ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ä½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
+            //¼ÓÔØ¶¥µã×ÅÉ«Æ÷µÄ½Å±¾ÄÚÈÝ
             mVertexShader[i] = ShaderUtil.loadFromAssetsFile(shaderName[i][0], r);
-            //ï¿½ï¿½ï¿½ï¿½Æ¬Ôªï¿½ï¿½É«ï¿½ï¿½ï¿½Ä½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
+            //¼ÓÔØÆ¬Ôª×ÅÉ«Æ÷µÄ½Å±¾ÄÚÈÝ
             mFragmentShader[i] = ShaderUtil.loadFromAssetsFile(shaderName[i][1], r);
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½3Dï¿½ï¿½ï¿½ï¿½ï¿½shader
+    //±àÒë3DÎïÌåµÄshader
     public static void compileShader() {
         for (int i = 0; i < shaderCount; i++) {
             program[i] = ShaderUtil.createProgram(mVertexShader[i], mFragmentShader[i]);
         }
     }
 
-    //ï¿½ï¿½ï¿½ï·µï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+    //ÕâÀï·µ»ØµÄÊÇ×ø±êÖáµÄshader³ÌÐò
     public static int getLineShaderProgram() {
         return program[0];
     }
 
-    //ï¿½ï¿½ï¿½ï·µï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+    //ÕâÀï·µ»ØµÄÊÇÆÕÍ¨ÎïÌåµÄshader³ÌÐò
     public static int getObjectshaderProgram() {
         return program[1];
     }
 
-    //ï¿½ï¿½ï¿½ï·µï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½shaderï¿½ï¿½ï¿½ï¿½
+    //ÕâÀï·µ»ØµÄÊÇÒõÓ°ÎïÌåµÄshader³ÌÐò
     public static int getShadowshaderProgram() {
         return program[2];
     }
