@@ -1,38 +1,42 @@
-package com.bn.main;
+package com.bn.Main;
 
 import android.opengl.GLU;
 import android.opengl.Matrix;
 
+import com.bn.csgStruct.Vector3f;
 import com.bn.csgStruct.Quaternion;
 import com.bn.csgStruct.Quaternion.qType;
-import com.bn.csgStruct.Struct.Vector3f;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-//ï¿½æ´¢ÏµÍ³ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
+//´æ´¢ÏµÍ³¾ØÕó×´Ì¬µÄÀà
 public class MatrixState {
-    public static float[] lightLocation = new float[]{0, 0, 0};//ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ô´Î»ï¿½ï¿½
-    public static float[] mMVPMatrix = new float[16];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ä£ï¿½Í¾ï¿½ï¿½ï¿½
-    public static float[] mRotateMatrix = new float[16];//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
-    public static float[] mTranslateMatrix = new float[16];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    public static float[] mScaleMatrix = new float[16];//Æ½ï¿½Æ¾ï¿½ï¿½ï¿½
+    private static float[] lightLocation = new float[]{0, 0, 0};    //¶¨Î»¹â¹âÔ´Î»ÖÃ
+
+    private static float[] mVMatrix = new float[16];                //ÉãÏñ»úÎ»ÖÃ³¯Ïò9²ÎÊý¾ØÕó
+    private static float[] mProjMatrix = new float[16];             //Í¶Ó°¾ØÕó
+    private static float[] mRotateMatrix = new float[16];           //Ðý×ª¾ØÕó
+    private static float[] mTranslateMatrix = new float[16];        //·ÅËõ¾ØÕó
+    private static float[] mScaleMatrix = new float[16];            //Æ½ÒÆ¾ØÕó
+
+
+    private static float[] currMatrix;                              //µ±Ç°¼¸ºÎ±ä»¯¾ØÕó
+
     public static FloatBuffer cameraFB;
     public static FloatBuffer lightPositionFB;
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½Õ»
+    public static float[] mMVPMatrix = new float[16];              //ÉãÏñ¾ØÕóÓë±ä»»¾ØÕóÏà³ËµÄÄ£ÐÍ¾ØÕó
+    //±£»¤±ä»»¾ØÕóµÄÕ»
     static float[][] mStack = new float[100][16];
     static int stackTop = -1;
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ÉèÖÃÉãÏñ»ú
     static ByteBuffer llbb = ByteBuffer.allocateDirect(3 * 4);
-    static float[] cameraLocation = new float[3];//ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
-    //ï¿½ï¿½ï¿½ÃµÆ¹ï¿½Î»ï¿½ÃµÄ·ï¿½ï¿½ï¿½
+    static float[] cameraLocation = new float[3];//ÉãÏñ»úÎ»ÖÃ
+    //ÉèÖÃµÆ¹âÎ»ÖÃµÄ·½·¨
     static ByteBuffer llbbL = ByteBuffer.allocateDirect(3 * 4);
-    private static float[] currMatrix;//ï¿½ï¿½Ç°ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
-    private static float[] mVMatrix = new float[16];//ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã³ï¿½ï¿½ï¿½9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    private static float[] mProjMatrix = new float[16];//4x4ï¿½ï¿½ï¿½ï¿½ Í¶Ó°ï¿½ï¿½
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ä»»ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡²»±ä»»³õÊ¼¾ØÕó
     public static void setInitStack() {
         currMatrix = new float[16];
         Matrix.setIdentityM(currMatrix, 0);
@@ -41,7 +45,7 @@ public class MatrixState {
         Matrix.setIdentityM(mScaleMatrix, 0);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
+    //±£»¤±ä»»¾ØÕó
     public static void pushMatrix() {
         stackTop++;
         for (int i = 0; i < 16; i++) {
@@ -50,7 +54,7 @@ public class MatrixState {
 
     }
 
-    //ï¿½Ö¸ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
+    //»Ö¸´±ä»»¾ØÕó
     public static void popMatrix() {
         for (int i = 0; i < 16; i++) {
             currMatrix[i] = mStack[stackTop][i];
@@ -58,7 +62,7 @@ public class MatrixState {
         stackTop--;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xyzï¿½ï¿½ï¿½Æ¶ï¿½
+    //ÉèÖÃÑØxyzÖáÒÆ¶¯
     public static void translate(float x, float y, float z) {
         float[] tempMatrix = new float[16];
         Matrix.setIdentityM(tempMatrix, 0);
@@ -68,7 +72,7 @@ public class MatrixState {
         //Matrix.translateM(currMatrix, 0, x, y, z);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xyzï¿½ï¿½ï¿½ï¿½×ª
+    //ÉèÖÃÈÆxyzÖáÐý×ª
     public static void rotate(float x, float y, float z, float angle) {
         float[] tempMatrix = new float[16];
         Matrix.setIdentityM(tempMatrix, 0);
@@ -78,13 +82,13 @@ public class MatrixState {
         //Matrix.rotateM(currMatrix, 0, angle, x, y, z);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xyzï¿½ï¿½ï¿½ï¿½×ª
+    //ÉèÖÃÈÆxyzÖáÐý×ª
     public static void rotate(float[] tempMatrix) {
         //mRotateMatrix=nMatrix;
         Matrix.multiplyMM(currMatrix, 0, tempMatrix, 0, currMatrix, 0);
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xyzï¿½ï¿½ï¿½ï¿½
+    // ÉèÖÃÈÆxyzËõ·Å
     public static void scale(float x, float y, float z) {
         float[] tempMatrix = new float[16];
         Matrix.setIdentityM(tempMatrix, 0);
@@ -95,15 +99,15 @@ public class MatrixState {
 
     public static void setCamera
             (
-                    float cx,    //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½x
-                    float cy,   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½y
-                    float cz,   //ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½z
-                    float tx,   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½x
-                    float ty,   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½y
-                    float tz,   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½z
-                    float upx,  //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½
-                    float upy,  //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½
-                    float upz   //ï¿½ï¿½ï¿½ï¿½ï¿½UPï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
+                    float cx,    //ÉãÏñ»úÎ»ÖÃx
+                    float cy,   //ÉãÏñ»úÎ»ÖÃy
+                    float cz,   //ÉãÏñ»úÎ»ÖÃz
+                    float tx,   //ÉãÏñ»úÄ¿±êµãx
+                    float ty,   //ÉãÏñ»úÄ¿±êµãy
+                    float tz,   //ÉãÏñ»úÄ¿±êµãz
+                    float upx,  //ÉãÏñ»úUPÏòÁ¿X·ÖÁ¿
+                    float upy,  //ÉãÏñ»úUPÏòÁ¿Y·ÖÁ¿
+                    float upz   //ÉãÏñ»úUPÏòÁ¿Z·ÖÁ¿
             ) {
         Matrix.setLookAtM
                 (
@@ -118,66 +122,66 @@ public class MatrixState {
         cameraLocation[2] = cz;
 
         llbb.clear();
-        llbb.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
+        llbb.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
         cameraFB = llbb.asFloatBuffer();
         cameraFB.put(cameraLocation);
         cameraFB.position(0);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½
+    //ÉèÖÃÍ¸ÊÓÍ¶Ó°²ÎÊý
     public static void setProjectFrustum
     (
-            float left,        //nearï¿½ï¿½ï¿½left
-            float right,    //nearï¿½ï¿½ï¿½right
-            float bottom,   //nearï¿½ï¿½ï¿½bottom
-            float top,      //nearï¿½ï¿½ï¿½top
-            float near,        //nearï¿½ï¿½ï¿½ï¿½ï¿½
-            float far       //farï¿½ï¿½ï¿½ï¿½ï¿½
+            float left,        //nearÃæµÄleft
+            float right,    //nearÃæµÄright
+            float bottom,   //nearÃæµÄbottom
+            float top,      //nearÃæµÄtop
+            float near,        //nearÃæ¾àÀë
+            float far       //farÃæ¾àÀë
     ) {
         Matrix.frustumM(mProjMatrix, 0, left, right, bottom, top, near, far);
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶Ó°ï¿½ï¿½ï¿½ï¿½
+    //ÉèÖÃÕý½»Í¶Ó°²ÎÊý
     public static void setProjectOrtho
     (
-            float left,        //nearï¿½ï¿½ï¿½left
-            float right,    //nearï¿½ï¿½ï¿½right
-            float bottom,   //nearï¿½ï¿½ï¿½bottom
-            float top,      //nearï¿½ï¿½ï¿½top
-            float near,        //nearï¿½ï¿½ï¿½ï¿½ï¿½
-            float far       //farï¿½ï¿½ï¿½ï¿½ï¿½
+            float left,        //nearÃæµÄleft
+            float right,    //nearÃæµÄright
+            float bottom,   //nearÃæµÄbottom
+            float top,      //nearÃæµÄtop
+            float near,        //nearÃæ¾àÀë
+            float far       //farÃæ¾àÀë
     ) {
         Matrix.orthoM(mProjMatrix, 0, left, right, bottom, top, near, far);
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ä»»ï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡¾ßÌåÎïÌåµÄ×Ü±ä»»¾ØÕó
     public static float[] getFinalMatrix() {
         Matrix.multiplyMM(mMVPMatrix, 0, mVMatrix, 0, currMatrix, 0);
         Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mMVPMatrix, 0);
         return mMVPMatrix;
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡¾ßÌåÎïÌåµÄÆ½ÒÆ·½Ëù¾ØÕó
     public static float[] getTSMatrix() {
         return currMatrix;
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ä»»ï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡¾ßÌåÎïÌåµÄ±ä»»¾ØÕó
     public static float[] getMMatrix() {
         return currMatrix;
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡Ðý×ª¾ØÕó
     public static float[] getRotateMatrix() {
         return mRotateMatrix;
     }
 
-    //ï¿½ï¿½È¡Í¶Ó°ï¿½ï¿½ï¿½ï¿½
+    //»ñÈ¡Í¶Ó°¾ØÕó
     public static float[] getProjMatrix() {
         return mProjMatrix;
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+    //»ñÈ¡ÉãÏñ»ú³¯ÏòµÄ¾ØÕó
     public static float[] getCaMatrix() {
         return mVMatrix;
     }
@@ -195,13 +199,13 @@ public class MatrixState {
         lightLocation[1] = y;
         lightLocation[2] = z;
 
-        llbbL.order(ByteOrder.nativeOrder());//ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½Ë³ï¿½ï¿½
+        llbbL.order(ByteOrder.nativeOrder());//ÉèÖÃ×Ö½ÚË³Ðò
         lightPositionFB = llbbL.asFloatBuffer();
         lightPositionFB.put(lightLocation);
         lightPositionFB.position(0);
     }
 
-    //ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
+    //ÈýÎ¬×ø±ê×ª¶þÎ¬×ø±ê
     public static float[] getProject(float[] point) {
         float[] win = new float[3];
         int[] mView = {0, 0, Constant.WIDTH, Constant.HEIGHT};
@@ -213,56 +217,56 @@ public class MatrixState {
         return win;
     }
 
-    //ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ 
+    //¶þÎ¬×ø±ê×ªÈýÎ¬×ø±ê 
     public static float[] getUnProject(float x, float y) {
 
-        float w = Constant.WIDTH;// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½
-        float h = Constant.HEIGHT;// ï¿½ï¿½Ä»ï¿½ß¶ï¿½
-        float left = Constant.RATIO;//ï¿½Ó½ï¿½leftÖµ
-        float top = 1;//ï¿½Ó½ï¿½topÖµ
-        float near = 10;//ï¿½Ó½ï¿½nearÖµ
-        float far = 400;//ï¿½Ó½ï¿½farÖµ
-        //ï¿½ï¿½ï¿½Ó¿Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        float w = Constant.WIDTH;// ÆÁÄ»¿í¶È
+        float h = Constant.HEIGHT;// ÆÁÄ»¸ß¶È
+        float left = Constant.RATIO;//ÊÓ½ÇleftÖµ
+        float top = 1;//ÊÓ½ÇtopÖµ
+        float near = 10;//ÊÓ½ÇnearÖµ
+        float far = 400;//ÊÓ½ÇfarÖµ
+        //ÇóÊÓ¿ÚµÄ×ø±êÖÐÐÄÔÚÔ­µãÊ±£¬´¥¿ØµãµÄ×ø±ê
         float x0 = x - w / 2;
         float y0 = h / 2 - y;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½nearï¿½ï¿½ï¿½Ïµï¿½xï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+        //¼ÆËã¶ÔÓ¦µÄnearÃæÉÏµÄx¡¢y×ø±ê
         float xNear = 2 * x0 * left / w;
         float yNear = 2 * y0 * top / h;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½farï¿½ï¿½ï¿½Ïµï¿½xï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+        //¼ÆËã¶ÔÓ¦µÄfarÃæÉÏµÄx¡¢y×ø±ê
         float ratio = far / near;
         float xFar = ratio * xNear;
         float yFar = ratio * yNear;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉãÏñ»ú×ø±êÏµÖÐAµÄ×ø±ê
         float ax = xNear;
         float ay = yNear;
         float az = -near;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ÉãÏñ»ú×ø±êÏµÖÐBµÄ×ø±ê
         float bx = xFar;
         float by = yFar;
         float bz = -far;
-        //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //Í¨¹ýÉãÏñ»ú×ø±êÏµÖÐA¡¢BÁ½µãµÄ×ø±ê£¬ÇóÊÀ½ç×ø±êÏµÖÐA¡¢BÁ½µãµÄ×ø±ê
         float[] A = fromPtoPreP(new float[]{ax, ay, az});
         float[] B = fromPtoPreP(new float[]{bx, by, bz});
-        return new float[]{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ABï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        return new float[]{//·µ»Ø×îÖÕµÄABÁ½µã×ø±ê
                 A[0], A[1], A[2],
                 B[0], B[1], B[2]
         };
     }
 
-    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+    //»ñÈ¡ÉãÏñ»ú¾ØÕóµÄÄæ¾ØÕóµÄ·½·¨
     public static float[] getInvertMvMatrix() {
         float[] invM = new float[16];
-        Matrix.invertM(invM, 0, mVMatrix, 0);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Matrix.invertM(invM, 0, mVMatrix, 0);//ÇóÄæ¾ØÕó
         return invM;
     }
 
-    //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½Äµï¿½ï¿½ï¿½ä»»Ç°ï¿½Äµï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Í¨¹ýÉãÏñ»ú±ä»»ºóµÄµãÇó±ä»»Ç°µÄµãµÄ·½·¨£º³ËÒÔÉãÏñ»ú¾ØÕóµÄÄæ¾ØÕó
     public static float[] fromPtoPreP(float[] p) {
-        //Í¨ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½Ãµï¿½ï¿½ä»»Ö®Ç°ï¿½Äµï¿½
-        float[] inverM = getInvertMvMatrix();//ï¿½ï¿½È¡ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½
+        //Í¨¹ýÄæ±ä»»£¬µÃµ½±ä»»Ö®Ç°µÄµã
+        float[] inverM = getInvertMvMatrix();//»ñÈ¡Äæ±ä»»¾ØÕó
         float[] preP = new float[4];
-        Matrix.multiplyMV(preP, 0, inverM, 0, new float[]{p[0], p[1], p[2], 1}, 0);//ï¿½ï¿½ä»»Ç°ï¿½Äµï¿½
-        return new float[]{preP[0], preP[1], preP[2]};//ï¿½ä»»Ç°ï¿½Äµï¿½ï¿½ï¿½Ç±ä»»Ö®Ç°ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
+        Matrix.multiplyMV(preP, 0, inverM, 0, new float[]{p[0], p[1], p[2], 1}, 0);//Çó±ä»»Ç°µÄµã
+        return new float[]{preP[0], preP[1], preP[2]};//±ä»»Ç°µÄµã¾ÍÊÇ±ä»»Ö®Ç°µÄ·¨ÏòÁ¿
     }
 
 

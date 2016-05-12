@@ -1,17 +1,18 @@
-package com.bn.main;
+package com.bn.Main;
 
 
 import android.content.res.Resources;
 
-import com.bn.util.ShaderUtil;
+import com.bn.Util.ShaderUtil;
 
 public class ShaderManager {
-    final static int shaderCount = 3;
+    final static int shaderCount = 4;
     final static String[][] shaderName =
             {
                     {"vertex.sh", "frag.sh"},
                     {"vertexTexture.sh", "fragTexture.sh"},
-                    {"vertex_shadow.sh", "frag_shadow.sh"}
+                    {"vertex_shadow.sh", "frag_shadow.sh"},
+                    {"vertex_tex.sh", "frag_tex.sh"},
             };
     static String[] mVertexShader = new String[shaderCount];
     static String[] mFragmentShader = new String[shaderCount];
@@ -46,5 +47,10 @@ public class ShaderManager {
     //这里返回的是阴影物体的shader程序
     public static int getShadowshaderProgram() {
         return program[2];
+    }
+
+    //这里返回的是阴影物体的shader程序
+    public static int getTexshaderProgram() {
+        return program[3];
     }
 }

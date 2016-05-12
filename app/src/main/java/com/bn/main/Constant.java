@@ -1,6 +1,7 @@
-package com.bn.main;
+package com.bn.Main;
 
 public class Constant {
+    public static float DATA_RATIO=0.025f;//数据点的缩放比
     //单位尺寸
     public static final float UNIT_SIZE = 1.0f;
     //摄像机旋转速度移动阀值

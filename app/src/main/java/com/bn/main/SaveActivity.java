@@ -1,4 +1,4 @@
-package com.bn.main;
+package com.bn.Main;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bn.util.Stl;
+import com.bn.Util.Stl;
 
 import java.io.File;
 import java.io.FileNotFoundException;

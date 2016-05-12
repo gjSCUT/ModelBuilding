@@ -1,12 +1,11 @@
-package com.bn.util;
+package com.bn.Util;
 
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.bn.main.MySurfaceView;
+import com.bn.csgStruct.Vector3f;
 import com.bn.object.Solid;
 import com.bn.csgStruct.Normal;
-import com.bn.csgStruct.Struct.Vector3f;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
 
 public class LoadUtil {
 
@@ -37,13 +36,13 @@ public class LoadUtil {
     }
 
     //从obj文件中加载携带顶点信息的物体，并自动计算每个顶点的平均法向量
-    public static Solid loadFromFileVertexOnlyAverage(String fname, Resources r, MySurfaceView mv, float Scale) {
+    public static Solid loadFromFileVertexOnlyAverage(String fname, Resources r, float Scale) {
         //加载后物体的引用
         Solid lo = null;
         //原始顶点坐标列表--按顺序从obj文件中加载的
-        Vector<Vector3f> vSet = new Vector<Vector3f>();
+        List<Vector3f> vSet = new ArrayList<>();
         //结果顶点坐标列表 --根据组成面的情况组织好的
-        Vector<Integer> iSet = new Vector<Integer>();
+        List<Integer> iSet = new ArrayList<>();
 
         try {
             InputStream in = r.getAssets().open(fname);
@@ -89,7 +88,7 @@ public class LoadUtil {
             }
 
             //创建3D物体对象
-            lo = new Solid(mv, vSet, iSet, 1);
+            lo = new Solid(vSet, iSet, 1);
         } catch (Exception e) {
             Log.d("load error", "load error");
             e.printStackTrace();
@@ -98,16 +97,17 @@ public class LoadUtil {
     }
 
 
+
     //从obj文件中加载仅携带顶点信息的物体
     //首先加载顶点信息，再根据顶点组成三角形面的情况自动计算出每个面的法向量
     //然后将这个面的法向量分配给这个面上的顶点
-    public static Solid loadFromFileVertexOnlyFace(String fname, Resources r, MySurfaceView mv, float Scale) {
+    public static Solid loadFromFileVertexOnlyFace(String fname, Resources r, float Scale) {
         //加载后3D对象的引用
         Solid lo = null;
         //原始顶点坐标列表--按顺序从obj文件中加载的
-        Vector<Vector3f> vSet = new Vector<Vector3f>();
+        List<Vector3f> vSet = new ArrayList<>();
         //结果顶点坐标列表 --根据组成面的情况组织好的
-        Vector<Integer> iSet = new Vector<Integer>();
+        List<Integer> iSet = new ArrayList<>();
 
         try {
             InputStream in = r.getAssets().open(fname);
@@ -148,7 +148,7 @@ public class LoadUtil {
 
 
             //创建3D对象
-            lo = new Solid(mv, vSet, iSet, 2);
+            lo = new Solid(vSet, iSet, 2);
         } catch (Exception e) {
             Log.d("load error", "load error");
             e.printStackTrace();
@@ -156,7 +156,7 @@ public class LoadUtil {
         return lo;
     }
 
-    public static float[] getNolmalsOnlyAverage(Vector<Vector3f> vSet, Vector<Integer> iSet) {
+    public static float[] getNolmalsOnlyAverage(List<Vector3f> vSet, List<Integer> iSet) {
         //平均前各个索引对应的点的法向量集合Map
         //此HashMap的key为点的索引， value为点所在的各个面的法向量的集合
         HashMap<Integer, HashSet<Normal>> hmn = new HashMap<Integer, HashSet<Normal>>();
@@ -182,16 +182,13 @@ public class LoadUtil {
             float vyb = y2 - y0;
             float vzb = z2 - z0;
             //通过求两个向量的叉积计算法向量
-            float[] vNormal = vectorNormal(getCrossProduct
-                    (
-                            vxa, vya, vza, vxb, vyb, vzb
-                    ));
+            float[] vNormal = vectorNormal(getCrossProduct(vxa, vya, vza, vxb, vyb, vzb));
 
             for (int tempInxex : index) {//记录每个索引点的法向量到平均前各个索引对应的点的法向量集合组成的Map中
                 //获取当前索引对应点的法向量集合
                 HashSet<Normal> hsn = hmn.get(tempInxex);
                 if (hsn == null) {//若集合不存在则创建
-                    hsn = new HashSet<Normal>();
+                    hsn = new HashSet<>();
                 }
                 //将此点的法向量添加到集合中
                 //由于Normal类重写了equals方法，因此同样的法向量不会重复出现在此点
@@ -218,9 +215,10 @@ public class LoadUtil {
         return nXYZ;
     }
 
-    public static float[] getVerticesOnlyAverage(Vector<Vector3f> vSet, Vector<Integer> iSet) {
+
+    public static float[] getVerticesOnlyAverage(List<Vector3f> vSet, List<Integer> iSet) {
         //结果顶点坐标列表--按面组织好
-        ArrayList<Float> alvResult = new ArrayList<Float>();
+        ArrayList<Float> alvResult = new ArrayList<>();
         for (int i : iSet) {
             float x0 = vSet.get(i).x;
             float y0 = vSet.get(i).y;
@@ -240,7 +238,7 @@ public class LoadUtil {
         return vXYZ;
     }
 
-    public static float[] getNolmalsOnlyFace(Vector<Vector3f> vSet, Vector<Integer> iSet) {
+    public static float[] getNolmalsOnlyFace(List<Vector3f> vSet, List<Integer> iSet) {
         //结果法向量列表--根据组成面的情况组织好的
         ArrayList<Float> alnResult = new ArrayList<Float>();
         //平均前各个索引对应的点的法向量集合Map
@@ -293,15 +291,15 @@ public class LoadUtil {
         return nXYZ;
     }
 
-    public static float[] getVerticesOnlyFace(Vector<Vector3f> vSet, Vector<Integer> iSet) {
+    public static float[] getVerticesOnlyFace(List<Vector3f> vSet, List<Integer> iSet) {
         //结果顶点坐标列表--按面组织好
-        ArrayList<Float> alvResult = new ArrayList<Float>();
+        ArrayList<Float> alvResult = new ArrayList<>();
 
         for (int i : iSet) {
 
-            float x0 = (float) vSet.get(i).x;
-            float y0 = (float) vSet.get(i).y;
-            float z0 = (float) vSet.get(i).z;
+            float x0 = vSet.get(i).x;
+            float y0 = vSet.get(i).y;
+            float z0 = vSet.get(i).z;
             alvResult.add(x0);
             alvResult.add(y0);
             alvResult.add(z0);
@@ -318,7 +316,7 @@ public class LoadUtil {
         return vXYZ;
     }
 
-    public static float[] getStlNolmalsOnlyFace(Vector<Vector3f> vSet, Vector<Integer> iSet) {
+    public static float[] getStlNolmalsOnlyFace(List<Vector3f> vSet, List<Integer> iSet) {
         //结果法向量列表--根据组成面的情况组织好的
         ArrayList<Float> alnResult = new ArrayList<Float>();
         //平均前各个索引对应的点的法向量集合Map

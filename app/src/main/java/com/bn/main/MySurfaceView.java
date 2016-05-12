@@ -1,4 +1,4 @@
-package com.bn.main;
+package com.bn.Main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,20 +9,23 @@ import android.opengl.GLUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.bn.object.Body;
-import com.bn.object.Solid;
-import com.bn.object.TextureRect;
-import com.bn.object.TextureRectDouble;
+import com.bn.Util.Indesign;
+import com.bn.Util.LoadUtil;
+import com.bn.Util.VectorUtil;
+import com.bn.csgStruct.Vector2f;
+import com.bn.csgStruct.Vector3f;
 import com.bn.csgStruct.BooleanModeller;
 import com.bn.csgStruct.Bound;
-import com.bn.csgStruct.Struct.Vector2f;
-import com.bn.csgStruct.Struct.Vector3f;
-import com.bn.util.Indesign;
-import com.bn.util.LoadUtil;
-import com.bn.util.VectorUtil;
+import com.bn.object.Body;
+import com.bn.object.Revolve;
+import com.bn.object.Solid;
+import com.bn.object.Sweep;
+import com.bn.object.TextureRect;
+import com.bn.object.TextureRectDouble;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -80,9 +83,6 @@ public class MySurfaceView extends GLSurfaceView {
     Solid sphere;
     Solid cone;
     Solid cylinder;
-    Solid unionModel;
-    Solid diffModel;
-    Solid interModel;
     Solid pm;
     TextureRect texRect;    //纹理矩形对象的引用
     TextureRectDouble beginFace;    //要贴合面
@@ -163,6 +163,10 @@ public class MySurfaceView extends GLSurfaceView {
     private int axisTexId, redTexId;
     //当前纹理的图片
     private Bitmap axisBm, redBm;
+    List<Vector2f> face = new Vector<>();
+    List<Vector2f> line = new Vector<>();
+
+
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setEGLContextClientVersion(2); //设置使用OPENGL ES2.0
@@ -172,7 +176,7 @@ public class MySurfaceView extends GLSurfaceView {
         //创建摄像机
         camera = new Camera();
         //初始化光源
-        MatrixState.setLightLocation(0, 100, 0);
+        MatrixState.setLightLocation(10, 30, 10);
 
         //初始化工作栈和恢复栈
         indesign = new Indesign();
@@ -215,6 +219,15 @@ public class MySurfaceView extends GLSurfaceView {
             return temp;
         }
         return null;
+    }
+
+
+    public void setLine(List<Vector2f> line) {
+        this.line = line;
+    }
+
+    public void setFace(List<Vector2f> face) {
+        this.face = face;
     }
 
     //触摸事件回调方法
@@ -302,7 +315,7 @@ public class MySurfaceView extends GLSurfaceView {
                     locationY1DownP2 = Constant.HEIGHT - e.getY(1);    //记录双指Down触发时的Y1坐标
 
                     Vector2fPDownP2 = new Vector2f(locationX1DownP2 - locationX0DownP2, locationY1DownP2 - locationY0DownP2);//手指初始向量
-                    lengthPDownP2 = Vector2fPDownP2.mod;//记录双指down事两指间距
+                    lengthPDownP2 = Vector2fPDownP2.module();//记录双指down事两指间距
 
                     //判断轴
                     curBody.switchAxis(Vector2fPDownP2);
@@ -550,9 +563,9 @@ public class MySurfaceView extends GLSurfaceView {
                         float lengthP12MoveP3 = VectorUtil.Length(e.getX(1), e.getY(1), e.getX(2), e.getY(2));
                         if (lengthP01MoveP3 > 10f && lengthP02MoveP3 > 10f && lengthP12MoveP3 > 10f) {
 
-                            float scale01 = lengthP01MoveP3 / (Vector2fP01DownP3.mod);
-                            float scale02 = lengthP02MoveP3 / (Vector2fP02DownP3.mod);
-                            float scale12 = lengthP12MoveP3 / (Vector2fP12DownP3.mod);
+                            float scale01 = lengthP01MoveP3 / (Vector2fP01DownP3.module());
+                            float scale02 = lengthP02MoveP3 / (Vector2fP02DownP3.module());
+                            float scale12 = lengthP12MoveP3 / (Vector2fP12DownP3.module());
                             if (!isObject) {
                                 camera.distance /= (scale01 + scale02 + scale12) / 3;
                                 camera.distancetotal = (float) Math.sqrt(1 + camera.distance * camera.distance);
@@ -634,22 +647,24 @@ public class MySurfaceView extends GLSurfaceView {
     public void createObject(int Type, boolean isNew) {
         boolean isTemp = false;
         if (isNew == true) {
+            Solid solid = null;
             if (Type == 1) {
-                Solid s = new Solid(MySurfaceView.this, cube);
-                BodyAll.add(s);
+                solid = new Solid(cube);
             } else if (Type == 2) {
-                Solid s = new Solid(MySurfaceView.this, cylinder);
-                BodyAll.add(s);
+                solid = new Solid(cylinder);
             } else if (Type == 3) {
-                Solid s = new Solid(MySurfaceView.this, cone);
-                BodyAll.add(s);
+                solid = new Solid(cone);
             } else if (Type == 4) {
-                Solid s = new Solid(MySurfaceView.this, sphere);
-                BodyAll.add(s);
+                solid = new Solid(sphere);
+            } else if (Type == 5) {
+                solid = new Sweep(0.1f, face, line);
+            } else if (Type == 6) {
+                solid = new Revolve(0.1f, face, 18);
             }
+            BodyAll.add(solid);
             isTemp = true;
         } else {
-            Solid s = new Solid(MySurfaceView.this, (Solid) curBody);
+            Solid s = new Solid(curBody);
             BodyAll.add(s);
         }
 
@@ -661,8 +676,7 @@ public class MySurfaceView extends GLSurfaceView {
         curBody.isChoosed = true;
 
         if (isTemp) {
-            isTemp = false;
-            Vector<Body> temp = new Vector<Body>();
+            Vector<Body> temp = new Vector<>();
             for (Body e1 : BodyAll) {
                 Body tempBody = (Body) e1.clone();
                 temp.add(tempBody);
@@ -679,13 +693,13 @@ public class MySurfaceView extends GLSurfaceView {
             Solid boolSolid = null;
             switch (boolMode) {
                 case 1:
-                    boolSolid = bm.getIntersection(this);
+                    boolSolid = bm.getIntersection();
                     break;
                 case 2:
-                    boolSolid = bm.getUnion(this);
+                    boolSolid = bm.getUnion();
                     break;
                 case 3:
-                    boolSolid = bm.getDifference(this);
+                    boolSolid = bm.getDifference();
                     break;
             }
 
@@ -703,7 +717,7 @@ public class MySurfaceView extends GLSurfaceView {
             }
             curBody.isChoosed = true;
 
-            Vector<Body> temp = new Vector<Body>();
+            Vector<Body> temp = new Vector<>();
             for (Body e1 : BodyAll) {
                 Body tempBody = (Body) e1.clone();
                 temp.add(tempBody);
@@ -821,7 +835,6 @@ public class MySurfaceView extends GLSurfaceView {
             }
 
             if (isCreateBool == true) {
-                //createBool(BodyAll.get(0),BodyAll.get(1));
                 createBool(curBody, curBody2);
                 isCreateBool = false;
             }
@@ -849,16 +862,13 @@ public class MySurfaceView extends GLSurfaceView {
 
                 //绘制
                 for (Body b : BodyAll) {
-
-                    Solid s = (Solid) b;
-
                     MatrixState.pushMatrix();    //进栈
-                    s.drawSelf(0);
+                    b.drawSelf(0);
                     //s.drawSelf(1);
                     MatrixState.popMatrix();//出栈
                 }
                 /*
-	            if(BodyAll.size()==1)
+                if(BodyAll.size()==1)
 	            {
 	            	Solid s=(Solid)curBody;
 	            	stlPrint=s.getStlPoint();
@@ -872,8 +882,8 @@ public class MySurfaceView extends GLSurfaceView {
 
         public void initTaskReal() {
             //物体的数组
-            BodyAll = new Vector<Body>();
-            BodyPick = new Vector<Body>();
+            BodyAll = new Vector<>();
+            BodyPick = new Vector<>();
 
             //创建纹理矩形对象
             texRect = new TextureRect(8.0f);
@@ -887,12 +897,11 @@ public class MySurfaceView extends GLSurfaceView {
             endFace.initShader(ShaderManager.getObjectshaderProgram());
 
             //加载要绘制的物体
-            pm = LoadUtil.loadFromFileVertexOnlyFace("pm.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
-            cone = LoadUtil.loadFromFileVertexOnlyAverage("cone.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
-            cube = LoadUtil.loadFromFileVertexOnlyFace("cube.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
-            cylinder = LoadUtil.loadFromFileVertexOnlyAverage("cylinder.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
-            sphere = LoadUtil.loadFromFileVertexOnlyAverage("sphere.obj", MySurfaceView.this.getResources(), MySurfaceView.this, 0.2f);
-
+            pm = LoadUtil.loadFromFileVertexOnlyFace("pm.obj", MySurfaceView.this.getResources(),0.2f);
+            cone = LoadUtil.loadFromFileVertexOnlyAverage("cone.obj", MySurfaceView.this.getResources(),  0.2f);
+            cube = LoadUtil.loadFromFileVertexOnlyFace("cube.obj", MySurfaceView.this.getResources(), 0.2f);
+            cylinder = LoadUtil.loadFromFileVertexOnlyAverage("cylinder.obj", MySurfaceView.this.getResources(), 0.2f);
+            sphere = LoadUtil.loadFromFileVertexOnlyAverage("sphere.obj", MySurfaceView.this.getResources(), 0.2f);
         }
 
         @Override

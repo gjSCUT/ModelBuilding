@@ -1,4 +1,4 @@
-package com.bn.main;
+package com.bn.Main;
 
 
 public class Camera {

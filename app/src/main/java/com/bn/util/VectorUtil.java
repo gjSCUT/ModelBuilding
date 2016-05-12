@@ -1,6 +1,9 @@
-package com.bn.util;
+package com.bn.Util;
 
-import com.bn.csgStruct.Struct.Vector2f;
+import com.bn.csgStruct.Vector2f;
+import com.bn.csgStruct.Vector3f;
+
+import java.util.List;
 
 //计算三角形法向量的工具类
 public class VectorUtil {
@@ -31,14 +34,35 @@ public class VectorUtil {
 
     //二维向量夹角
     public static float getDegree(Vector2f v1, Vector2f v2) {
-        if(v2 == null) return 0;
         if (v2.x == 0 && v2.y == 0)
             return 0;
         else {
-            return Product(v1, v2) / (v1.mod * v2.mod);
+            return Product(v1, v2) / (v1.module() * v2.module());
         }
     }
 
+    public static Vector3f getMean(List<Vector3f> vertices){
+        Vector3f center = new Vector3f(0,0,0);
+        for(Vector3f vector3f : vertices){
+            center = center.add(vector3f);
+        }
+        return center.divideK(vertices.size());
+    }
+
+    public static Vector3f getMaxLen(List<Vector3f> vertices){
+        Vector3f maxPos = new Vector3f(0,0,0);
+        Vector3f minPos = new Vector3f(0,0,0);
+        for(Vector3f vector3f : vertices){
+            maxPos.x = Math.max(maxPos.x, vector3f.x);
+            maxPos.y = Math.max(maxPos.y, vector3f.y);
+            maxPos.z = Math.max(maxPos.z, vector3f.z);
+
+            minPos.x = Math.min(minPos.x, vector3f.x);
+            minPos.y = Math.min(minPos.y, vector3f.y);
+            minPos.z = Math.min(minPos.z, vector3f.z);
+        }
+        return maxPos.minus(minPos).multiK(0.5f);
+    }
 
     //射线与三角形相交的方法
     public static float IntersectTriangle(
@@ -112,4 +136,20 @@ public class VectorUtil {
     }
 
 
+
+    public static float[] calVertices(
+            List<Vector3f> alv,//原顶点列表（未卷绕）
+            List<Integer> alFaceIndex//组织成面的顶点的索引值列表（按逆时针卷绕）
+    )
+    {
+        float[] vertices=new float[alFaceIndex.size()*3];
+        //生成顶点的数组
+        int vCount=0;
+        for(int i:alFaceIndex){
+            vertices[vCount++]=alv.get(i).x;
+            vertices[vCount++]=alv.get(i).y;
+            vertices[vCount++]=alv.get(i).z;
+        }
+        return vertices;
+    }
 }

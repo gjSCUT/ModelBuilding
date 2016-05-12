@@ -1,4 +1,4 @@
-package com.bn.main;
+package com.bn.Main;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -17,12 +17,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bn.csgStruct.Vector2f;
 import com.bn.object.Body;
 
+import java.util.List;
 import java.util.Vector;
 
 public class MainActivity extends Activity {
-    public Button menu, fill, object, property, delete, cylinder, cube, ball, cone, jiao, bing, cha, redo, undo;
+    public Button menu, fill, object, delete, cylinder, cube, ball, cone, sweep, revolve, bing, cha, redo, undo;
     public LinearLayout first, slide;
     public RelativeLayout left, right;        //左右边相对布局
     ObjectAnimator in, out;        //回收动画和下拉动画
@@ -50,13 +52,13 @@ public class MainActivity extends Activity {
         mGLSurfaceView.setFocusableInTouchMode(true);//设置为可触控
 
         menu = (Button) findViewById(R.id.menu);
-        fill = (Button) findViewById(R.id.fill);
-        object = (Button) findViewById(R.id.object);
-        property = (Button) findViewById(R.id.object);
-
-        jiao = (Button) findViewById(R.id.jiao);
         bing = (Button) findViewById(R.id.bing);
         cha = (Button) findViewById(R.id.cha);
+        fill = (Button) findViewById(R.id.fill);
+        object = (Button) findViewById(R.id.object);
+
+        sweep  = (Button) findViewById(R.id.sweep);
+        revolve = (Button) findViewById(R.id.revolve);
 
         cylinder = (Button) findViewById(R.id.cylinder);
         cube = (Button) findViewById(R.id.cube);
@@ -74,6 +76,7 @@ public class MainActivity extends Activity {
         right = (RelativeLayout) findViewById(R.id.right_relative);
 
         menu.bringToFront();
+
         delete.bringToFront();
         redo.bringToFront();
         undo.bringToFront();
@@ -199,6 +202,18 @@ public class MainActivity extends Activity {
                 mGLSurfaceView.undo();
             }
         });
+        bing.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mGLSurfaceView.isBool = true;
+                mGLSurfaceView.boolMode = 2;
+            }
+        });
+        cha.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mGLSurfaceView.isBool = true;
+                mGLSurfaceView.boolMode = 3;
+            }
+        });
         object.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mGLSurfaceView.isObject)
@@ -216,48 +231,60 @@ public class MainActivity extends Activity {
             }
         });
 
-        property.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                  /*
-                  float[] euler = mGLSurfaceView.curBody.quater.getEulerAxis();
-  				Intent intent = new Intent(MainActivity.this, DrawActivity.class);
-  				Bundle bundle = new Bundle();
-  				float[] bodyPro=new float[]{
-  						mGLSurfaceView.curBody.xLength,
-  						mGLSurfaceView.curBody.yLength,
-  						mGLSurfaceView.curBody.zLength,
-  						mGLSurfaceView.curBody.xScale,
-  						mGLSurfaceView.curBody.yScale,
-  						mGLSurfaceView.curBody.zScale,
-  						euler[0],
-  						euler[1],
-  						euler[2]};
-  				bundle.putFloatArray("curBody", bodyPro);
-  				startActivity(intent);
-  				overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
-  				*/
-                return true;
-            }
-        });
-        jiao.setOnClickListener(new View.OnClickListener() {
+        sweep.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mGLSurfaceView.isBool = true;
-                mGLSurfaceView.boolMode = 1;
+                Intent intent = new Intent(MainActivity.this, DrawActivity.class);
+                intent.putExtra("mode",1);
+                startActivityForResult(intent, 1);
             }
         });
-        bing.setOnClickListener(new View.OnClickListener() {
+
+        revolve.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mGLSurfaceView.isBool = true;
-                mGLSurfaceView.boolMode = 2;
+                Intent intent = new Intent(MainActivity.this, DrawActivity.class);
+                intent.putExtra("mode",2);
+                startActivityForResult(intent, 2);
             }
         });
-        cha.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mGLSurfaceView.isBool = true;
-                mGLSurfaceView.boolMode = 3;
+    }
+
+
+    /**覆盖onActivityResult方法*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**取得Bundle对象*/
+        if(resultCode == 0) return;
+        else if(resultCode == 1){
+            float[] faceFloat = data.getFloatArrayExtra("face");
+            List<Vector2f> face = new Vector<>();
+            for(int i = 0; i< faceFloat.length; i+=2){
+                face.add(new Vector2f(faceFloat[i], faceFloat[i+1]));
             }
-        });
+
+            float[] lineFloat = data.getFloatArrayExtra("line");
+            List<Vector2f> line = new Vector<>();
+            for(int i = 0; i< lineFloat.length; i+=2){
+                line.add(new Vector2f(lineFloat[i], lineFloat[i+1]));
+            }
+
+            mGLSurfaceView.setFace(face);
+            mGLSurfaceView.setLine(line);
+
+            mGLSurfaceView.isCreateNormal = true;
+            mGLSurfaceView.createType = 5;
+            mGLSurfaceView.isCreateNew = true;
+        }
+        else if(resultCode == 2){
+            float[] faceFloat = data.getFloatArrayExtra("face");
+            List<Vector2f> face = new Vector<>();
+            for(int i = 0; i< faceFloat.length; i+=2){
+                face.add(new Vector2f(faceFloat[i], faceFloat[i+1]));
+            }
+            mGLSurfaceView.setFace(face);
+            mGLSurfaceView.isCreateNormal = true;
+            mGLSurfaceView.createType = 6;
+            mGLSurfaceView.isCreateNew = true;
+        }
     }
 
     @Override

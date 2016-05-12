@@ -1,4 +1,4 @@
-package com.bn.util;
+package com.bn.Util;
 
 import android.content.res.Resources;
 import android.opengl.GLES20;

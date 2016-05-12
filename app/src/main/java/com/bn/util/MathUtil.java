@@ -1,4 +1,4 @@
-package com.bn.util;
+package com.bn.Util;
 
 public class MathUtil {
     static double a[][];

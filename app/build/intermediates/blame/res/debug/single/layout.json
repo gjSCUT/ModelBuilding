@@ -4,12 +4,12 @@
         "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\load_main.xml"
     },
     {
-        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\print_main.xml",
-        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\print_main.xml"
-    },
-    {
         "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\help_main.xml",
         "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\help_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\print_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\print_main.xml"
     },
     {
         "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\line.xml",

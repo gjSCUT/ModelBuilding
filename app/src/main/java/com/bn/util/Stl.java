@@ -1,4 +1,4 @@
-package com.bn.util;
+package com.bn.Util;
 
 
 import java.io.FileNotFoundException;
