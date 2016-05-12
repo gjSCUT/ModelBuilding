@@ -1,0 +1,528 @@
+[
+    {
+        "outputFile": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 51,
+                    "endOffset": 102
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 1,
+                        "startOffset": 156,
+                        "endColumn": 48,
+                        "endOffset": 203
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 107,
+                    "endColumn": 49,
+                    "endOffset": 152
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 1,
+                        "startOffset": 109,
+                        "endColumn": 46,
+                        "endOffset": 154
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 157,
+                    "endColumn": 58,
+                    "endOffset": 211
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 1,
+                        "startOffset": 53,
+                        "endColumn": 55,
+                        "endOffset": 107
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 216,
+                    "endColumn": 39,
+                    "endOffset": 251
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 1,
+                        "startOffset": 205,
+                        "endColumn": 36,
+                        "endOffset": 240
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 256,
+                    "endColumn": 57,
+                    "endOffset": 309
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 89,
+                        "endColumn": 57,
+                        "endOffset": 142
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 314,
+                    "endColumn": 55,
+                    "endOffset": 365
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 147,
+                        "endColumn": 55,
+                        "endOffset": 198
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 370,
+                    "endColumn": 41,
+                    "endOffset": 407
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 507,
+                        "endColumn": 41,
+                        "endOffset": 544
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 412,
+                    "endColumn": 43,
+                    "endOffset": 451
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 331,
+                        "endColumn": 43,
+                        "endOffset": 370
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 456,
+                    "endColumn": 43,
+                    "endOffset": 495
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 375,
+                        "endColumn": 43,
+                        "endOffset": 414
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 500,
+                    "endColumn": 46,
+                    "endOffset": 542
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 589,
+                        "endColumn": 46,
+                        "endOffset": 631
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 547,
+                    "endColumn": 45,
+                    "endOffset": 588
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 461,
+                        "endColumn": 45,
+                        "endOffset": 502
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 593,
+                    "endColumn": 38,
+                    "endOffset": 627
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 292,
+                        "endColumn": 38,
+                        "endOffset": 326
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 632,
+                    "endColumn": 53,
+                    "endOffset": 681
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 203,
+                        "endColumn": 53,
+                        "endOffset": 252
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 686,
+                    "endColumn": 41,
+                    "endOffset": 723
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 419,
+                        "endColumn": 41,
+                        "endOffset": 456
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 728,
+                    "endColumn": 39,
+                    "endOffset": 763
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 549,
+                        "endColumn": 39,
+                        "endOffset": 584
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 768,
+                    "endColumn": 37,
+                    "endOffset": 801
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 1,
+                        "startOffset": 254,
+                        "endColumn": 34,
+                        "endOffset": 287
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 806,
+                    "endColumn": 52,
+                    "endOffset": 854
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 338,
+                        "endColumn": 52,
+                        "endOffset": 386
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 859,
+                    "endColumn": 50,
+                    "endOffset": 905
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 50,
+                        "endOffset": 101
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 910,
+                    "endColumn": 45,
+                    "endOffset": 951
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 244,
+                        "endColumn": 45,
+                        "endOffset": 285
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 956,
+                    "endColumn": 45,
+                    "endOffset": 997
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 152,
+                        "endColumn": 45,
+                        "endOffset": 193
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1002,
+                    "endColumn": 45,
+                    "endOffset": 1043
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 106,
+                        "endColumn": 45,
+                        "endOffset": 147
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1048,
+                    "endColumn": 47,
+                    "endOffset": 1091
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 290,
+                        "endColumn": 47,
+                        "endOffset": 333
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1096,
+                    "endColumn": 45,
+                    "endOffset": 1137
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 198,
+                        "endColumn": 45,
+                        "endOffset": 239
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1142,
+                    "endLine": 31,
+                    "endColumn": 12,
+                    "endOffset": 1428
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 245,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 531
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 1433,
+                    "endLine": 34,
+                    "endColumn": 12,
+                    "endOffset": 1588
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 569,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 724
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 1593,
+                    "endLine": 39,
+                    "endColumn": 9,
+                    "endOffset": 1810
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 730,
+                        "endLine": 23,
+                        "endColumn": 9,
+                        "endOffset": 947
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 1815,
+                    "endLine": 42,
+                    "endColumn": 12,
+                    "endOffset": 1947
+                },
+                "from": {
+                    "file": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 954,
+                        "endLine": 27,
+                        "endColumn": 12,
+                        "endOffset": 1086
+                    }
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="border_background">#dddddd</color>
+    <color name="main_background">#eeeeee</color>
+    <color name="transparent_background">#70000000</color>
+    <color name="white">#000000</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="backbutton">40dp</dimen>
+    <dimen name="buttonheight">37dp</dimen>
+    <dimen name="buttonwidth">120dp</dimen>
+    <dimen name="default_padding">40dp</dimen>
+    <dimen name="edittextheight">40dp</dimen>
+    <dimen name="height">200dp</dimen>
+    <dimen name="menu_longclick_radius">130dp</dimen>
+    <dimen name="textheight">30dp</dimen>
+    <dimen name="textsize">16sp</dimen>
+    <dimen name="width">500dp</dimen>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">ModelBuilding</string>
+    <string name="helpactivity">HELP</string>
+    <string name="loadactivity">LOAD</string>
+    <string name="menuactivity">MENU</string>
+    <string name="printactivity">PRINT</string>
+    <string name="saveactivity">SAVE</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="Transparent">
+		<item name="android:windowBackground">@color/transparent_background</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsTranslucent">true</item>
+	</style>
+    <style name="WriteButton" parent="@android:style/Widget.Button">
+        <item name="android:background">#eeeeee</item>
+    </style>
+</resources>

@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\load_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\load_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\print_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\print_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\help_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\help_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\line.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\line.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\draw_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\draw_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\save_main.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\save_main.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\menu_longclick.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\layout\\menu_longclick.xml"
+    }
+]

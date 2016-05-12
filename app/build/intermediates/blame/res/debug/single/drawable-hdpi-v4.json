@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\axis.jpg",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\axis.jpg"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\red.jpg",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\red.jpg"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\test.jpg",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\test.jpg"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ball.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\ball.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\cube.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\cube.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\blue.jpg",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\blue.jpg"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\cone.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\cone.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\cylinder.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\cylinder.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\blue2.jpg",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-hdpi\\blue2.jpg"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_stay.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\anim\\anim_stay.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_in.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\anim\\anim_in.xml"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_out.xml",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\anim\\anim_out.xml"
+    }
+]

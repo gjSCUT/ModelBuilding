@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingBottom="@dimen/default_padding"
+    android:paddingTop="@dimen/default_padding" >
+ 	
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/border_background">
+        
+		<Button
+            android:id="@+id/back"
+            android:layout_width="@dimen/backbutton"
+            android:layout_height="@dimen/textheight"
+            android:background="@drawable/back" />
+		
+		<TextView
+		    android:id="@+id/path"
+		    android:layout_width="@dimen/width"
+		    android:layout_height="@dimen/textheight"
+            android:layout_toRightOf="@+id/back"
+		    android:gravity="center"
+		    android:textSize="16sp" 
+		    android:textColor="#000"/>
+	 	
+		<LinearLayout 
+		    android:id="@+id/LinearLayout1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@id/back"
+		    android:layout_alignRight="@id/path"
+		    android:layout_alignParentBottom="true"
+		    android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
+		    android:orientation="horizontal">
+		
+			<Button
+		    	android:id="@+id/cancel"
+			    android:layout_width="@dimen/buttonwidth"
+			    android:layout_height="@dimen/buttonheight"
+		    	android:layout_weight="1"
+                android:padding="3dp"
+                android:textSize="@dimen/textsize" 
+		    	android:text="CANCEL"/>
+		       		
+			<TextView 
+			    android:layout_width="@dimen/buttonwidth"
+		    	android:layout_height="@dimen/buttonheight"
+		    	android:layout_weight="2"/>
+		
+			<Button 
+			    android:id="@+id/save"
+			    android:layout_width="@dimen/buttonwidth"
+			    android:layout_height="@dimen/buttonheight"
+		    	android:layout_weight="1"
+                android:padding="3dp"
+                android:textSize="@dimen/textsize" 
+		   		android:text="SAVE"/>
+		    
+		</LinearLayout>
+			   	
+		<EditText
+		    android:id="@+id/target"
+		    android:layout_width="wrap_content"
+		    android:layout_height="@dimen/edittextheight"
+		    android:layout_alignLeft="@id/back"
+		    android:layout_alignRight="@id/path"
+		    android:layout_above="@id/LinearLayout1"
+		    android:layout_marginLeft="15dp"
+		    android:layout_marginRight="15dp"
+		    android:gravity="center"
+		    android:hint="输入要保存的文件名"
+		    android:selectAllOnFocus="true"
+		    android:textSize="16sp"
+		    android:textColor="#000" />
+		
+		<ListView
+		    android:id="@+id/list"
+		    android:layout_width="@dimen/width"
+		    android:layout_height="@dimen/height"
+		    android:layout_below="@id/path"
+		    android:layout_alignRight="@id/path"
+		    android:layout_alignLeft="@id/back"
+		    android:layout_above="@id/target"
+		    android:background="@color/main_background"
+		    android:divider="#000"
+		    android:dividerHeight="1px" />
+		   
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\cancel.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-mdpi\\cancel.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\icon.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-mdpi\\icon.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\back.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-mdpi\\back.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\file.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-mdpi\\file.png"
+    },
+    {
+        "merged": "D:\\projects\\android\\ModelBuilding-master1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\folder.png",
+        "source": "D:\\projects\\android\\ModelBuilding-master1\\app\\src\\main\\res\\drawable-mdpi\\folder.png"
+    }
+]
