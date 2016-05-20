@@ -10,7 +10,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 //纹理矩形单面
-public class TextureRect extends Body {
+public class TextureRect extends Body{
     int mProgram;//自定义渲染管线着色器程序id
     int muMVPMatrixHandle;//总变换矩阵引用
     int maPositionHandle; //顶点位置属性引用
@@ -21,9 +21,6 @@ public class TextureRect extends Body {
     int maNormalHandle; //顶点法向量属性引用 
     int maLightLocationHandle;//光源位置属性引用  
 
-
-    String mVertexShader;//顶点着色器代码脚本  	 
-    String mFragmentShader;//片元着色器代码脚本
 
     FloatBuffer mVertexBuffer;//顶点坐标数据缓冲
     FloatBuffer mTexCoorBuffer;//顶点纹理坐标数据缓冲
@@ -103,7 +100,6 @@ public class TextureRect extends Body {
     }
 
     //自定义初始化着色器的initShader方法
-    @Override
     public void initShader(int Program) {
         //基于顶点着色器与片元着色器创建程序
         mProgram = Program;
@@ -127,7 +123,6 @@ public class TextureRect extends Body {
     }
 
     public void drawSelf(int texId) {
-
         setBody();
 
         //制定使用某套shader程序

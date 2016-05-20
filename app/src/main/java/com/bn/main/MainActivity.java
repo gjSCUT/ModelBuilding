@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class MainActivity extends Activity {
-    public Button menu, fill, object, delete, cylinder, cube, ball, cone, sweep, revolve, bing, cha, redo, undo;
+    public Button menu, fill, object, delete, cylinder, cube, ball, cone, sweep, revolve, bing, cha, redo, undo, exit;
     public LinearLayout first, slide;
     public RelativeLayout left, right;        //左右边相对布局
     ObjectAnimator in, out;        //回收动画和下拉动画
@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
         cha = (Button) findViewById(R.id.cha);
         fill = (Button) findViewById(R.id.fill);
         object = (Button) findViewById(R.id.object);
+        exit = (Button) findViewById(R.id.exit);
 
         sweep  = (Button) findViewById(R.id.sweep);
         revolve = (Button) findViewById(R.id.revolve);
@@ -230,7 +231,12 @@ public class MainActivity extends Activity {
                     MySurfaceView.isFill = true;
             }
         });
-
+        exit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         sweep.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DrawActivity.class);

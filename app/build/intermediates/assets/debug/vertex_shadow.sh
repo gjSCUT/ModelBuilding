@@ -46,15 +46,11 @@ void main()
 {
 	if(isShadow==1)
    	{
-		vec4 t_Position=uRotateMatrix * vec4(aPosition.x,-1.99,aPosition.z,1);
-		mat4 finalMarix=uMProjCameraMatrix * uMMatrix;
-		gl_Position = finalMarix * vec4(t_Position.x,-1.99,t_Position.z,1);
+   	    vec3 V = (uMMatrix * vec4(aPosition,1)).xyz;
+		gl_Position = uMProjCameraMatrix * vec4(V.x,-1.99,V.y,1);
    	}
    	else
    	{
-		//vec4 t_Position=uRotateMatrix * vec4(aPosition,1);
-		//mat4 finalMarix=uMProjCameraMatrix * uMMatrix * uRotateMatrix ;
-	  	//gl_Position = finalMarix * vec4(aPosition,1); //根据总变换矩阵计算此次绘制此顶点位置
 		gl_Position = uMVPMatrix * vec4(aPosition,1); //根据总变换矩阵计算此次绘制此顶点位置
 		vColor = aColor;//将接收的颜色传递给片元着色器
    	}

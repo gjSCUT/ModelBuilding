@@ -43,6 +43,12 @@
             		android:layout_weight="1"
             		android:text="物体"/>
 
+				<Button  android:id="@+id/exit"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="退出"/>
+
         	</LinearLayout>
     </RelativeLayout>
     

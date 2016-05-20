@@ -12,10 +12,10 @@ import android.view.MotionEvent;
 import com.bn.Util.Indesign;
 import com.bn.Util.LoadUtil;
 import com.bn.Util.VectorUtil;
-import com.bn.csgStruct.Vector2f;
-import com.bn.csgStruct.Vector3f;
 import com.bn.csgStruct.BooleanModeller;
 import com.bn.csgStruct.Bound;
+import com.bn.csgStruct.Vector2f;
+import com.bn.csgStruct.Vector3f;
 import com.bn.object.Body;
 import com.bn.object.Revolve;
 import com.bn.object.Solid;
@@ -25,8 +25,8 @@ import com.bn.object.TextureRectDouble;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -46,7 +46,6 @@ public class MySurfaceView extends GLSurfaceView {
      */
     public static int modeP3 = 0;
     public static int isAxle = 0;   //觉得XYZ匹配轴后颜色的变化
-    private static float[] stlPrint;//STL格式打印的数据
     public SceneRenderer mRenderer;//场景渲染器
     public Body curBody, curBody2;
     public boolean isShowBeginFace = false;//判断单手指操作是否被锁定
@@ -77,8 +76,11 @@ public class MySurfaceView extends GLSurfaceView {
      */
     Body fitTargetBody;
     //////////////////////////
-    Vector<Body> BodyAll;
-    Vector<Body> BodyPick;
+    List<Body> BodyAll;
+    List<Body> BodyPick;
+    List<Vector2f> face = new ArrayList<>();
+    List<Vector2f> line = new ArrayList<>();
+
     Solid cube;
     Solid sphere;
     Solid cone;
@@ -88,6 +90,7 @@ public class MySurfaceView extends GLSurfaceView {
     TextureRectDouble beginFace;    //要贴合面
     TextureRectDouble endFace;    //被贴合面
     Indesign indesign;//redo和undo功能
+
     private Camera camera;
     /**
      * 记录每次touch时间触发开始时的坐标
@@ -138,10 +141,6 @@ public class MySurfaceView extends GLSurfaceView {
      */
     private Vector2f Vector2fPDownP2;
     /**
-     * 记录三指Down触发时的坐标
-     */
-    private Vector2f copyDirection;
-    /**
      * 0手指出发法向量，1手指停止法向量，2被贴合物体接触点坐标
      */
     private Vector2f[] fitFingerDirection = new Vector2f[4];
@@ -161,11 +160,6 @@ public class MySurfaceView extends GLSurfaceView {
     private boolean isCopy = true;//是否初次MOVE
     //当前纹理的id
     private int axisTexId, redTexId;
-    //当前纹理的图片
-    private Bitmap axisBm, redBm;
-    List<Vector2f> face = new Vector<>();
-    List<Vector2f> line = new Vector<>();
-
 
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -176,24 +170,17 @@ public class MySurfaceView extends GLSurfaceView {
         //创建摄像机
         camera = new Camera();
         //初始化光源
-        MatrixState.setLightLocation(10, 30, 10);
+        MatrixState.setLightLocation(0, 100, 0);
 
         //初始化工作栈和恢复栈
         indesign = new Indesign();
     }
 
-    public static float[] getStlPrint() {
-        return stlPrint;
-    }
 
     /**
      * 3d拾取
-     *
-     * @param locationX
-     * @param locationY
-     * @return
      */
-    public static Body pickupObject(float locationX, float locationY, Vector<Body> objectList) {
+    public static Body pickupObject(float locationX, float locationY, List<Body> objectList) {
         float[] AB = MatrixState.getUnProject(
                 locationX,
                 locationY);
@@ -203,7 +190,7 @@ public class MySurfaceView extends GLSurfaceView {
         Vector3f dir = end.minus(start);//长度和方向
 
         Body temp = null;
-        ;//标记为没有选中任何物体
+        //标记为没有选中任何物体
         float minTime = 1;//记录列表中所有物体与AB相交的最短时间
         float[] Face = new float[4];
         for (Body b : objectList)//遍历列表中的物体
@@ -274,6 +261,7 @@ public class MySurfaceView extends GLSurfaceView {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
 
                             if (modeP1 == 3 && !isP1Lock) {
@@ -320,6 +308,7 @@ public class MySurfaceView extends GLSurfaceView {
                     //判断轴
                     curBody.switchAxis(Vector2fPDownP2);
 
+                    isPush = true;
                 } else if (mode == 3) {
                     isP2Lock = true;
 
@@ -331,6 +320,10 @@ public class MySurfaceView extends GLSurfaceView {
                     locationY1DownP3 = e.getY(1);    //记录三指Down触发时的Y2坐标
                     locationX2DownP3 = e.getX(2);    //记录三指Down触发时的X3坐标
                     locationY2DownP3 = e.getY(2);    //记录三指Down触发时的Y3坐标
+
+                    isObject = (pickupObject(locationX0DownP3, locationY0DownP3, BodyAll) == curBody ||
+                            pickupObject(locationX1DownP3, locationY1DownP3, BodyAll) == curBody ||
+                            pickupObject(locationX2DownP3, locationY2DownP3, BodyAll) == curBody);
 
                     Vector2fP01DownP3 = new Vector2f(locationX0DownP3 - locationX1DownP3, locationY0DownP3 - locationY1DownP3);//手指12初始向量
                     Vector2fP02DownP3 = new Vector2f(locationX2DownP3 - locationX0DownP3, locationY2DownP3 - locationY0DownP3);//手指13初始向量
@@ -392,7 +385,31 @@ public class MySurfaceView extends GLSurfaceView {
                 } else if (mode == 2 && !isP2Lock && BodyAll.size() != 0) {
                     Vector2f Vector2fP1MoveP2 = new Vector2f(e.getX(0) - locationX0DownP2, Constant.HEIGHT - e.getY(0) - locationY0DownP2);//第一个手指向量
                     Vector2f Vector2fP2MoveP2 = new Vector2f(e.getX(1) - locationX1DownP2, Constant.HEIGHT - e.getY(1) - locationY1DownP2);//第二个手指向量
-                    isPush = true;
+                    if ((Vector2fP1MoveP2.module() < 10 && Vector2fP2MoveP2.module() > 100) ||
+                            (Vector2fP2MoveP2.module() < 10 && Vector2fP1MoveP2.module() > 100)) {
+                        Body temp;
+                        if (Vector2fP1MoveP2.module() < 10) {
+                            temp = pickupObject(locationX0DownP2, Constant.HEIGHT - locationY0DownP2, BodyAll);
+                            if (Vector2fP2MoveP2.multiV(Vector2fPDownP2) > 0)
+                                boolMode = 2;
+                            else
+                                boolMode = 3;
+                        } else {
+                            temp = pickupObject(locationX1DownP2, Constant.HEIGHT - locationY1DownP2, BodyAll);
+                            if (Vector2fP1MoveP2.multiV(Vector2fPDownP2) > 0)
+                                boolMode = 3;
+                            else
+                                boolMode = 2;
+                        }
+                        if (temp != null && temp != curBody) {
+                            curBody2 = temp;
+                            curBody2.isChoosed = true;
+                            isCreateBool = true;
+                            isPush = true;
+                            isP2Lock = true;
+                        }
+                        return true;
+                    }
 
                     //双指平移
                     if (VectorUtil.Product(Vector2fP1MoveP2, Vector2fP2MoveP2) > 0 &&
@@ -518,7 +535,7 @@ public class MySurfaceView extends GLSurfaceView {
                         }
                         //移动复制的3D图元
                         else {
-                            copyDirection = new Vector2f(e.getX(0) - locationX0DownP3, locationY0DownP3 - e.getY(0));
+                            Vector2f copyDirection = new Vector2f(e.getX(0) - locationX0DownP3, locationY0DownP3 - e.getY(0));
 
                             curBody.switchAxis(copyDirection);
 
@@ -566,6 +583,9 @@ public class MySurfaceView extends GLSurfaceView {
                             float scale01 = lengthP01MoveP3 / (Vector2fP01DownP3.module());
                             float scale02 = lengthP02MoveP3 / (Vector2fP02DownP3.module());
                             float scale12 = lengthP12MoveP3 / (Vector2fP12DownP3.module());
+
+
+
                             if (!isObject) {
                                 camera.distance /= (scale01 + scale02 + scale12) / 3;
                                 camera.distancetotal = (float) Math.sqrt(1 + camera.distance * camera.distance);
@@ -613,7 +633,7 @@ public class MySurfaceView extends GLSurfaceView {
                 isP2Lock = false;
 
                 if (isPush) {
-                    Vector<Body> temp = new Vector<Body>();
+                    List<Body> temp = new ArrayList<>();
                     for (Body e1 : BodyAll) {
                         Body tempBody = (Body) e1.clone();
                         temp.add(tempBody);
@@ -634,19 +654,11 @@ public class MySurfaceView extends GLSurfaceView {
         return true;
     }
 
-    public int getCur(Body b) {
-        for (int i = 0; i < BodyAll.size(); i++) {
-            Body temp = BodyAll.get(i);
-            if (temp == b)
-                return i;
-        }
-        return -1;
-    }
 
     //新建物体
     public void createObject(int Type, boolean isNew) {
         boolean isTemp = false;
-        if (isNew == true) {
+        if (isNew) {
             Solid solid = null;
             if (Type == 1) {
                 solid = new Solid(cube);
@@ -676,7 +688,7 @@ public class MySurfaceView extends GLSurfaceView {
         curBody.isChoosed = true;
 
         if (isTemp) {
-            Vector<Body> temp = new Vector<>();
+            List<Body> temp = new ArrayList<>();
             for (Body e1 : BodyAll) {
                 Body tempBody = (Body) e1.clone();
                 temp.add(tempBody);
@@ -715,16 +727,16 @@ public class MySurfaceView extends GLSurfaceView {
                 if (b.isChoosed)
                     b.isChoosed = false;
             }
-            curBody.isChoosed = true;
+            if (curBody != null)
+                curBody.isChoosed = true;
 
-            Vector<Body> temp = new Vector<>();
+            List<Body> temp = new ArrayList<>();
             for (Body e1 : BodyAll) {
                 Body tempBody = (Body) e1.clone();
                 temp.add(tempBody);
             }
             indesign.addRedoStack(temp);
         } else {
-            //Toast.makeText(mContext, "布尔运算的两物体必须相交", Toast.LENGTH_LONG).show();
             curBody2.isChoosed = false;
         }
     }
@@ -777,7 +789,7 @@ public class MySurfaceView extends GLSurfaceView {
 
     public void undo() {
         if (indesign.undoCheck()) {
-            Vector<Body> temp = new Vector<Body>();
+            List<Body> temp = new ArrayList<>();
             for (Body e : indesign.Undo()) {
                 Body e1 = (Body) e.clone();
                 temp.add(e1);
@@ -794,7 +806,7 @@ public class MySurfaceView extends GLSurfaceView {
 
     public void redo() {
         if (indesign.redoCheck()) {
-            Vector<Body> temp = new Vector<Body>();
+            List<Body> temp = new ArrayList<>();
             for (Body e : indesign.Redo()) {
                 Body e1 = (Body) e.clone();
                 temp.add(e1);
@@ -829,12 +841,12 @@ public class MySurfaceView extends GLSurfaceView {
             //设置摄像头
             camera.setCarema();
 
-            if (isCreateNormal == true) {
+            if (isCreateNormal) {
                 createObject(createType, isCreateNew);
                 isCreateNormal = false;
             }
 
-            if (isCreateBool == true) {
+            if (isCreateBool) {
                 createBool(curBody, curBody2);
                 isCreateBool = false;
             }
@@ -862,28 +874,21 @@ public class MySurfaceView extends GLSurfaceView {
 
                 //绘制
                 for (Body b : BodyAll) {
+
+                    Solid s = (Solid) b;
+
                     MatrixState.pushMatrix();    //进栈
-                    b.drawSelf(0);
+                    s.drawSelf(0);
                     //s.drawSelf(1);
                     MatrixState.popMatrix();//出栈
                 }
-                /*
-                if(BodyAll.size()==1)
-	            {
-	            	Solid s=(Solid)curBody;
-	            	stlPrint=s.getStlPoint();
-	            }else
-	            {
-	            	stlPrint=null;
-	            }
-	            */
             }
         }
 
         public void initTaskReal() {
             //物体的数组
-            BodyAll = new Vector<>();
-            BodyPick = new Vector<>();
+            BodyAll = new ArrayList<>();
+            BodyPick = new ArrayList<>();
 
             //创建纹理矩形对象
             texRect = new TextureRect(8.0f);
@@ -897,11 +902,12 @@ public class MySurfaceView extends GLSurfaceView {
             endFace.initShader(ShaderManager.getObjectshaderProgram());
 
             //加载要绘制的物体
-            pm = LoadUtil.loadFromFileVertexOnlyFace("pm.obj", MySurfaceView.this.getResources(),0.2f);
-            cone = LoadUtil.loadFromFileVertexOnlyAverage("cone.obj", MySurfaceView.this.getResources(),  0.2f);
+            pm = LoadUtil.loadFromFileVertexOnlyFace("pm.obj", MySurfaceView.this.getResources(), 0.2f);
+            cone = LoadUtil.loadFromFileVertexOnlyAverage("cone.obj", MySurfaceView.this.getResources(), 0.2f);
             cube = LoadUtil.loadFromFileVertexOnlyFace("cube.obj", MySurfaceView.this.getResources(), 0.2f);
             cylinder = LoadUtil.loadFromFileVertexOnlyAverage("cylinder.obj", MySurfaceView.this.getResources(), 0.2f);
             sphere = LoadUtil.loadFromFileVertexOnlyAverage("sphere.obj", MySurfaceView.this.getResources(), 0.2f);
+
         }
 
         @Override
@@ -912,7 +918,7 @@ public class MySurfaceView extends GLSurfaceView {
             Constant.RATIO = (float) width / height;
             Constant.WIDTH = width;
             Constant.HEIGHT = height;
-
+            MatrixState.mView = new int[]{0, 0, width, height};
         }
 
         @Override
@@ -930,8 +936,8 @@ public class MySurfaceView extends GLSurfaceView {
             //初始化变换矩阵
             MatrixState.setInitStack();
             //初始化像素的纹理
-            axisBm = loadTexture(R.drawable.axis);    //设置默认纹理
-            redBm = loadTexture(R.drawable.red);//设置默认纹理
+            Bitmap axisBm = loadTexture(R.drawable.axis);    //设置默认纹理
+            Bitmap redBm = loadTexture(R.drawable.red);//设置默认纹理
             //初始化像素的纹理
             axisTexId = initTexture(axisBm, true);    //设置默认纹理
             redTexId = initTexture(redBm, true);//设置默认纹理

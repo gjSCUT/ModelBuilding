@@ -4,21 +4,22 @@ import android.util.Log;
 
 import com.bn.object.Body;
 
+import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
 public class Indesign {
 
-    private Stack<Vector<Body>> redo;//工作栈  栈顶为当前画面
-    private Stack<Vector<Body>> undo;//恢复栈
+    private Stack<List<Body>> redo;//工作栈  栈顶为当前画面
+    private Stack<List<Body>> undo;//恢复栈
 
     public Indesign() {
-        redo = new Stack<Vector<Body>>();
-        undo = new Stack<Vector<Body>>();
+        redo = new Stack<>();
+        undo = new Stack<>();
     }
 
     //把当前画面加入到工作栈中
-    public void addRedoStack(Vector<Body> op) {
+    public void addRedoStack(List<Body> op) {
         Log.e("test", "push success=" + redo.size());
         if (redo.size() >= 1) {
             undo.push(redo.pop());
@@ -41,14 +42,14 @@ public class Indesign {
     }
 
     //Redo功能实现
-    public Vector<Body> Redo() {
+    public List<Body> Redo() {
         undo.push(redo.pop());
         return redo.peek();
     }
 
     //Undo功能实现
-    public Vector<Body> Undo() {
-        Vector<Body> temp = undo.pop();
+    public List<Body> Undo() {
+        List<Body> temp = undo.pop();
         Log.e("test", "undo success=" + undo.size());
         redo.push(temp);
         return temp;

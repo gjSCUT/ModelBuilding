@@ -174,6 +174,7 @@ public class Sweep extends Solid {
 
     public void drawSelf(int isShadow) {
         setBody();
+        setVN();
 
         if (isChoosed && isShadow == 0) {
             //»æÖÆ×ø±êÖá

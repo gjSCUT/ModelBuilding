@@ -28,13 +28,15 @@ public class MatrixState {
     public static FloatBuffer lightPositionFB;
     public static float[] mMVPMatrix = new float[16];              //摄像矩阵与变换矩阵相乘的模型矩阵
     //保护变换矩阵的栈
-    static float[][] mStack = new float[100][16];
+    static float[][] mStack = new float[10][16];
     static int stackTop = -1;
     //设置摄像机
     static ByteBuffer llbb = ByteBuffer.allocateDirect(3 * 4);
     static float[] cameraLocation = new float[3];//摄像机位置
     //设置灯光位置的方法
     static ByteBuffer llbbL = ByteBuffer.allocateDirect(3 * 4);
+    static float[] win = new float[3];
+    static int[] mView;
 
     //获取不变换初始矩阵
     public static void setInitStack() {
@@ -48,53 +50,39 @@ public class MatrixState {
     //保护变换矩阵
     public static void pushMatrix() {
         stackTop++;
-        for (int i = 0; i < 16; i++) {
-            mStack[stackTop][i] = currMatrix[i];
-        }
-
+        System.arraycopy(currMatrix, 0 , mStack[stackTop], 0, 16);
     }
 
     //恢复变换矩阵
     public static void popMatrix() {
-        for (int i = 0; i < 16; i++) {
-            currMatrix[i] = mStack[stackTop][i];
-        }
+        System.arraycopy(mStack[stackTop], 0, currMatrix, 0 , 16);
         stackTop--;
     }
 
     //设置沿xyz轴移动
     public static void translate(float x, float y, float z) {
-        float[] tempMatrix = new float[16];
-        Matrix.setIdentityM(tempMatrix, 0);
-        Matrix.translateM(tempMatrix, 0, x, y, z);
-        //Matrix.multiplyMM(currMatrix, 0, currMatrix, 0, tempMatrix, 0);
-        Matrix.multiplyMM(currMatrix, 0, tempMatrix, 0, currMatrix, 0);
-        //Matrix.translateM(currMatrix, 0, x, y, z);
+        Matrix.setIdentityM(mTranslateMatrix, 0);
+        Matrix.translateM(mTranslateMatrix, 0, x, y, z);
+        Matrix.multiplyMM(currMatrix, 0, mTranslateMatrix, 0, currMatrix, 0);
     }
 
     //设置绕xyz轴旋转
     public static void rotate(float x, float y, float z, float angle) {
-        float[] tempMatrix = new float[16];
-        Matrix.setIdentityM(tempMatrix, 0);
         Quaternion q = new Quaternion(qType.TRANSFFORM);
         q.addRoutate(angle, new Vector3f(x, y, z));
         Matrix.multiplyMM(currMatrix, 0, currMatrix, 0, q.getRotateMatrix(), 0);
-        //Matrix.rotateM(currMatrix, 0, angle, x, y, z);
     }
 
     //设置绕xyz轴旋转
     public static void rotate(float[] tempMatrix) {
-        //mRotateMatrix=nMatrix;
         Matrix.multiplyMM(currMatrix, 0, tempMatrix, 0, currMatrix, 0);
     }
 
     // 设置绕xyz缩放
     public static void scale(float x, float y, float z) {
-        float[] tempMatrix = new float[16];
-        Matrix.setIdentityM(tempMatrix, 0);
-        Matrix.scaleM(tempMatrix, 0, x, y, z);
-        Matrix.multiplyMM(currMatrix, 0, tempMatrix, 0, currMatrix, 0);
-        //Matrix.scaleM(currMatrix, 0, x, y, z);
+        Matrix.setIdentityM(mScaleMatrix, 0);
+        Matrix.scaleM(mScaleMatrix, 0, x, y, z);
+        Matrix.multiplyMM(currMatrix, 0, mScaleMatrix, 0, currMatrix, 0);
     }
 
     public static void setCamera
@@ -161,30 +149,12 @@ public class MatrixState {
         return mMVPMatrix;
     }
 
-    //获取具体物体的平移方所矩阵
-    public static float[] getTSMatrix() {
-        return currMatrix;
-    }
 
     //获取具体物体的变换矩阵
     public static float[] getMMatrix() {
         return currMatrix;
     }
 
-    //获取旋转矩阵
-    public static float[] getRotateMatrix() {
-        return mRotateMatrix;
-    }
-
-    //获取投影矩阵
-    public static float[] getProjMatrix() {
-        return mProjMatrix;
-    }
-
-    //获取摄像机朝向的矩阵
-    public static float[] getCaMatrix() {
-        return mVMatrix;
-    }
 
     public static float[] getViewProjMatrix() {
         float[] mViewMatrix = new float[16];
@@ -206,15 +176,10 @@ public class MatrixState {
     }
 
     //三维坐标转二维坐标
-    public static float[] getProject(float[] point) {
-        float[] win = new float[3];
-        int[] mView = {0, 0, Constant.WIDTH, Constant.HEIGHT};
+    public static void getProject(float[] point, float[] result) {
         Matrix.multiplyMM(mMVPMatrix, 0, mVMatrix, 0, currMatrix, 0);
-
         GLU.gluProject(point[0], point[1], point[2],
-                mMVPMatrix, 0, mProjMatrix, 0, mView, 0, win, 0);
-
-        return win;
+                mMVPMatrix, 0, mProjMatrix, 0, mView, 0, result, 0);
     }
 
     //二维坐标转三维坐标 

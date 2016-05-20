@@ -1,6 +1,7 @@
 package com.bn.object;
 
 import android.opengl.Matrix;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.bn.Main.Constant;
@@ -40,7 +41,9 @@ public class Body implements Cloneable {
         yScale = 1;//绕y轴放缩倍数
         zScale = 1;//绕z轴放缩倍数
         isChoosed = false;
-        //Box=new Bound(new Vector3f(1,0,1),new Vector3f(1,2,-1),new Vector3f(-1,0,-1));
+        vx = new Vector2f(1,0);
+        vy = new Vector2f(0,0);
+        vz = new Vector2f(0,1);
     }
 
     public void copyBody(Body b) {
@@ -60,57 +63,23 @@ public class Body implements Cloneable {
         MatrixState.scale(1, yScale, 1);
         //设置绕z轴缩放
         MatrixState.scale(1, 1, zScale);
-
         //设置旋转矩阵
         MatrixState.rotate(quater.getRotateMatrix());
-
-
         //设置绕x轴移动
         MatrixState.translate(xLength, 0, 0);
         //设置绕y轴移动
         MatrixState.translate(0, -yLength, 0);
         //设置绕z轴移动
         MatrixState.translate(0, 0, zLength);
-
-
-        //设置三轴向量
-        setVN();
         //复制变换矩阵
         copyM();
     }
 
-    private void setVN() {
-        float[] vxp1 = new float[]{1, 0, 0, 1};
-        float[] vxp2 = new float[]{-1, 0, 0, 1};
-        float[] vyp1 = new float[]{0, 1, 0, 1};
-        float[] vyp2 = new float[]{0, -1, 0, 1};
-        float[] vzp1 = new float[]{0, 0, 1, 1};
-        float[] vzp2 = new float[]{0, 0, -1, 1};
-        //计算坐标轴三向量
-        float[] winXY1 = new float[3];
-        float[] winXY2 = new float[3];
-        winXY1 = MatrixState.getProject(vxp1);
-        winXY2 = MatrixState.getProject(vxp2);
-        vx = new Vector2f(winXY1[0] - winXY2[0], winXY1[1] - winXY2[1]);
-        winXY1 = MatrixState.getProject(vyp1);
-        winXY2 = MatrixState.getProject(vyp2);
-        vy = new Vector2f(winXY1[0] - winXY2[0], winXY1[1] - winXY2[1]);
-        winXY1 = MatrixState.getProject(vzp1);
-        winXY2 = MatrixState.getProject(vzp2);
-        vz = new Vector2f(winXY1[0] - winXY2[0], winXY1[1] - winXY2[1]);
-    }
-
-    public float[] getVertexs() {
-        return vertexs;
-    }
 
     //复制变换矩阵
     private void copyM() {
-        for (int i = 0; i < 16; i++) {
-            m[i] = MatrixState.getMMatrix()[i];
-        }
+        System.arraycopy(MatrixState.getMMatrix(), 0, m, 0, 16);
     }
-
 
     //更新AABB包围盒
     public Bound getCurrBox() {

@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import com.bn.Main.MatrixState;
 import com.bn.Main.MySurfaceView;
 import com.bn.Main.ShaderManager;
+import com.bn.csgStruct.Vector2f;
 import com.bn.csgStruct.Vector3f;
 import com.bn.csgStruct.Bound;
 import com.bn.csgStruct.Quaternion;
@@ -36,6 +37,14 @@ public class Solid extends Body {
     List<Integer> indices;
     List<Vector3f> vertices;
     private int normalMode;
+    float[] vxp1 = new float[]{1, 0, 0, 1};
+    float[] vxp2 = new float[]{-1, 0, 0, 1};
+    float[] vyp1 = new float[]{0, 1, 0, 1};
+    float[] vyp2 = new float[]{0, -1, 0, 1};
+    float[] vzp1 = new float[]{0, 0, 1, 1};
+    float[] vzp2 = new float[]{0, 0, -1, 1};
+    float[] winXY1 = new float[3];
+    float[] winXY2 = new float[3];
 
     public Solid(){
 
@@ -162,10 +171,26 @@ public class Solid extends Body {
         muIsShadow = GLES20.glGetUniformLocation(mProgram, "isShadow");
     }
 
+
+    public void setVN() {
+        //计算坐标轴三向量
+        MatrixState.getProject(vxp1, winXY1);
+        MatrixState.getProject(vxp2, winXY2);
+        vx.x = winXY1[0] - winXY2[0];
+        vx.y = winXY1[1] - winXY2[1];
+        MatrixState.getProject(vyp1, winXY1);
+        MatrixState.getProject(vyp2, winXY2);
+        vy.x = winXY1[0] - winXY2[0];
+        vy.y = winXY1[1] - winXY2[1];
+        MatrixState.getProject(vzp1, winXY1);
+        MatrixState.getProject(vzp2, winXY2);
+        vz.x = winXY1[0] - winXY2[0];
+        vz.y = winXY1[1] - winXY2[1];
+    }
+
     public void drawSelf(int isShadow) {
-
-
         setBody();
+        setVN();
 
         if (isChoosed && isShadow == 0) {
             //绘制坐标轴

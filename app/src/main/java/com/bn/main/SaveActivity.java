@@ -18,8 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bn.Util.Stl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -123,36 +121,17 @@ public class SaveActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if (MySurfaceView.getStlPrint() != null) {
-                    String filename = android.os.Environment.getExternalStorageDirectory()
-                            + "/haha.stl";
-                    try {
-                        FileOutputStream fos = new FileOutputStream(filename);
-                        Stl.writeInBinary(MySurfaceView.getStlPrint(), fos);
-                        Toast.makeText(SaveActivity.this, "已成功将文件写到SD卡上.", Toast.LENGTH_SHORT).show();
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        Toast.makeText(SaveActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        Toast.makeText(SaveActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
-
-				/*
-				if(curposition != -1) {
-					Toast.makeText(SaveActivity.this
-						, "加载"+currentFiles[curposition].getName(),
-						Toast.LENGTH_SHORT).show();
-				}
-				else {
-					Toast.makeText(SaveActivity.this
-							, "没有选中任何文件",
-							Toast.LENGTH_SHORT).show();
-				}
-				*/
-                } else Toast.makeText(SaveActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+                String filename = android.os.Environment.getExternalStorageDirectory()
+                        + "/haha.stl";
+                try {
+                    FileOutputStream fos = new FileOutputStream(filename);
+                    //Stl.writeInBinary(MySurfaceView.getStlPrint(), fos);
+                    Toast.makeText(SaveActivity.this, "已成功将文件写到SD卡上.", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(SaveActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
     }
